@@ -11,6 +11,12 @@ using namespace std;
 int main() {
     string n;
     getline(cin, n);
+
+    cin >> n;
+
+    // cin >> n ---> hola Mundo ---> hola
+    // getline(cin, n) ---> hola Mundo --> hola Mundo
+
     string chars = "{}, ";    
 
     for(char c: chars) {
