@@ -9,7 +9,22 @@ using ld = long double;
 using namespace std;
 
 int main() {
-    ll n, count = 0;
+
+    // Primera forma
+    ll n;
+    ll arr[5] = {1, 5, 10, 20, 100};
+    cin >> n;
+    int i=4;
+    ll count = 0;
+    while(n != 0) {
+        count += floor(n/arr[i]);
+        n = n-arr[i]*(floor(n/arr[i]));
+        i--;
+    }
+    cout << count; 
+
+    // Segunda forma
+    /* ll n, count = 0;
     cin >> n;
     while(n != 0) {
         if(n>=100) {
@@ -29,20 +44,6 @@ int main() {
             n = 0;
         }
     }
-    cout << count;
-    /*
-    ll n;
-    ll arr[5] = {1, 5, 10, 20, 100};
-    cin >> n;
-    int i=4;
-    ll count = 0;
-    while(n != 0) {
-        count += floor(n/arr[i]);
-        n = n-arr[i]*(floor(n/arr[i]));
-        i--;
-    }
-    cout << count; 
-    */
-    
+    cout << count; */
     return 0;
 }
