@@ -11,7 +11,20 @@ using namespace std;
 
 int main() {
     string p;
-    map<char, int>letters;
+    bool flag = false;
+    cin >> p;
+    for(char c: p) {
+        if(c == 'H' || c== 'Q' || c=='9') {
+            flag = true;
+            break;
+        }
+    }
+    if(flag) {
+        cout << "YES";
+    }else {
+        cout << "NO";
+    }
+    /* map<char, int>letters;
     bool flag = false;
     letters['H'] = 1;
     letters['Q'] = 2;
@@ -27,6 +40,6 @@ int main() {
         cout << "YES";
     }else {
         cout << "NO";
-    }
+    } */
     return 0;
 }
