@@ -10,6 +10,26 @@ using ld = long double;
 using namespace std;
 
 int main() {
+    /* int n; cin >> n;
+    vector <int> arr(n);
+    for(int i=0; i<n; i++) {
+        cin >> arr[i];
+    }
+    for(int i=n-1; i>=0; i--) {
+        int maxi = INT_MIN;
+        int idx_max = -1;
+        for(int j=i; j>=0; j--) {
+            if(arr[j] > maxi) {
+                maxi = arr[j];
+                idx_max = j;
+            }
+        }
+        arr[idx_max] -= (maxi-arr[i]);
+        arr[i] = maxi;
+    }
+    for(auto a: arr) {
+        cout << a <<" ";
+    } */
     int n; cin >> n;
     vector<int>arr;
     for(int i=0; i<n; i++) {
@@ -21,5 +41,6 @@ int main() {
     for(int i=0; i<n; i++) {
         cout << arr[i] << " ";
     }
+    
     return 0;
 }
