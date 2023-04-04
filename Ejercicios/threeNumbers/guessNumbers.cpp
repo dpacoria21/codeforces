@@ -21,6 +21,5 @@ int main() {
     b = arr[1] - a;
     c = arr[3] - a - b;
     cout << a << " " << b << " " << c;
-    
     return 0;
 }
