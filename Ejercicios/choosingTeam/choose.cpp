@@ -18,9 +18,6 @@ int main() {
             count++;
         }
     }
-
     cout << count/3;
-
-
     return 0;
 }
