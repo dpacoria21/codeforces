@@ -59,5 +59,37 @@ int main() {
 
         }
     }
+
+    // Solucion mas corta utilizando mas arrays y variables
+    /* int t; cin >> t;
+    int a;
+    int arr1[t], arr2[t], arr3[t];
+    int a1=0, a2=0, a3=0;
+
+    for(int i=1; i<=t; i++) {
+        cin >> a;
+        if(a == 1){
+            arr1[a1] = i;
+            a1++;
+        }else if(a == 2) {
+            arr2[a2] = i;
+            a2++;
+        }else if(a == 3) {
+            arr3[a3] = i;
+            a3++;
+        }
+    }
+
+    int cant = min(a1, min(a2, a3));
+
+    if(cant == 0) {
+        cout << 0;
+    }else {
+        cout << cant << endl;
+        for(int i=0; i<cant; i++) {
+            cout << arr1[i] << " " << arr2[i] << " " << arr3[i] << endl;
+        }
+    } */
+
     return 0;
 }
