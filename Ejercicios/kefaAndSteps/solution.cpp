@@ -1,8 +1,10 @@
 #include <iostream>
 #include <bits/stdc++.h>
 #include <cmath>
+#include <math.h>
 #include <iomanip>
 #include <string>
+#include <algorithm>
 
 using ll = long long;
 using ld = long double;
@@ -15,26 +17,32 @@ int main() {
         cin >> arr[i];
     }
 
-    ll max = arr[0];
+    ll aux = arr[0];
     ll count = 1;
 
     vector<ll>res;
+    ll save = 1;
 
     for(ll i=1; i<n; i++) {
-        if(max <= arr[i]) {
+        if(aux <= arr[i]) {
             count++;
         }else {
-            res.push_back(count);
+            // res.push_back(count);
+            save = max(save, count);
             count = 1;
         }
-        max = arr[i];
+        aux = arr[i];
     }
 
-    res.push_back(count);
+    save = max(save, count);
 
-    sort(res.begin(), res.end());
+    cout << save;
 
-    cout << res[res.size()-1];
+    // res.push_back(count);
+
+    // sort(res.begin(), res.end());
+
+    // cout << res[res.size()-1];
 
     return 0;
 }
