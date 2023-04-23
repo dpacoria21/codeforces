@@ -11,21 +11,29 @@ using namespace std;
 int main() {
     int s, n;
     cin >> s >> n;
+    vector<pair<int, int>>arr;
     bool flag = true;
-    while(n--) {
+    for(int i=0; i<n; i++) {
         int ds, dn;
         cin >> ds >> dn;
-        if(s > ds) {
-            s+=dn;
+        arr.push_back(make_pair(ds, dn));
+
+    }
+    sort(arr.begin(), arr.end());
+
+    for(int i=0; i<n; i++) {
+        if(s > arr[i].first) {
+            s+=arr[i].second;
         }else {
             flag = false;
             break;
-        } 
+        }
     }
+
     if(flag) {
         cout << "YES";
     }else {
         cout << "NO";
     }
-    return 0;
+
 }
