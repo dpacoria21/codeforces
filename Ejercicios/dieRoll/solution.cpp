@@ -20,9 +20,8 @@ int main() {
     if(num%3 == 0 && total%3 == 0) {
         num/=3; total/=3;
     }
-    if(valM == 6) {
-        cout << 0 << "/" << 1;
-    }else if(valM ==1) {
+    
+    if(valM ==1) {
         cout << 1 << "/" << 1;
     }else {
         cout << num << "/" << total;
