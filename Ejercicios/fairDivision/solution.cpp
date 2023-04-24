@@ -17,7 +17,7 @@ int main() {
             int k; cin >> k;
             if(k == 1) {
                 c1++;
-            }else {
+        }else {
                 c2++;
             }
         }
