@@ -31,26 +31,5 @@ int main() {
     }else {
         cout << "NO";
     }
-    // if(yo+1 == t) {
-    //     cout << "YES";
-    // }else {
-    //     int index = 1+yo;
-    //     for(int i=2; i<n; i++) {
-    //         int aux; cin >> aux;
-    //         if(i == index && (i+aux)<t) {
-    //             index = (i+aux);
-    //         }else if(i == index && i+aux == t) {
-    //             flag = true;
-    //             break;
-    //         }else if(i==index && i+aux > t) {
-    //             break;
-    //         }
-    //     }
-    //     if(flag == true) {
-    //         cout << "YES";
-    //     }else {
-    //         cout << "NO";
-    //     }
-    // }
     return 0;
 }
