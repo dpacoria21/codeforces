@@ -13,7 +13,7 @@ int main() {
             cin >> arr[i][j];
         }
     }
-
+    int posi=0, posj=0;
     bool havePS = false;
 
     for(int i=0; i<m; i++) {
@@ -29,6 +29,8 @@ int main() {
                 }
                 if(minFila == maxColum) {
                     havePS = true;
+                    posi = i;
+                    posj = j;
                     break;
                 }
             }
@@ -39,7 +41,7 @@ int main() {
     }
 
     if(havePS) {
-        cout << "Tiene Punto de Silla";
+        cout << "Tiene Punto de Silla en la posición: " <<"("<< posi <<","<< posj<<")";
     }else {
         cout << "No tiene punto de Silla";
     }
