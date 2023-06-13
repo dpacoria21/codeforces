@@ -4,5 +4,6 @@
         "cmath": "cpp",
         "iostream": "cpp",
         "iomanip": "cpp"
-    }
+    },
+    "cph.general.onceMaintainerMessage": false
 }
