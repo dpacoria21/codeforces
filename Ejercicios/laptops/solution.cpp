@@ -8,27 +8,26 @@ int main() {
     int n; cin >> n;
     bool flag = false;
     vector<pair<int, int>>lap;
-    for(int i=0; i<n-1; i++) {
+    for(int i=0; i<n; i++) {
         int a, b;
         cin >> a >> b;
         lap.push_back(make_pair(a, b));
     }
     sort(lap.begin(), lap.end());
-    pair<int, int> lap1, lap2;
-    int mini = INT_MAX, maxi=INT_MIN;
-    for(int i=0; i<n-1; i++) {
-        if(mini > lap[i].second) {
-            mini = lap[i].second;
-            lap1 = lap[i];
-        }
-        if(maxi < lap[i].second) {
-            maxi = lap[i].second;
-            lap2 = lap[i];
+    int mini;
+    pair<int, int>aux = lap[0];
+    for(int i=1; i<n; i++) {
+        if(aux.second > lap[i].second) {
+            flag = true;
+            break;
+        }else {
+            aux = lap[i];
         }
     }
-    if(mini < maxi && lap1.first < lap2.first) {
+    if(flag) {
         cout << "Happy Alex";
     }else {
         cout << "Poor Alex";
     }
+    
 }
