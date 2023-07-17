@@ -8,35 +8,45 @@ using ld = long double;
 typedef vector<int>vi;
 typedef pair <int, int> pi;
 
+vector<vector<ll>>adj;
+vector<ll>counts;
 
-
-void dfs (int s , vector<bool>visited, vector<int>adj[]) {
-    if(visited[s]) {
-        
-    }
-    visited[s] = true;
-    for(auto u: adj[s]) {
-        dfs(u, visited, adj);
+void dfs(ll curr, ll prev) {
+    if(adj[curr].size()==1 && adj[curr][0] == prev){
+        counts[curr] = 1;
+    }else {
+        for(auto u: adj[curr]) {
+            if(u!=prev) {
+                dfs(u, curr);
+                counts[curr] += counts[u];
+            }
+        }
     }
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
     int t; cin >> t;
     while(t--) {
         int n; cin >> n;
-        vector<int> adj[n+1];
-        vector<bool>visited[n+1];
-        for(int i=0; i<n; i++) {
-            int x1, y1;
-            cin >> x1 >> y1;
-            adj[x1].push_back(y1);
+        adj.assign(n, vector<ll>());
+        counts.assign(n, 0);
+        for(int i=0; i<n-1; i++) {
+            ll x, y;
+            cin >> x >> y;
+            x--; y--;
+            adj[x].push_back(y);
+            adj[y].push_back(x);
         }
-
         
+        dfs(0, -1);
+        
+        ll q; cin >> q;
+
+        for(int i=0; i<q; i++) {
+            ll a, b;
+            cin >> a >> b;
+            cout << counts[a-1]*counts[b-1] << "\n";
+        }
     }
-
-
     return 0;
 }
