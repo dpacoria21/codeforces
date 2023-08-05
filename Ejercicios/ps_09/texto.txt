@@ -1,0 +1,7 @@
+// Este es un archivo de ejemplo
+Hola mundo
+/* Contador de repeticiones */
+Hola a todos
+Hola Hola Hola Hola
+Hola
+Hola
