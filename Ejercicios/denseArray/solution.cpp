@@ -54,7 +54,23 @@ int main() {
     int t; cin >> t;
     while(t--) {
         int n; cin >> n;
-        
+        vi elems(n, 0);
+        F0R(i, n) {
+            cin >> elems[i];
+        }
+        ll count = 0;
+        F0R(i, sz(elems)-1) {
+            int maxi = max(elems[i], elems[i+1]), mini = min(elems[i], elems[i+1]); 
+            if ( (db) maxi/mini > 2) {
+                int iter = 0;
+                while(mini*2 < maxi) {
+                    iter++;
+                    mini*=2;
+                }
+                count+=iter;
+            }
+        }
+        cout << count << "\n";
     }
     return 0;
 }
