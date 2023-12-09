@@ -1,7 +1,6 @@
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
-
 using namespace std;
 using ll = long long;
 using db = long double;
@@ -54,36 +53,27 @@ int main() {
     cin.tie(nullptr);
     int t; cin >> t;
     while(t--) {
-        int n; cin >> n;
-        str s; cin >> s;
-        vi counts;
-        int count = 0;
-        bool flag = false;
-        FOR(i, 0, s.size()-1) {
-            if(s[i] != s[i+1]) {
-                if(flag) {
-                    counts.pb(count+1);
-                    flag = false;
-                    count = 0;
-                }else {
-                    count--;
-                }
+        string s; cin >> s;
+        deque<char>ob;
+        map<char, char>pairs;
+        pairs['('] = ')';
+        pairs['{'] = '}';
+        pairs['['] = ']';
+        FOR(i, 0, s.size()){
+            if(s[i]=='(' || s[i]=='{' || s[i]=='[') {
+                ob.push_back(s[i]);
             }else {
-                if(flag) {
-                    count++;
+                if(ob.size()==0) {
+                    ob.push_back(s[i]);
+                }
+                if(s[i] == pairs[ob.back()]) {
+                    ob.pop_back();
                 }else {
-                    counts.pb(count);
-                    count = 1;
-                    flag = true;
+                    ob.push_back(s[i]);
                 }
             }
-        };
-        if(!flag) count--;
-        counts.pb(count);
-        each(a, counts) {
-            cout << a << " ";
         }
-        cout << "\n";
+        cout << (ob.size()==0 ? "YES" : "NO") << "\n";
     }
     return 0;
 }

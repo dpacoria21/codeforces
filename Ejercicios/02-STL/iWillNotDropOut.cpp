@@ -1,7 +1,6 @@
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
-
 using namespace std;
 using ll = long long;
 using db = long double;
@@ -52,38 +51,10 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t; cin >> t;
-    while(t--) {
-        int n; cin >> n;
-        str s; cin >> s;
-        vi counts;
-        int count = 0;
-        bool flag = false;
-        FOR(i, 0, s.size()-1) {
-            if(s[i] != s[i+1]) {
-                if(flag) {
-                    counts.pb(count+1);
-                    flag = false;
-                    count = 0;
-                }else {
-                    count--;
-                }
-            }else {
-                if(flag) {
-                    count++;
-                }else {
-                    counts.pb(count);
-                    count = 1;
-                    flag = true;
-                }
-            }
-        };
-        if(!flag) count--;
-        counts.pb(count);
-        each(a, counts) {
-            cout << a << " ";
-        }
-        cout << "\n";
+    int n, k;
+    cin >> n >> k;
+    F0R(i, n) {
+               
     }
     return 0;
 }

@@ -49,41 +49,36 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+ll anyOperation(string op, ll n1, ll n2) {
+    if(op == "+") {
+        return n1+n2;
+    }else if(op =="-") {
+        return n1-n2;
+    }else if(op == "/") {
+        return n1/n2;
+    }else {
+        return n1*n2;
+    }
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t; cin >> t;
-    while(t--) {
-        int n; cin >> n;
-        str s; cin >> s;
-        vi counts;
-        int count = 0;
-        bool flag = false;
-        FOR(i, 0, s.size()-1) {
-            if(s[i] != s[i+1]) {
-                if(flag) {
-                    counts.pb(count+1);
-                    flag = false;
-                    count = 0;
-                }else {
-                    count--;
-                }
-            }else {
-                if(flag) {
-                    count++;
-                }else {
-                    counts.pb(count);
-                    count = 1;
-                    flag = true;
-                }
-            }
-        };
-        if(!flag) count--;
-        counts.pb(count);
-        each(a, counts) {
-            cout << a << " ";
+    ll n; cin >> n;
+    stack<ll>nums;
+    FOR(i, 0, n) {
+        string aux; cin >> aux;
+        if(aux == "*" || aux == "+" || aux=="-" || aux=="/") {
+            ll n1 = nums.top();
+            nums.pop();
+            ll n2 = nums.top();
+            nums.pop();
+            nums.push(anyOperation(aux, n2, n1));
+        }else {
+            nums.push((ll)stoi(aux));
         }
-        cout << "\n";
     }
+    cout << nums.top() << '\n';
+
     return 0;
 }
