@@ -2,9 +2,22 @@
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
 
-#include "../helpers/debug.h"
-
 using namespace std;
+
+#ifdef LOCAL
+   #include "helpers/debug.h" 
+#else
+   #define dbg(...)     0
+   #define chk(...)     0
+
+   #define DBG(x)        0
+   #define DBGY(x)       0
+   #define DBG2(x,y)     0
+   #define DBG3(x,y,z)   0
+   #define DBG4(x,y,z,w) 0
+   #define RAYA          0
+#endif
+
 using ll = long long;
 using db = long double;
 using str = string;
@@ -55,23 +68,23 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin >> t;
-    vi a = {1, 2, 3, 4, 5};
-    dbg(a, a, a);
     while(t--) {
-        ll n; cin >> n;
-        set<int>nums;
-        int l = sqrt(n);
-        FOR(i, 1, l+1) {
-            ll square = pow(i, 2);
-            ll cube = pow(i, 3);
-            if(square<= n) {
-                nums.insert(square);
-            }
-            if(cube <= n) {
-                nums.insert(cube);
+        string s; cin >> s;
+        vi pos;
+        F0R(i, s.size()) {
+            if(s[i]=='1') {
+                pos.pb(i);
             }
         }
-        cout << nums.size() << "\n";
+        int maxi = 0;
+        if(pos.size() < 2) { 
+            cout << 0 << '\n';
+        }else {
+            F0R(i, pos.size()-1) {
+                maxi += pos[i+1]-pos[i]-1;
+            }
+            cout << maxi << "\n";
+        }
     }
     return 0;
 }

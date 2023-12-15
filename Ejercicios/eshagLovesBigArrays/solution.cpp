@@ -2,9 +2,22 @@
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
 
-#include "../helpers/debug.h"
-
 using namespace std;
+
+#ifdef LOCAL
+   #include "helpers/debug.h" 
+#else
+   #define dbg(...)     0
+   #define chk(...)     0
+
+   #define DBG(x)        0
+   #define DBGY(x)       0
+   #define DBG2(x,y)     0
+   #define DBG3(x,y,z)   0
+   #define DBG4(x,y,z,w) 0
+   #define RAYA          0
+#endif
+
 using ll = long long;
 using db = long double;
 using str = string;
@@ -55,23 +68,26 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin >> t;
-    vi a = {1, 2, 3, 4, 5};
-    dbg(a, a, a);
     while(t--) {
-        ll n; cin >> n;
-        set<int>nums;
-        int l = sqrt(n);
-        FOR(i, 1, l+1) {
-            ll square = pow(i, 2);
-            ll cube = pow(i, 3);
-            if(square<= n) {
-                nums.insert(square);
-            }
-            if(cube <= n) {
-                nums.insert(cube);
+        int n; cin >> n;
+        vi arr(n, 0);
+        vi avr;
+        int sum = 0;
+        F0R(i, n){
+            cin >> arr[i];
+        }
+        sor(arr);
+        F0R(i, n) {
+            sum+=arr[i];
+            avr.pb(sum/(i+1));
+        }
+        int count = 0;
+        R0F(i, n) {
+            if(arr[i] > avr[i] ) {
+                count++;
             }
         }
-        cout << nums.size() << "\n";
+        cout << count <<'\n';
     }
     return 0;
 }

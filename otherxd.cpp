@@ -2,9 +2,22 @@
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
 
-#include "../helpers/debug.h"
-
 using namespace std;
+
+#ifdef LOCAL
+   #include "helpers/debug.h" 
+#else
+   #define dbg(...)     0
+   #define chk(...)     0
+
+   #define DBG(x)        0
+   #define DBGY(x)       0
+   #define DBG2(x,y)     0
+   #define DBG3(x,y,z)   0
+   #define DBG4(x,y,z,w) 0
+   #define RAYA          0
+#endif
+
 using ll = long long;
 using db = long double;
 using str = string;
@@ -55,23 +68,28 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin >> t;
-    vi a = {1, 2, 3, 4, 5};
-    dbg(a, a, a);
     while(t--) {
-        ll n; cin >> n;
-        set<int>nums;
-        int l = sqrt(n);
-        FOR(i, 1, l+1) {
-            ll square = pow(i, 2);
-            ll cube = pow(i, 3);
-            if(square<= n) {
-                nums.insert(square);
-            }
-            if(cube <= n) {
-                nums.insert(cube);
+        string s; cin >> s;
+        deque<char>ob;
+        map<char, char>pairs;
+        pairs['('] = ')';
+        pairs['{'] = '}';
+        pairs['['] = ']';
+        FOR(i, 0, s.size()){
+            if(s[i]=='(' || s[i]=='{' || s[i]=='[') {
+                ob.push_back(s[i]);
+            }else {
+                if(ob.size()==0) {
+                    ob.push_back(s[i]);
+                }
+                if(s[i] == pairs[ob.back()]) {
+                    ob.pop_back();
+                }else {
+                    ob.push_back(s[i]);
+                }
             }
         }
-        cout << nums.size() << "\n";
+        cout << (ob.size()==0 ? "YES" : "NO") << "\n";
     }
     return 0;
 }

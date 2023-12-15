@@ -2,9 +2,22 @@
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
 
-#include "../helpers/debug.h"
-
 using namespace std;
+
+#ifdef LOCAL
+   #include "helpers/debug.h" 
+#else
+   #define dbg(...)     0
+   #define chk(...)     0
+
+   #define DBG(x)        0
+   #define DBGY(x)       0
+   #define DBG2(x,y)     0
+   #define DBG3(x,y,z)   0
+   #define DBG4(x,y,z,w) 0
+   #define RAYA          0
+#endif
+
 using ll = long long;
 using db = long double;
 using str = string;
@@ -55,23 +68,31 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin >> t;
-    vi a = {1, 2, 3, 4, 5};
-    dbg(a, a, a);
     while(t--) {
-        ll n; cin >> n;
-        set<int>nums;
-        int l = sqrt(n);
-        FOR(i, 1, l+1) {
-            ll square = pow(i, 2);
-            ll cube = pow(i, 3);
-            if(square<= n) {
-                nums.insert(square);
-            }
-            if(cube <= n) {
-                nums.insert(cube);
+        vpi pos;
+        FOR(i, 0, 10) {
+            FOR(j, 0, 10) {
+                char c; cin >> c;
+                if(c=='X') {
+                    int ni = i+1;
+                    int nj = j+1;
+                    if(ni>5){
+                        ni = 11-ni;
+                    }
+                    if(nj>5) {
+                        nj = 11-nj;
+                    }
+                    pos.pb(mp(ni, nj));
+                }     
             }
         }
-        cout << nums.size() << "\n";
+        int res = 0;
+        FOR(i, 0, pos.size()) {
+            int mini = min(pos[i].f, pos[i].s);
+            int maxi = max(pos[i].f, pos[i].s);
+            res+=mini;
+        }
+        cout << res << "\n";
     }
     return 0;
 }
