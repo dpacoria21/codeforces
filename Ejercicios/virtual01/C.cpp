@@ -1,7 +1,23 @@
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
+
 using namespace std;
+
+#ifdef LOCAL
+   #include "helpers/debug.h" 
+#else
+   #define dbg(...)     0
+   #define chk(...)     0
+
+   #define DBG(x)        0
+   #define DBGY(x)       0
+   #define DBG2(x,y)     0
+   #define DBG3(x,y,z)   0
+   #define DBG4(x,y,z,w) 0
+   #define RAYA          0
+#endif
+
 using ll = long long;
 using db = long double;
 using str = string;
@@ -51,25 +67,27 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int n, k;
-    cin >> n >> k;
-    vpl scores;
-    deque<ll> exam;
-    F0R(i, n) {
-        ll a, b;
-        cin>>a>>b;
-        scores.pb(mp(a, b));
-    }
-    exam.pb(scores[0].s);
-    FOR(i, 1, n) {
-        if(scores[i].s+scores[i-1].s <= scores[i-1].f) {
-            exam.pop_back();
-            exam.pb(scores[i-1].f);
-            k-=2;
-        }else {
+    int t; cin >> t;
+    while(t--) {
+        int n; cin >> n;
+        vl nums(n, 0);
+        F0R(i, n) {
+            cin >> nums[i];
+        }
+        ll acum = nums[0];
+        ll best = nums[0];
+        ll mini = min(nums[0], (ll)0);
+        FOR(i, 1, n) {
+            if(abs(nums[i]%2) == abs(nums[i-1]%2)) {
+                acum = 0;
+                mini = 0;
+            }
+            acum += nums[i];
+            best = max(best, acum-mini);
+            mini = min(mini, acum);
             
         }
-        if(k==0) break;
+        cout << best << "\n";
     }
     return 0;
 }

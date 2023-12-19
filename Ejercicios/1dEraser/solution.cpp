@@ -1,7 +1,23 @@
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
+
 using namespace std;
+
+#ifdef LOCAL
+   #include "helpers/debug.h" 
+#else
+   #define dbg(...)     0
+   #define chk(...)     0
+
+   #define DBG(x)        0
+   #define DBGY(x)       0
+   #define DBG2(x,y)     0
+   #define DBG3(x,y,z)   0
+   #define DBG4(x,y,z,w) 0
+   #define RAYA          0
+#endif
+
 using ll = long long;
 using db = long double;
 using str = string;
@@ -51,25 +67,22 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int n, k;
-    cin >> n >> k;
-    vpl scores;
-    deque<ll> exam;
-    F0R(i, n) {
-        ll a, b;
-        cin>>a>>b;
-        scores.pb(mp(a, b));
-    }
-    exam.pb(scores[0].s);
-    FOR(i, 1, n) {
-        if(scores[i].s+scores[i-1].s <= scores[i-1].f) {
-            exam.pop_back();
-            exam.pb(scores[i-1].f);
-            k-=2;
-        }else {
-            
+    int t; cin >> t;
+    while(t--) {
+        int k, n;
+        cin>>k>>n;
+        str s; cin >> s;
+        ll cnt = 0;
+        ll currPos = -1;
+        bool flag = false;
+        F0R(i, s.size()) {
+            if(s[i]=='B') {
+                cnt++;
+                i+=n-1;
+            }
         }
-        if(k==0) break;
+        cout << cnt << "\n";
+        
     }
     return 0;
 }

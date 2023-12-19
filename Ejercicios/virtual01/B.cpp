@@ -69,24 +69,40 @@ int main() {
     cin.tie(nullptr);
     int t; cin >> t;
     while(t--) {
-        int n, k;
-        cin>>n>>k;
-        if(n==1) {
-            cout << k << "\n";
-        }else if(n==k) {
-            cout << 1 << "\n";
-        }else if(n>k) {
-            if(n%k==0) {
-                cout << 1 << "\n";
-            }else {
-                cout << 2 << "\n";
+        int n; cin >> n;
+        vl arr(n, 0);
+        F0R(i, n) {
+            cin >> arr[i];
+        }
+        vl results;
+        vl divisors;
+        FOR(i, 2, (n/2)+1) {
+            if(n%i==0) {
+                divisors.pb(i);
             }
+        }
+        if(divisors.size()==0) {
+            sor(arr);
+            ll maxDiff = arr[arr.size()-1] - arr[0];
+            cout << maxDiff << "\n";
         }else {
-            if(k%n==0) {
-                cout << k/n << "\n";
-            }else {
-                cout << k/n+1 << "\n";
+            FOR(i, 0, divisors.size()) {
+                vl aux;
+                ll acum=0;
+                F0R(j, n) {
+                    acum+=arr[j];
+                    if((j+1)%divisors[i]==0) {
+                        aux.pb(acum);
+                        acum=0;
+                    }
+                }
+                sor(aux);
+                results.pb(aux[aux.size()-1] - aux[0]);
             }
+            sor(results);
+            sor(arr);
+            ll maxDiff = arr[arr.size()-1] - arr[0];
+            cout << (results[results.size()-1]>maxDiff?results[results.size()-1]:maxDiff) << "\n";
         }
     }
     return 0;

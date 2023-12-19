@@ -1,7 +1,23 @@
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
+
 using namespace std;
+
+#ifdef LOCAL
+   #include "helpers/debug.h" 
+#else
+   #define dbg(...)     0
+   #define chk(...)     0
+
+   #define DBG(x)        0
+   #define DBGY(x)       0
+   #define DBG2(x,y)     0
+   #define DBG3(x,y,z)   0
+   #define DBG4(x,y,z,w) 0
+   #define RAYA          0
+#endif
+
 using ll = long long;
 using db = long double;
 using str = string;
@@ -51,25 +67,27 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int n, k;
-    cin >> n >> k;
-    vpl scores;
-    deque<ll> exam;
+    int n, m;
+    cin>>n>>m;
+    map<int, vector<pair<int, str>>> mapita;
     F0R(i, n) {
-        ll a, b;
-        cin>>a>>b;
-        scores.pb(mp(a, b));
+        str s; cin >> s;
+        int r; cin >> r;
+        int p; cin >> p;
+        mapita[r].pb(make_pair(p, s));
     }
-    exam.pb(scores[0].s);
-    FOR(i, 1, n) {
-        if(scores[i].s+scores[i-1].s <= scores[i-1].f) {
-            exam.pop_back();
-            exam.pb(scores[i-1].f);
-            k-=2;
+    FOR(i, 1, m+1) {
+        // cout << mapita[i].size() << "\n";
+        sort(mapita[i].begin(), mapita[i].end());
+        if(mapita[i].size()==2) {
+            cout << mapita[i][1].s << " " << mapita[i][0].s << "\n";
         }else {
-            
+            if(mapita[i][mapita[i].size()-2].f == mapita[i][mapita[i].size()-3].f) {
+                cout << '?' << "\n";
+            }else {
+                cout << mapita[i][mapita[i].size()-1].s << " " << mapita[i][mapita[i].size()-2].s << "\n";
+            }
         }
-        if(k==0) break;
     }
     return 0;
 }
