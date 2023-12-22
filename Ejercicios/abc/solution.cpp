@@ -5,10 +5,11 @@ using ld = long double;
 using namespace std;
 
 int main() {
-    int m; cin >> m;
-    for(int i=0; i<m; i++) {
-        int t, v;
-        cin>>t>>v;
+    int t; cin >> t;
+    while(t--) {
+        int n; cin >> n;
+        string s; cin >> s;
+
     }
     return 0;
 }
