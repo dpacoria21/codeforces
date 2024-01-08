@@ -61,15 +61,28 @@ using vpd = V<pd>;
 
 int main() {
     ios::sync_with_stdio(false);
-    cin.tie(nullptr);    
-    int t; cin>>t;
-    while(t--){
-        int a; cin>>a;
-        F0R(i, a) {
-            int aux; cin>>aux;
-            cout << aux << " ";
-        }
-        cout << "\n";
+    cin.tie(nullptr);
+    int n,k;cin>>n>>k;
+    vi arr(n);
+    F0R(i, n) {
+        cin>>arr[i];
+    }
+    dbg(arr);
+    F0R(i, k) {
+        int q; cin>>q;
+        
+        // int lo = 1, hi = n+1;
+        // while(lo < hi) {
+        //     int mi = lo + (hi - lo + 1) / 2;
+
+        //     if(arr[mi] > q) {
+        //         hi = mi - 1;
+        //     }else {
+        //         lo = mi;
+        //     }
+        // }
+        auto it = upper_bound(arr.begin(), arr.end(), q);
+        cout << it-arr.begin() << "\n";
     }
     return 0;
 }

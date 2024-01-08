@@ -62,6 +62,26 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    int n,k;cin>>n>>k;
+    vi arr(n, 0);
+    F0R(i, n) {
+        cin>>arr[i];
+    }
+    F0R(i, k) {
+        int q;cin>>q;
+        // int lo = 1, hi=n+1;
+        // while(lo < hi) {
+        //     int mi = lo+(hi-lo)/2;
+
+        //     if(arr[mi] < q) {
+        //         lo = mi+1;
+        //     }else {
+        //         hi = mi;
+        //     }
+        // }
+        // cout << lo << "\n";
+        auto it = lower_bound(arr.begin(), arr.end(), q);
+        cout << it-arr.begin() << "\n";
+    }
     return 0;
 }
