@@ -62,22 +62,14 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int n, x;cin>>n>>x;
-    vl arr(n);
+    int n; cin>>n;
+    vpl arr;
     F0R(i, n) {
-        cin>>arr[i];
+        ll a, b;
+        cin>>a>>b;
+        arr.push_back(mp(a,b));
     }
     sor(arr);
-    int i=0, j=n-1;
-    int cnt = 0;
-    while(i <= j) {
-        if(arr[i]+arr[j] <= x) {
-            i++; j--;
-        }else {
-            j--;
-        }
-        cnt++;
-    }
-    cout << cnt;
+    dbg(arr);
     return 0;
 }

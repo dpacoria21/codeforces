@@ -62,32 +62,27 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll n, m, k; cin>>n>>m>>k;
-    vl stus(n);
-    vl aps(m);
+    ll n, m; cin>>n>>m;
+    multiset<ll>tickets;
+    vl prices(m);
     F0R(i, n) {
-        cin>>stus[i];
+        ll aux;cin>>aux;
+        tickets.insert(aux);
     }
     F0R(i, m) {
-        cin>>aps[i];
+        cin>>prices[i];
     }
-    sor(stus);
-    sor(aps);
-    int i = 0, j = 0;
-    int cnt = 0;
-    while(j<m && i<n) {
-        dbg(i, j);
-        dbg(stus[i], aps[j]);
-        if(abs(stus[i]-aps[j]) <= k || stus[i]==aps[j]) {
-            i++;
-            j++;
-            cnt++;
-        }else if(aps[j]>stus[i]) {
-            i++;
-        }else if(aps[j]<stus[i]) {
-            j++;
+    dbg(tickets);
+    dbg(prices);
+    F0R(i, m) {
+        auto it = tickets.upper_bound(prices[i]);
+        if(it==tickets.begin()) {
+            cout << -1 << "\n";
+        }else {
+            it--;
+            cout << *it << "\n";
+            tickets.erase(tickets.find(*it));
         }
     }
-    cout << cnt;
     return 0;
 }
