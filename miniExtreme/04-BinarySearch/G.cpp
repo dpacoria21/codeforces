@@ -62,6 +62,19 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    int t; cin>>t;
+    while(t--){
+        ll n, x, y; cin>>n>>x>>y;
+        ll lo = 0, hi = max(x, y)*n;
+        while(lo < hi) {
+            ll mi = lo + (hi - lo) / 2;
+            if( (((mi-min(x,y))/x+(mi-min(x,y))/y)) < n-1) {
+                lo = mi+1;
+            }else {
+                hi = mi;
+            }
+        }
+        cout << lo << "\n";
+    }
     return 0;
 }

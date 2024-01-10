@@ -59,9 +59,34 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+const int STEPS = 45;
+
+ll calculateCuts(db L, ll n, vl arr) {
+    ll res = 0;
+    F0R(i, n) {
+        res+=floor(arr[i]/L);
+    }
+    return res;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    ll n, k;cin>>n>>k;
+    vl arr(n, 0);
+    F0R(i, n) {
+        cin>>arr[i];
+    }
+    sor(arr);
+    db lo = 0, hi = arr[arr.size()-1];
+    FOR(i, 0, STEPS) {
+        db mi = (lo+hi)/2.0;
+        if(calculateCuts(mi, n, arr) >= k) {
+            lo = mi;
+        }else {
+            hi = mi;
+        }
+    }
+    cout << setprecision(10) << fixed << lo;
     return 0;
 }
