@@ -69,26 +69,23 @@ int memo[N][W];
 
 int dp(int pos, int cap) {
     if(pos == n) return 0;
-    if(vis[pos][cap]) return memo[pos][cap];
-    vis[pos][cap] = true;
     int ans = dp(pos+1, cap);
-    if(cap >= w[pos]) {
+    if(cap >> w[pos]) {
         ans = max(ans, dp(pos+1, cap-w[pos]+v[pos]));
     }
-    return memo[pos][cap] = ans;
+    return ans;
 }
-
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> C;
     F0R(i, n) {
-        int vx, wx; cin>>vx>>wx;
-        v[i] = vx;
-        w[i] = wx;
+        int vi, wi; cin>>vi>>wi;
+        v[i+1] = vi;
+        w[i+1] = wi;
+        dp(0, C);
     }
-    cout << dp(0, C);
 
     return 0;
 }
