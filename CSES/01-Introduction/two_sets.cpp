@@ -62,6 +62,28 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
-    return 0;
+    ll n; cin>>n;
+    ll sum = ((n*(n+1))/2);
+    if(sum%2==0) {
+        cout << "YES\n";
+        cout << n/2 << "\n";
+        ll i = 1, j = n;
+        ll cnt = 0;
+        while(i <= j) {
+            cout << j << " ";
+            j--;
+            cnt++;
+            if(cnt==n/2) {
+                cout << "\n" << n-n/2 << "\n";
+            }else if(cnt==n) break;
+            cout << i << " ";
+            i++;
+            cnt++;
+            if(cnt==n/2) {
+                cout << "\n" << n-n/2 << "\n";
+            }else if(cnt==n) break;
+        }
+    }else {
+        cout << "NO";
+    }
 }

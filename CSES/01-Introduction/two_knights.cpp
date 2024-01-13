@@ -62,6 +62,19 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
-    return 0;
+    int n; cin>>n;
+    ll left = 3;
+    ll it1 = 3;
+
+    ll right = 2;
+    ll it2 = 2;
+    cout << 0 << "\n";
+    FOR(i, 1 , n) {
+        cout << (left*right) << "\n"; 
+        it1++;
+        left+=it1;
+
+        right+=it2;
+        it2+=2;
+    }
 }
