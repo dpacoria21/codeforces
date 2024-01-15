@@ -62,6 +62,29 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    int t; cin>>t;
+    while(t--){
+        int n; cin>>n;
+        ll num = 2;
+        ll cnt = 0;
+        vl arr;
+        while(arr.size()<n) {
+            cnt++;
+            if(arr.size()>=2) {
+                while((num*3)%(arr[arr.size()-1]+arr[arr.size()-2])==0) {
+                    num++;
+                    dbg(num);
+                }
+                arr.pb(num);
+            }else {
+                arr.pb(num);
+            }
+            num++;
+        }
+        F0R(i, n) {
+            cout << arr[i] << " ";
+        }
+        cout << "\n";
+    }
     return 0;
 }
