@@ -1,34 +1,34 @@
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
- 
+
 using namespace std;
- 
+
 #ifdef LOCAL
    #include "helpers/debug.h" 
 #else
    #define dbg(...)     0
    #define chk(...)     0
- 
+
    #define RAYA         0
 #endif
- 
+
 using ll = long long;
 using db = long double;
 using str = string;
- 
+
 using pi = pair<int, int>;
 using pl = pair<ll, ll>;
 using pd = pair<db, db>;
 #define mp make_pair
 #define f first
 #define s second
- 
+
 #define tcT template <class T
 #define tcTU tcT, class U
 tcT > using V = vector<T>;
 tcT, size_t SZ > using AR = array<T, SZ>;
- 
+
 using vi = V<int>;
 using vb = V<bool>;
 using vl = V<ll>;
@@ -37,7 +37,7 @@ using vs = V<str>;
 using vpi = V<pi>;
 using vpl = V<pl>;
 using vpd = V<pd>;
- 
+
 // vectores
 #define sz(x) int((x).size())
 #define bg(x) begin(x)
@@ -59,19 +59,10 @@ using vpd = V<pd>;
 #define R0F(i, a) ROF(i, 0, a)
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
- 
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int n; cin>>n;
-    vpl arr;
-    F0R(i, n) {
-        ll a, b; cin>>a>>b;
-        arr.pb(mp(a, b));
-    }
-    sort(all(arr), [](auto a, auto b) {
-        return a.s < b.s;
-    });
-    dbg(arr);
+    
     return 0;
 }
