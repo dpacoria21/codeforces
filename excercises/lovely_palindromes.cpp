@@ -60,8 +60,11 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    
-    return 0;
+   ios::sync_with_stdio(false);
+   cin.tie(nullptr);
+   str n; cin>>n;
+   str a = n;
+   str ra = string(n.rbegin(), n.rend());
+   cout << a << ra << "\n";
+   return 0;
 }
