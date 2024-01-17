@@ -60,27 +60,25 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 int main() {
-<<<<<<<< HEAD:excercises/lovely_palindromes.cpp
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   str n; cin>>n;
-   str a = n;
-   str ra = string(n.rbegin(), n.rend());
-   cout << a << ra << "\n";
-   return 0;
-========
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin>>t;
     while(t--){
-        vpl arr;
-        F0R(i, 4) {
-            ll x, y; cin>>x>>y;
-            arr.pb(mp(x, y));
+        int n; cin>>n;
+        str s; cin>>s;
+        str f; cin>>f;
+        ll moves = 0;
+        ll os = 0;
+        ll of = 0;
+        F0R(i, n) {
+            if(s[i]=='1' && f[i]=='0') {
+                moves++;
+            }
+            if(s[i]=='1') os++;
+            if(f[i]=='1') of++;
         }
-        sor(arr);
-        cout << abs(arr[0].s-arr[1].s)*abs(arr[2].s-arr[3].s) << "\n";
+        moves = os>of?(moves-(os-of)):moves;
+        cout << abs(os-of)+moves << "\n";
     }
     return 0;
->>>>>>>> 999a8f817a872fce69637d1f3e9e1b38e903f10b:excercises/div3_920/A.cpp
 }

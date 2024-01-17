@@ -1,34 +1,34 @@
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
-
+ 
 using namespace std;
-
+ 
 #ifdef LOCAL
    #include "helpers/debug.h" 
 #else
    #define dbg(...)     0
    #define chk(...)     0
-
+ 
    #define RAYA         0
 #endif
-
+ 
 using ll = long long;
 using db = long double;
 using str = string;
-
+ 
 using pi = pair<int, int>;
 using pl = pair<ll, ll>;
 using pd = pair<db, db>;
 #define mp make_pair
 #define f first
 #define s second
-
+ 
 #define tcT template <class T
 #define tcTU tcT, class U
 tcT > using V = vector<T>;
 tcT, size_t SZ > using AR = array<T, SZ>;
-
+ 
 using vi = V<int>;
 using vb = V<bool>;
 using vl = V<ll>;
@@ -37,13 +37,14 @@ using vs = V<str>;
 using vpi = V<pi>;
 using vpl = V<pl>;
 using vpd = V<pd>;
-
+ 
 // vectores
 #define sz(x) int((x).size())
 #define bg(x) begin(x)
 #define all(x) bg(x), end(x)
 #define rall(x) x.rbegin(), x.rend()
 #define sor(x) sort(all(x))
+#define rsor(x) sort(rall(x))
 #define rsz resize
 #define ins insert
 #define pb push_back
@@ -58,29 +59,34 @@ using vpd = V<pd>;
 #define R0F(i, a) ROF(i, 0, a)
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
-
+ 
 int main() {
-<<<<<<<< HEAD:excercises/lovely_palindromes.cpp
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   str n; cin>>n;
-   str a = n;
-   str ra = string(n.rbegin(), n.rend());
-   cout << a << ra << "\n";
-   return 0;
-========
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin>>t;
     while(t--){
-        vpl arr;
-        F0R(i, 4) {
-            ll x, y; cin>>x>>y;
-            arr.pb(mp(x, y));
+        int k,n;cin>>n>>k;
+        vl arr(n);
+        F0R(i, n) {
+            cin>>arr[i];
         }
-        sor(arr);
-        cout << abs(arr[0].s-arr[1].s)*abs(arr[2].s-arr[3].s) << "\n";
+        bool flag = true;
+        F0R(i, n-1) {
+            if(arr[i] > arr[i+1]) {
+                flag = false;
+                break;
+            }
+        }
+        if(flag) {
+            cout << "YES\n";
+        }else {
+            if(k>1) {
+                cout << "YES\n";
+            }else {
+                cout << "NO\n";
+            }
+        }
+
     }
     return 0;
->>>>>>>> 999a8f817a872fce69637d1f3e9e1b38e903f10b:excercises/div3_920/A.cpp
 }
