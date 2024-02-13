@@ -63,17 +63,26 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll n, a, b, c, d;
-    cin>>n>>a>>b>>c>>d;
-    ll e, f, g, h, m;
-    ll res = 0;
-    FOR(e, 1, n+1) {
-        f = e+b-c;
-        g = e+a-d;
-        h = e+a+b-d-c;
-        if(f<=0 || f>n || g<=0 || g>n || h<=0 || h>n) continue;
-        res++;
+    int n, q; cin>>n>>q;
+    vl arr(n+2, 0);
+    vl delta(n+2, 0);
+    F0R(i, n) {
+        cin>>arr[i+1];
+        delta[i+1] = arr[i+1] - arr[i];
     }
-    cout << res*n << "\n";
+    dbg(arr);
+    dbg(delta);
+    while(q--) {
+        int l, r, x; cin>>l>>r>>x;
+        delta[l] += x;
+        delta[r+1] -= x;
+        dbg(delta);
+    }
+    FOR(i, 1, n+1) {
+        arr[i] = delta[i] + arr[i-1];
+    }
+    
+    // dbg(arr);
+    // dbg(arr);
     return 0;
 }
