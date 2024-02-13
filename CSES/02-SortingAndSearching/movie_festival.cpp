@@ -60,20 +60,40 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+ll f (ll n, vpl a, int size) {
+    ll cnt = 0;
+    F0R(i, size) {
+        if(n >= a[i].f && n<= a[i].s) {
+            cnt++;
+        }
+    }
+    return cnt;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll n, a, b, c, d;
-    cin>>n>>a>>b>>c>>d;
-    ll e, f, g, h, m;
-    ll res = 0;
-    FOR(e, 1, n+1) {
-        f = e+b-c;
-        g = e+a-d;
-        h = e+a+b-d-c;
-        if(f<=0 || f>n || g<=0 || g>n || h<=0 || h>n) continue;
-        res++;
+    int n; cin>>n;
+    vpl movies;
+    F0R(i, n) {
+        ll a, b; cin>>a>>b;
+        movies.pb({a, b});
     }
-    cout << res*n << "\n";
+    sort(all(movies), [](auto a, auto b) {
+        return a.s < b.s;
+    });
+    movies.pb({-1, -1});
+    ll cnt = 0;
+    ll maxCnt = 0;
+    ll curr = movies[0].s;
+    F0R(i, n) {
+        if(movies[i+1].f>=curr) {
+            cnt++;
+            curr = movies[i+1].s;
+        }else {
+            maxCnt = max(maxCnt, cnt+1);
+        }
+    }
+    cout << maxCnt;
     return 0;
 }

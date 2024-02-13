@@ -60,20 +60,38 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    ll n, a, b, c, d;
-    cin>>n>>a>>b>>c>>d;
-    ll e, f, g, h, m;
-    ll res = 0;
-    FOR(e, 1, n+1) {
-        f = e+b-c;
-        g = e+a-d;
-        h = e+a+b-d-c;
-        if(f<=0 || f>n || g<=0 || g>n || h<=0 || h>n) continue;
-        res++;
+ll f (ll n, vpl a, int size) {
+    ll cnt = 0;
+    F0R(i, size) {
+        if(n >= a[i].f && n<= a[i].s) {
+            cnt++;
+        }
     }
-    cout << res*n << "\n";
+    return cnt;
+}
+
+int main() {
+    ios::sync_with_stdio(false); 
+    cin.tie(nullptr);
+    ll n, x; cin>>n >>x;
+    multimap<ll, ll>mmap;
+    vpl arr;
+    F0R(i, n) {
+        ll aux; cin>>aux;
+        arr.pb({aux, i+1});
+        mmap.insert(mp(aux, i+1));
+        // Hacer con un multiset y la diferencia buscarla con un upper_bound para encontrar al ultima ocurrencia de eso, y si no hay , continuar buscando;
+    }
+    bool flag = true;
+    F0R(i, n) {
+        auto it = mmap.upper_bound(x-arr[i].f);
+        it--;
+        if(arr[i].s != (*it).s && ((*it).f) + arr[i].f ==x) {
+            flag = false;
+            cout << arr[i].s << " " << (*it).s;
+            break;
+        }
+    }
+    if(flag) cout << "IMPOSSIBLE";
     return 0;
 }

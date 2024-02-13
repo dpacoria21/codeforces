@@ -52,6 +52,7 @@ using vpd = V<pd>;
 #define ft front()
 #define bk back()
 
+
 // Loops
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
@@ -60,20 +61,34 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+// fully vector and arrays
+#define sees(s,n) for(int i=0;i<n;i++){int x; cin>>x; s.insert(x);}
+#define seea(a,x,y) for(int i=x;i<y;i++){cin>>a[i];}
+#define seev(v,n) for(int i=0;i<n;i++){int x; cin>>x; v.push_back(x);}
+
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    ll n, a, b, c, d;
-    cin>>n>>a>>b>>c>>d;
-    ll e, f, g, h, m;
-    ll res = 0;
-    FOR(e, 1, n+1) {
-        f = e+b-c;
-        g = e+a-d;
-        h = e+a+b-d-c;
-        if(f<=0 || f>n || g<=0 || g>n || h<=0 || h>n) continue;
-        res++;
+    int l, r; cin>>l>>r;
+    int res = -1;
+    FOR(i, l, r+1) {
+        int aux = i;
+        set<int>set;
+        bool flag = false;
+        while(aux!=0) {
+            int n = aux%10;
+            if(set.count(n)) {
+                flag = true;
+                break;
+            }
+            set.insert(n);
+            aux = (aux - aux%10)/10;
+        }
+        if(flag) {
+            continue;
+        }else {
+            res = i;
+            break;
+        }
     }
-    cout << res*n << "\n";
+    cout << res;
     return 0;
 }

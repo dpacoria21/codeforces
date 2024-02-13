@@ -60,20 +60,31 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+bool isPalindrome(str s) {
+    bool isPal = true;
+    int i = 0, j=s.size()-1;
+    while(i <= j) {
+        if(s[i] != s[j]) {
+            isPal = false;
+            break;
+        }
+        i++; j--;
+    }
+    return isPal;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll n, a, b, c, d;
-    cin>>n>>a>>b>>c>>d;
-    ll e, f, g, h, m;
-    ll res = 0;
-    FOR(e, 1, n+1) {
-        f = e+b-c;
-        g = e+a-d;
-        h = e+a+b-d-c;
-        if(f<=0 || f>n || g<=0 || g>n || h<=0 || h>n) continue;
-        res++;
+    str s; cin>>s;
+    
+    while(isPalindrome(s)) {
+        if(s.size()==1) {
+            s = "";
+            break;
+        }
+        s = s.substr(1, s.size()-1);
     }
-    cout << res*n << "\n";
+    cout << s.size();
     return 0;
 }

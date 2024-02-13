@@ -63,17 +63,34 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll n, a, b, c, d;
-    cin>>n>>a>>b>>c>>d;
-    ll e, f, g, h, m;
-    ll res = 0;
-    FOR(e, 1, n+1) {
-        f = e+b-c;
-        g = e+a-d;
-        h = e+a+b-d-c;
-        if(f<=0 || f>n || g<=0 || g>n || h<=0 || h>n) continue;
-        res++;
+    int n; cin>>n;
+    vector<char> gen;
+    vl l;
+    vl r;
+    F0R(i, n) {
+        char s; cin >> s;
+        int left, right; cin>> left >> right;
+        gen.pb(s);
+        l.pb(left);
+        r.pb(right);
     }
-    cout << res*n << "\n";
+    ll males = 0;
+    ll fems = 0;
+    ll res = 0;
+    FOR(i, 1, 367) {
+        F0R(j, n) {
+            if(i>=l[j] && i<=r[j]) {
+                if(gen[j]=='M') {
+                    males++;
+                }else {
+                    fems++;
+                }
+            }
+        }
+        res = max(res, 2*min(fems, males));
+        males = 0;
+        fems = 0;
+    }
+    cout << res << "\n";
     return 0;
 }

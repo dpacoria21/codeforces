@@ -63,17 +63,16 @@ using vpd = V<pd>;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll n, a, b, c, d;
-    cin>>n>>a>>b>>c>>d;
-    ll e, f, g, h, m;
-    ll res = 0;
-    FOR(e, 1, n+1) {
-        f = e+b-c;
-        g = e+a-d;
-        h = e+a+b-d-c;
-        if(f<=0 || f>n || g<=0 || g>n || h<=0 || h>n) continue;
-        res++;
+    ll n; cin>>n;
+    F0R(i, 100+1) {
+        F0R(j, 1000+1) {
+            ll aux = n - 1234567*i - 123456*j;
+            if(aux >= 0 && aux%1234==0) {
+                cout << "YES";
+                return 0;
+            }
+        }
     }
-    cout << res*n << "\n";
+    cout << "NO";
     return 0;
 }
