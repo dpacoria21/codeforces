@@ -1,34 +1,34 @@
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
-
+ 
 using namespace std;
-
+ 
 #ifdef LOCAL
    #include "helpers/debug.h" 
 #else
    #define dbg(...)     0
    #define chk(...)     0
-
+ 
    #define RAYA         0
 #endif
-
+ 
 using ll = long long;
 using db = long double;
 using str = string;
-
+ 
 using pi = pair<int, int>;
 using pl = pair<ll, ll>;
 using pd = pair<db, db>;
 #define mp make_pair
 #define f first
 #define s second
-
+ 
 #define tcT template <class T
 #define tcTU tcT, class U
 tcT > using V = vector<T>;
 tcT, size_t SZ > using AR = array<T, SZ>;
-
+ 
 using vi = V<int>;
 using vb = V<bool>;
 using vl = V<ll>;
@@ -37,7 +37,7 @@ using vs = V<str>;
 using vpi = V<pi>;
 using vpl = V<pl>;
 using vpd = V<pd>;
-
+ 
 // vectores
 #define sz(x) int((x).size())
 #define bg(x) begin(x)
@@ -51,7 +51,7 @@ using vpd = V<pd>;
 #define eb emplace_back
 #define ft front()
 #define bk back()
-
+ 
 // Loops
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
@@ -59,35 +59,39 @@ using vpd = V<pd>;
 #define R0F(i, a) ROF(i, 0, a)
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
+ 
+/*
+    Idea: 
+    * primero tenemos que ordenar el arreglo
+    * nos damos cuenta que al hacer el split obtenemos otros 4 valores
+    * y necesitamos que esos valores sean los mayores posibles
+    * ya que son los que se van a repetir mas veces lo que haria que la suma sea maxima
+    * el div empieza en n/4 porque es donde obtenemos los valores repetidos
+    * 1,2,...n -> div/4 -> 13,14,15,16 -> div/4 -> 16 -> div/4 -> fin.
 
-ll h,w,d;
+*/
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
-    while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
-        }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
-            }
-        }
-        cout << "\n";
+    ll n; cin>>n;
+    ll side = (n)/4;
+    ll sum = 0;
+    vl arr(n+1);
+    F0R(i, n) {
+        cin>>arr[i+1];
+        sum+=arr[i+1];
     }
+    sor(arr);
+    int div = n/4;
+    while(div!=0) {
+        FOR(i, n-div+1, n+1) {
+            sum+=arr[i];
+        }
+        div/=4;
+    }
+    cout << sum;
+    dbg(arr);
+    
     return 0;
 }

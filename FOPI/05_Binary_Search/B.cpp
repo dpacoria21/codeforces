@@ -51,7 +51,6 @@ using vpd = V<pd>;
 #define eb emplace_back
 #define ft front()
 #define bk back()
-
 // Loops
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
@@ -60,34 +59,34 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-ll h,w,d;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
+    int t; cin>>t;
     while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
+        str w1, w2; cin>>w1>>w2;
+        if(w1.size()!=w2.size()) {
+            cout << "No\n";
         }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
+            bool flag = true;
+            F0R(i, w1.size()) {
+                if(w1[i]=='b' || w1[i]=='B' || w1[i]=='p' || w1[i]=='P') {
+                    w1[i] = '0';
+                }else if(w1[i]=='i' || w1[i]=='I' || w1[i]=='e' || w1[i]=='E') {
+                    w1[i] = '1';
+                }
+                if(w2[i]=='b' || w2[i]=='B' || w2[i]=='p' || w2[i]=='P') {
+                    w2[i] = '0';
+                }else if(w2[i]=='i' || w2[i]=='I' || w2[i]=='e' || w2[i]=='E') {
+                    w2[i] = '1';
+                }
+                if(tolower(w1[i])!=tolower(w2[i])) {
+                    flag = false;
+                    break;
+                }
             }
+            cout << (flag ? "Yes" : "No") << "\n";
         }
-        cout << "\n";
     }
     return 0;
 }

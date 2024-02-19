@@ -60,34 +60,33 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-ll h,w,d;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
-    while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
-        }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
+    int n; cin>>n;
+    ll cnt = 0;
+    ll points = 0;
+    char tab[n+5][n+5];
+    F0R(i, n) {
+        F0R(j, n) {
+            char ch; cin>>ch;
+            tab[i+1][j+1] = ch;
+        }
+    }
+    F0R(i, n) {
+        F0R(j, n) {
+            if(tab[i+1][j+1]=='#' && (tab[i+2][j+1]=='#' && tab[i][j+1]=='#' && tab[i+1][j+2]=='#' && tab[i+1][j]=='#')) {
+                tab[i+1][j+1]=tab[i+2][j+1]=tab[i][j+1]=tab[i+1][j+2]=tab[i+1][j] = 'x';
+                cnt+=5;
+            }else if(tab[i+1][j+1] == '.') {
+                cnt++;
             }
         }
-        cout << "\n";
+    }
+    if(cnt==n*n) {
+        cout << "YES";
+    }else {
+        cout << "NO";
     }
     return 0;
 }

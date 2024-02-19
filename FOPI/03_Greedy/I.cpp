@@ -60,34 +60,55 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-ll h,w,d;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
-    while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
+    ll n, r; cin>>n>>r;
+    vpl pos;
+    vpl neg;
+    F0R(i, n) {
+        ll a, b;cin>>a>>b;
+        if(b<0) {
+            neg.pb(mp(a, b));
         }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
+            pos.pb(mp(a, b));
+        }
+    }
+    bool flag = true;
+    sor(pos);
+    F0R(i, pos.size()) {
+        if(r>=pos[i].f){
+            r+=pos[i].s;
+        }else {
+            flag = false;
+            break;
+        }
+    }
+    dbg(r);
+    sort(all(neg), [](auto a, auto b) {
+        return a.f+a.s > b.f+b.s;
+    });
+    dbg(neg);
+    if(flag) {
+        F0R(i, neg.size()) {
+            if(r>=neg[i].f) {
+                r+=neg[i].s;
+                dbg(r);
+                if(r<0) {
+                    flag = false;
+                    break;
+                }
+            }else {
+                flag = false;
+                break;
             }
         }
-        cout << "\n";
+    }
+    dbg(r);
+    if(flag) {
+        cout << "YES";
+    }else {
+        cout << "NO";
     }
     return 0;
 }

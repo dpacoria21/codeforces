@@ -60,34 +60,21 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-ll h,w,d;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
-    while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
-        }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
-            }
-        }
-        cout << "\n";
+    int n; cin>>n;
+    vl arr(n);
+    vl org(n);
+    F0R(i, n) {
+        cin>>arr[i];
+        org[i] = i+1;
     }
+    sor(arr);
+    ll sum = 0;
+    F0R(i, n) {
+        sum+=abs(org[i]-arr[i]);
+    }
+    cout << sum;
     return 0;
 }

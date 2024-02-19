@@ -51,7 +51,6 @@ using vpd = V<pd>;
 #define eb emplace_back
 #define ft front()
 #define bk back()
-
 // Loops
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
@@ -60,34 +59,35 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-ll h,w,d;
+char arr[102][102];
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
+    int t; cin>>t;
     while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
-        }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
+        ll r, c, ins; cin>>r>>c>>ins;
+        memset(arr,'.',sizeof(arr));
+        F0R(i, r) {
+            F0R(j, c) {
+                arr[i][j] = '.';
             }
         }
-        cout << "\n";
+        F0R(i, ins) {
+            ll r1, c1, r2, c2; cin>>r1>>c1>>r2>>c2;
+            char ch; cin>>ch;
+            FOR(x, r1, r2+1) {
+                FOR(y, c1, c2+1) {
+                    arr[x][y] = ch;
+                }
+            }
+        }
+        FOR(i,1, r+1) {
+            FOR(j,1,c+1) {
+                cout << arr[i][j] << "";
+            }
+            cout << "\n";
+        }
     }
     return 0;
 }

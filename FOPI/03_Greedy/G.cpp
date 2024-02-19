@@ -60,34 +60,56 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-ll h,w,d;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
-    while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
-        }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
-            }
-        }
-        cout << "\n";
+    int n; cin>>n;
+    vpl ch;
+    F0R(i, n) {
+        ll l, r; cin>>l>>r;
+        ch.pb(mp(l, r));
     }
+    int m; cin>>m;
+    vpl pr;
+    F0R(i, m) {
+        ll l, r; cin>>l>>r;
+        pr.pb(mp(l, r));
+    }
+    sort(all(ch), [](auto a, auto b) {
+        if(a.s<b.s) {
+            return a.s<b.s;
+        }else {
+            return a.f<b.f;
+        }
+    });
+    rsor(pr);
+
+    // dbg(ch);
+    // dbg(pr);
+    ll op1 =  (pr[0].f - ch[0].s);
+    // dbg(pr[0].f - ch[0].s);
+
+    rsor(ch);
+    sort(all(pr), [](auto a, auto b) {
+        if(a.s<b.s) {
+            return a.s<b.s;
+        }else {
+            return a.f<b.f;
+        }
+    });
+    
+    ll op2 = (ch[0].f - pr[0].s);
+
+    ll res = max(op1, op2);
+    if(res<=0) {
+        cout << 0;
+    }else {
+        cout << res;
+    }
+
+    // dbg(pr);
+    // dbg(ch);
+    // dbg(ch[0].f - pr[0].s);
+    
     return 0;
 }

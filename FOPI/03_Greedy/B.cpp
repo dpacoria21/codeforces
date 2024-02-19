@@ -60,34 +60,22 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-ll h,w,d;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
-    while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
-        }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
-            }
-        }
-        cout << "\n";
+    int n; cin>>n;
+    vector<pair<ll, ll>>emps;
+    F0R(i, n) {
+        ll t, d; cin>>t>>d;
+        emps.pb(mp(d, t));
     }
+    sor(emps);
+    ll pen = -1;
+    ll f = 0;
+    F0R(i, n) {
+        f+=emps[i].s;
+        pen = max(pen, max((ll)0, f-emps[i].f));
+    }
+    cout << pen;
     return 0;
 }

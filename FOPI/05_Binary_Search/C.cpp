@@ -51,7 +51,6 @@ using vpd = V<pd>;
 #define eb emplace_back
 #define ft front()
 #define bk back()
-
 // Loops
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
@@ -60,34 +59,30 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-ll h,w,d;
+const ll mod=1e9+7;
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
+    int t; cin>>t;
     while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
-        }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
+        ll n; cin>>n;
+        string s, t; cin>>s>>t;
+        ll cnt = 1;
+        F0R(i, n) {
+            if(s[i]!=t[i] && s[i]=='1') {
+                cnt = 0;
+            }else if(s[i]==t[i] && s[i]=='1') {
+                cnt*=2;
+                cnt%=mod;
             }
         }
-        cout << "\n";
+        if(cnt == 0) {
+            cout << "IMPOSSIBLE\n";
+        }else {
+            cout << cnt << "\n";
+        }
+
     }
     return 0;
 }

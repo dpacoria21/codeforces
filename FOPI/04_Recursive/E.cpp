@@ -1,34 +1,34 @@
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
-
+ 
 using namespace std;
-
+ 
 #ifdef LOCAL
    #include "helpers/debug.h" 
 #else
    #define dbg(...)     0
    #define chk(...)     0
-
+ 
    #define RAYA         0
 #endif
-
+ 
 using ll = long long;
 using db = long double;
 using str = string;
-
+ 
 using pi = pair<int, int>;
 using pl = pair<ll, ll>;
 using pd = pair<db, db>;
 #define mp make_pair
 #define f first
 #define s second
-
+ 
 #define tcT template <class T
 #define tcTU tcT, class U
 tcT > using V = vector<T>;
 tcT, size_t SZ > using AR = array<T, SZ>;
-
+ 
 using vi = V<int>;
 using vb = V<bool>;
 using vl = V<ll>;
@@ -37,7 +37,7 @@ using vs = V<str>;
 using vpi = V<pi>;
 using vpl = V<pl>;
 using vpd = V<pd>;
-
+ 
 // vectores
 #define sz(x) int((x).size())
 #define bg(x) begin(x)
@@ -51,7 +51,7 @@ using vpd = V<pd>;
 #define eb emplace_back
 #define ft front()
 #define bk back()
-
+ 
 // Loops
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
@@ -60,34 +60,22 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-ll h,w,d;
+ll f91(ll n) {
+    if(n <= 100) {
+        return f91(f91(n+11));
+    }else {
+        return n-10;
+    }
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
-    while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
-        }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
-            }
-        }
-        cout << "\n";
+    ll opt = -1;
+    while (true) {
+        cin >> opt;
+        if(opt==0) break;
+        cout << "f91("<<opt<<") = " << f91(opt) << "\n";
     }
     return 0;
 }

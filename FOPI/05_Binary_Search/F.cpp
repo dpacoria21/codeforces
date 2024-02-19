@@ -51,7 +51,6 @@ using vpd = V<pd>;
 #define eb emplace_back
 #define ft front()
 #define bk back()
-
 // Loops
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
@@ -60,34 +59,26 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-ll h,w,d;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
+    int t; cin>>t;
     while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
-        }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
-            }
+        str a, b; cin>>a>>b;
+        str aux = "";
+        if(a.find(b) != string::npos) {
+            cout << "good\n";
+            continue;
         }
-        cout << "\n";
+        bool f1 = false;
+        F0R(i, a.size()-2) {
+            if(a[i]==b[0]&&a[i+1]==b[1]&&a[i+2]==b[2]) f1=true;
+            if(a[i]==b[0]&&a[i+1]==b[2]&&a[i+2]==b[3]) f1=true;
+            if(a[i]==b[0]&&a[i+1]==b[1]&&a[i+2]==b[3]) f1=true;
+            if(a[i]==b[1]&&a[i+1]==b[2]&&a[i+2]==b[3]) f1=true;
+        }
+        
+        cout << (f1?"almost good" : "none") << "\n";
     }
     return 0;
 }

@@ -60,34 +60,30 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-ll h,w,d;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
-    while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
-        }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
-            }
+    str s; cin>>s;
+    ll k; cin>>k;
+    map<char, ll>map;
+    char maxi = '0';
+    ll valMax = -1;
+    F0R(i, 26) {
+        ll aux; cin>>aux;
+        if(aux>valMax){
+            valMax = aux;
+            maxi = char('a'+i);
         }
-        cout << "\n";
+        map[char('a'+i)] = aux;
     }
+
+    ll res = 0;
+    F0R(i, s.size()) {
+        res+=map[s[i]]*(i+1);
+    }
+    F0R(i, k) {
+        res+=map[maxi]*(s.size()+i+1);
+    }
+    cout << res;
     return 0;
 }

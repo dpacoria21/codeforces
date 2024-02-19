@@ -51,7 +51,6 @@ using vpd = V<pd>;
 #define eb emplace_back
 #define ft front()
 #define bk back()
-
 // Loops
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
@@ -60,34 +59,37 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-ll h,w,d;
+int gcd(int a, int b) 
+{ 
+    if (a == 0) 
+        return b; 
+    if (b == 0) 
+        return a; 
+  
+    if (a == b) 
+        return a; 
+  
+    if (a > b) 
+        return gcd(a - b, b); 
+    return gcd(a, b - a); 
+} 
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll t;
-    scanf("%d", &t);
+    int t; cin>>t;
     while(t--){
-        scanf("%lld%lld%lld", &h, &w, &d);
-        ll rep = w-1; 
-        ll cant = h/w;
-        if(cant%2==0) {
-            if(cant*2==h && d==1) {
-                cout << "YES";
-            }else if( d == 1+(h-(rep*cant+1)) ) {
-                cout << "Yes";
-            }else {
-                cout << "No";
-            }
-        }else {
-            if(cant*2==h && d==2) {
-                cout << "YES";
-            }else if( d == w-(h-(rep*cant+1))) {
-                cout << "Yes";
-            } else {
-                cout << "No";
-            }
+        int n; cin>>n;
+        vl arr(n);
+        ll sum = 0;
+        ll res = 0;
+        F0R(i, n) {
+            cin>>arr[i];
+            sum+=arr[i];
+            res = gcd(sum, res);
         }
-        cout << "\n";
+        cout << res << " " << (sum/res) << "\n";
+        
     }
     return 0;
 }
