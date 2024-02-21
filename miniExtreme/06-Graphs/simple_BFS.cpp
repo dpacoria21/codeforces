@@ -60,77 +60,29 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-bool isPrime (ll n) {
-    FOR(i, 2, floor(sqrt(n))+1) {
-        if(n%i==0) {
-            return false;
+vector<int> BFS(int s, vector<vector<int>> &G) {
+    const int n = G.size(); // Cantidad de nodos
+    vector<int> level(n, -1); // level[u] = Nivel de u, -1 si no es alcanzable
+    vector<int> par(n, -1); // par[u] = Nodo que hizo que u fuera agregado a la cola
+    level[s] = 0;
+    queue<int> Q;
+    Q.emplace(s);
+    while(!Q.empty()) {
+        int u = Q.front(); Q.pop(); // Tomamos el siguiente en la cola
+        for(int v: G[u]) {
+            if(level[u]!=-1) continue; // Este nodo ya ha sido visitado porque tiene nivel
+            level[v] = level[u]+1; // Asignamos este nodo al siguiente nivel
+            par[v] = u;
+            Q.emplace(v);
         }
     }
-    return true;
-}
-
-bool is_prime ( int N) {
-    bool prime = true ;
-    for (int p = 2; p * p <= N; p++) {
-        if(N % p == 0) {
-            prime = false ;
-            break ;
-        }
-    }
-    return prime ;
-}
-
-void factorized_prims(ll n) {
-    if(n == 1) {
-        cout << 1;
-        return;
-    }
-    FOR(p, 2, floor(sqrt(n))+1) {
-        if(n%p==0){
-            while(n%p==0) {
-                cout << p << " ";
-                n /= p;
-            }
-        }
-    }
-    if(n!=1) cout << n;
-}
-
-ll computed_primes(ll n) {
-    vector<bool>nums(n+1, true);
-    nums[0] = nums[1] = false;
-    for(ll i = 2; i<=n; i++) {
-        if(nums[i]==false) continue;
-        for(ll j = i*i; j<=n ;j+=i) {
-            nums[j] = false;
-        }
-    }
-    ll count = 0;
-    F0R(i, n) {
-        if(nums[i+1]) count++;
-    }
-    return count;
-}
-
-ll gcd (ll a, ll b, ll &x, ll &y) {
-//    if(a > b) swap (a, b);
-   if(a==0) {
-    x = 0;
-    y = 1;
-    return b; 
-   };
-   ll x2, y2;
-   ll d = gcd(b%a, a, x2, y2);
-   x = y2 - x2*(b/a);
-   y = x2;
-   return d;
+    // level[u] = Nivel de u papra todos los nodos alcanzables (distancia mas corta en termino de aristas o -1 sino)
+    return level;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int a, b; cin>>a>>b;
-    cout << a+b;
-    
+
     return 0;
 }

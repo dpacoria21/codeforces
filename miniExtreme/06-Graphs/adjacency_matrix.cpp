@@ -60,77 +60,24 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-bool isPrime (ll n) {
-    FOR(i, 2, floor(sqrt(n))+1) {
-        if(n%i==0) {
-            return false;
-        }
+vector<vector<int>> get_adyacency_matrix(int n, int m) {
+    vector<vector<int>> M (n, vector<int>(n, 0));
+    for(int i = 0; i<m; i++) {
+        int u, v; cin>>u>>v;
+        M[u][v] = 1; // M[u][v] = M[v][u] = 1 para no dirigidos
     }
-    return true;
-}
-
-bool is_prime ( int N) {
-    bool prime = true ;
-    for (int p = 2; p * p <= N; p++) {
-        if(N % p == 0) {
-            prime = false ;
-            break ;
-        }
-    }
-    return prime ;
-}
-
-void factorized_prims(ll n) {
-    if(n == 1) {
-        cout << 1;
-        return;
-    }
-    FOR(p, 2, floor(sqrt(n))+1) {
-        if(n%p==0){
-            while(n%p==0) {
-                cout << p << " ";
-                n /= p;
-            }
-        }
-    }
-    if(n!=1) cout << n;
-}
-
-ll computed_primes(ll n) {
-    vector<bool>nums(n+1, true);
-    nums[0] = nums[1] = false;
-    for(ll i = 2; i<=n; i++) {
-        if(nums[i]==false) continue;
-        for(ll j = i*i; j<=n ;j+=i) {
-            nums[j] = false;
-        }
-    }
-    ll count = 0;
-    F0R(i, n) {
-        if(nums[i+1]) count++;
-    }
-    return count;
-}
-
-ll gcd (ll a, ll b, ll &x, ll &y) {
-//    if(a > b) swap (a, b);
-   if(a==0) {
-    x = 0;
-    y = 1;
-    return b; 
-   };
-   ll x2, y2;
-   ll d = gcd(b%a, a, x2, y2);
-   x = y2 - x2*(b/a);
-   y = x2;
-   return d;
+    return M;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int a, b; cin>>a>>b;
-    cout << a+b;
-    
+    int n, m; cin>>n>>m;
+    vector< vector<int> > M = get_adyacency_matrix(n, m);
+    for(int i=0; i<n; i++) {
+        for(int j = 0; j<n; j++) {
+            cout << M[i][j] << " \n"[j + 1==n];
+        }
+    }
     return 0;
 }
