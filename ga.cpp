@@ -60,77 +60,63 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-bool isPrime (ll n) {
-    FOR(i, 2, floor(sqrt(n))+1) {
-        if(n%i==0) {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool is_prime ( int N) {
-    bool prime = true ;
-    for (int p = 2; p * p <= N; p++) {
-        if(N % p == 0) {
-            prime = false ;
-            break ;
-        }
-    }
-    return prime ;
-}
-
-void factorized_prims(ll n) {
-    if(n == 1) {
-        cout << 1;
-        return;
-    }
-    FOR(p, 2, floor(sqrt(n))+1) {
-        if(n%p==0){
-            while(n%p==0) {
-                cout << p << " ";
-                n /= p;
+vector<int> BFS(int s, vector<vector<int>> &G, int f) {
+    const int n = G.size(); // Cantidad de nodos
+    vector<int> level(n, -1); // level[u] = Nivel de u, -1 si no es alcanzable
+    vector<int> par(n, -1); // par[u] = Nodo que hizo que u fuera agregado a la cola
+    vector<int> repe(n, 0);
+    level[s] = 0;
+    queue<int> Q;
+    Q.emplace(s);
+    while(!Q.empty()) {
+        int u = Q.front(); Q.pop(); // Tomamos el siguiente en la cola
+        repe[u] = 1;
+        cout << u+1 << "->";
+        if(u==f) break;
+        for(int v: G[u]) {
+            if(level[v]!=-1) continue; // Este nodo ya ha sido visitado porque tiene nivel
+            if(!repe[v]) {
+                // cout << v+1 << "->";
+            }else {
+                continue;
             }
+            repe[v] = 1;
+            level[v] = level[u]+1; // Asignamos este nodo al siguiente nivel
+            par[v] = u;
+            if(v==f) {
+                cout << f+1;
+                break;
+            };
+            Q.emplace(v);
+            break;
         }
     }
-    if(n!=1) cout << n;
+    // level[u] = Nivel de u papra todos los nodos alcanzables (distancia mas corta en termino de aristas o -1 sino)
+    return level;
 }
 
-ll computed_primes(ll n) {
-    vector<bool>nums(n+1, true);
-    nums[0] = nums[1] = false;
-    for(ll i = 2; i<=n; i++) {
-        if(nums[i]==false) continue;
-        for(ll j = i*i; j<=n ;j+=i) {
-            nums[j] = false;
-        }
-    }
-    ll count = 0;
-    F0R(i, n) {
-        if(nums[i+1]) count++;
-    }
-    return count;
-}
-
-ll gcd (ll a, ll b, ll &x, ll &y) {
-//    if(a > b) swap (a, b);
-   if(a==0) {
-    x = 0;
-    y = 1;
-    return b; 
-   };
-   ll x2, y2;
-   ll d = gcd(b%a, a, x2, y2);
-   x = y2 - x2*(b/a);
-   y = x2;
-   return d;
-}
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int a, b; cin>>a>>b;
-    cout << a+b;
-    
+    int n, m; cin>>n>>m;
+    vector<vector<int>> G(n);
+    vpi graphs;
+    for(int i=0; i<m; i++) {
+        int u, v; cin>>u>>v;
+        u--; v--;
+        graphs.push_back(mp(u, v));
+    }
+    sor(graphs);
+    for(int i=0; i<m; i++) {
+        G[graphs[i].f].emplace_back(graphs[i].s);
+        G[graphs[i].s].emplace_back(graphs[i].f);
+    }
+    int u, v; cin>>u>>v;
+    u--; v--;
+    vector<int>levels = BFS(u, G, v);
+    // for(int i = 0; i<n; i++) {
+    //     cout << i+1 << " " << levels[i] << "\n";
+    // }
     return 0;
 }
