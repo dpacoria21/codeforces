@@ -63,54 +63,18 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   int q; cin>>q;
-   while(q--) {
-      str s, t; cin>>s>>t;
-      if(s == t) {
-         cout << s;
+   int t; cin>>t;
+   while(t--) {
+      int n; cin>>n;
+      if(n==1) {
+         cout << -1 << "\n";
       }else {
-         ll mcd = 1;
-         ll d = min(s.size(), t.size());
-         str mini = s.size()>t.size()?t:s;
-         ll sz1 = s.size();
-         ll sz2 = t.size();
-         while(sz1!=1 && sz2!=1 && d<=min(sz1, sz2)) {
-            if(sz1%d==0 && sz2%d==0) {
-               sz1/=d;
-               sz2/=d;
-               mcd*=sz1*sz2;
-               continue;
-            }
-            d++;
+         cout << 2;
+         F0R(i, n-1) {
+            cout << 3;
          }
-         cout << mcd  << "\n";
-         if(mcd==1) {
-            str a1 = "", b1="";
-            F0R(i, (s.size()*t.size())/s.size()) {
-               a1+=s;
-            }
-            F0R(i, (s.size()*t.size())/t.size()) {
-               b1+=t;
-            }
-            if(a1==b1) {
-               cout << a1;
-            }else {
-               cout << -1;
-            }
-         }else {
-            str a1 = "";
-            F0R(i, mcd) {
-               a1+=mini;
-            }
-            dbg(a1);
-            if(a1==s || a1==t) {
-               cout << a1;
-            }else {
-               cout << -1;
-            }
-         }
+         cout << "\n";
       }
-      cout <<"\n";
    }
    return 0;
 }
