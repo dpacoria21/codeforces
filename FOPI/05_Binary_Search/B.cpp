@@ -51,7 +51,6 @@ using vpd = V<pd>;
 #define eb emplace_back
 #define ft front()
 #define bk back()
-
 // Loops
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
@@ -60,45 +59,34 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-vector<int> BFS(int s, vector<vector<int>> &G, int f) {
-    const int n = G.size(); // Cantidad de nodos
-    vector<int> level(n, -1); // level[u] = Nivel de u, -1 si no es alcanzable
-    vector<int> par(n, -1); // par[u] = Nodo que hizo que u fuera agregado a la cola
-    vector<int> repe(n, 0);
-    level[s] = 0;
-    queue<int> Q;
-    Q.emplace(s);
-    while(!Q.empty()) {
-        int u = Q.front(); Q.pop(); // Tomamos el siguiente en la cola
-        repe[u] = 1;
-        cout << u+1 << "->";
-        if(u==f) break;
-        for(int v: G[u]) {
-            if(level[v]!=-1) continue; // Este nodo ya ha sido visitado porque tiene nivel
-            if(!repe[v]) {
-                // cout << v+1 << "->";
-            }else {
-                continue;
-            }
-            repe[v] = 1;
-            level[v] = level[u]+1; // Asignamos este nodo al siguiente nivel
-            par[v] = u;
-            if(v==f) {
-                cout << f+1;
-                break;
-            };
-            Q.emplace(v);
-            break;
-        }
-    }
-    // level[u] = Nivel de u papra todos los nodos alcanzables (distancia mas corta en termino de aristas o -1 sino)
-    return level;
-}
-
-
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    int t; cin>>t;
+    while(t--){
+        str w1, w2; cin>>w1>>w2;
+        if(w1.size()!=w2.size()) {
+            cout << "No\n";
+        }else {
+            bool flag = true;
+            F0R(i, w1.size()) {
+                if(w1[i]=='b' || w1[i]=='B' || w1[i]=='p' || w1[i]=='P') {
+                    w1[i] = '0';
+                }else if(w1[i]=='i' || w1[i]=='I' || w1[i]=='e' || w1[i]=='E') {
+                    w1[i] = '1';
+                }
+                if(w2[i]=='b' || w2[i]=='B' || w2[i]=='p' || w2[i]=='P') {
+                    w2[i] = '0';
+                }else if(w2[i]=='i' || w2[i]=='I' || w2[i]=='e' || w2[i]=='E') {
+                    w2[i] = '1';
+                }
+                if(tolower(w1[i])!=tolower(w2[i])) {
+                    flag = false;
+                    break;
+                }
+            }
+            cout << (flag ? "Yes" : "No") << "\n";
+        }
+    }
     return 0;
 }

@@ -53,52 +53,75 @@ using vpd = V<pd>;
 #define bk back()
 
 // Loops
-#define FOR(i, a, b) for (int i = (a); i < (b); ++i)
+#define FOR(i, a, b) for (ll i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
-#define ROF(i, a, b) for (int i = (b)-1; i >= (a); --i)
+#define ROF(i, a, b) for (ll i = (b)-1; i >= (a); --i)
 #define R0F(i, a) ROF(i, 0, a)
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-vector<int> BFS(int s, vector<vector<int>> &G, int f) {
-    const int n = G.size(); // Cantidad de nodos
-    vector<int> level(n, -1); // level[u] = Nivel de u, -1 si no es alcanzable
-    vector<int> par(n, -1); // par[u] = Nodo que hizo que u fuera agregado a la cola
-    vector<int> repe(n, 0);
-    level[s] = 0;
-    queue<int> Q;
-    Q.emplace(s);
-    while(!Q.empty()) {
-        int u = Q.front(); Q.pop(); // Tomamos el siguiente en la cola
-        repe[u] = 1;
-        cout << u+1 << "->";
-        if(u==f) break;
-        for(int v: G[u]) {
-            if(level[v]!=-1) continue; // Este nodo ya ha sido visitado porque tiene nivel
-            if(!repe[v]) {
-                // cout << v+1 << "->";
-            }else {
-                continue;
+ll n, m;
+vector<int>colors;
+vector<int>par;
+vector<int>par_edge;
+vector<vector<pair<ll, ll>>> G;
+vector<int>comp;
+vector<int>cycle;
+
+void DFS_visit(int u) {
+    colors[u] = 1;
+    for(auto [v, e]: G[u]) {
+        if(!cycle.empty()) break;
+        if(colors[v]==2) continue;
+        if(colors[v]==1) {
+            //Hallamos un  ciclo (u -> v) + (v -> u)
+            int at = u;
+            while(at!=v) {
+                cycle.emplace_back(par_edge[at]);
+                at = par[at];
             }
-            repe[v] = 1;
-            level[v] = level[u]+1; // Asignamos este nodo al siguiente nivel
+            reverse(cycle.begin(), cycle.end());
+            cycle.emplace_back(e);
+        }
+        if(colors[v]==0) {
             par[v] = u;
-            if(v==f) {
-                cout << f+1;
-                break;
-            };
-            Q.emplace(v);
-            break;
+            par_edge[v] = e;
+            DFS_visit(v);
         }
     }
-    // level[u] = Nivel de u papra todos los nodos alcanzables (distancia mas corta en termino de aristas o -1 sino)
-    return level;
+    colors[u] = 2;
 }
 
+void DFS() {
+    F0R(i, n) {
+        if(colors[i]) continue;
+        DFS_visit(i);  
+    }
+    if(cycle.empty()) {
+        cout << -1;
+    }else {
+        cout << cycle.size() << '\n';
+        each(a, cycle) {
+            cout << a << "\n";
+        }
+    }
+}
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    cin>>n>>m;
+    G.assign( n, vector<pair<ll,ll>>() );
+    par.resize(n, -1);
+    par_edge.resize(n, -1);
+    colors.resize(n, 0);
+    F0R(i, m) {
+        int u, v; cin>>u>>v;
+        // u--; v--;
+        G[u].emplace_back(v, i);
+        // G[v].emplace_back(u);
+    }
+    DFS();
+
     return 0;
 }

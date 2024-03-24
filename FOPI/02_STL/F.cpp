@@ -60,45 +60,54 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-vector<int> BFS(int s, vector<vector<int>> &G, int f) {
-    const int n = G.size(); // Cantidad de nodos
-    vector<int> level(n, -1); // level[u] = Nivel de u, -1 si no es alcanzable
-    vector<int> par(n, -1); // par[u] = Nodo que hizo que u fuera agregado a la cola
-    vector<int> repe(n, 0);
-    level[s] = 0;
-    queue<int> Q;
-    Q.emplace(s);
-    while(!Q.empty()) {
-        int u = Q.front(); Q.pop(); // Tomamos el siguiente en la cola
-        repe[u] = 1;
-        cout << u+1 << "->";
-        if(u==f) break;
-        for(int v: G[u]) {
-            if(level[v]!=-1) continue; // Este nodo ya ha sido visitado porque tiene nivel
-            if(!repe[v]) {
-                // cout << v+1 << "->";
-            }else {
-                continue;
-            }
-            repe[v] = 1;
-            level[v] = level[u]+1; // Asignamos este nodo al siguiente nivel
-            par[v] = u;
-            if(v==f) {
-                cout << f+1;
-                break;
-            };
-            Q.emplace(v);
-            break;
-        }
-    }
-    // level[u] = Nivel de u papra todos los nodos alcanzables (distancia mas corta en termino de aristas o -1 sino)
-    return level;
-}
-
-
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    int n; cin>>n;
+    int k1; cin>>k1;
+    deque<ll>p1;
+    deque<ll>p3;
+    F0R(i, k1) {
+        int aux; cin>>aux;
+        p1.pb(aux);
+        p3.pb(aux);
+    }
+    int k2; cin>>k2;
+    deque<ll>p2;
+    F0R(i, k2) {
+        int aux; cin>>aux;
+        p2.pb(aux);
+    }
+    bool flag = true;
+    ll count = 0;
+    while(true) {
+        ll a = p1.front();
+        p1.pop_front();
+        ll b = p2.front();
+        p2.pop_front();
+        if(a>b) {
+            p1.pb(b);
+            p1.pb(a);
+        }else {
+            p2.pb(a);
+            p2.pb(b);
+        }
+        count++;
+        if(count > pow(2, 10)) {
+            flag = false;
+            break;
+        }
+        if(p1.size()==0 || p2.size()==0) break;
+    }
+    if(flag) {
+        cout << count << " ";
+        if(p1.empty()){
+            cout << 2;
+        }else {
+            cout << 1;
+        }
+    }else {
+        cout << -1;
+    }
     return 0;
 }

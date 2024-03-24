@@ -60,45 +60,55 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-vector<int> BFS(int s, vector<vector<int>> &G, int f) {
-    const int n = G.size(); // Cantidad de nodos
-    vector<int> level(n, -1); // level[u] = Nivel de u, -1 si no es alcanzable
-    vector<int> par(n, -1); // par[u] = Nodo que hizo que u fuera agregado a la cola
-    vector<int> repe(n, 0);
-    level[s] = 0;
-    queue<int> Q;
-    Q.emplace(s);
-    while(!Q.empty()) {
-        int u = Q.front(); Q.pop(); // Tomamos el siguiente en la cola
-        repe[u] = 1;
-        cout << u+1 << "->";
-        if(u==f) break;
-        for(int v: G[u]) {
-            if(level[v]!=-1) continue; // Este nodo ya ha sido visitado porque tiene nivel
-            if(!repe[v]) {
-                // cout << v+1 << "->";
-            }else {
-                continue;
-            }
-            repe[v] = 1;
-            level[v] = level[u]+1; // Asignamos este nodo al siguiente nivel
-            par[v] = u;
-            if(v==f) {
-                cout << f+1;
-                break;
-            };
-            Q.emplace(v);
-            break;
-        }
-    }
-    // level[u] = Nivel de u papra todos los nodos alcanzables (distancia mas corta en termino de aristas o -1 sino)
-    return level;
-}
-
-
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    ll n1, n2, n3; cin>>n1>>n2>>n3;
+    deque<ll>s1;
+    deque<ll>s2;
+    deque<ll>s3;
+    ll sum1 = 0;
+    ll sum2 = 0;
+    ll sum3 = 0;
+    F0R(i, n1) {
+        ll aux; cin>>aux;
+        s1.pb(aux);
+        sum1+=aux;
+    }
+    F0R(i, n2) {
+        ll aux; cin>>aux;
+        s2.pb(aux);
+        sum2+=aux;
+    }
+    F0R(i, n3) {
+        ll aux; cin>>aux;
+        s3.pb(aux);
+        sum3+=aux;
+    }
+
+    ll mini = INT_MAX;
+
+    while(true) {
+        mini = min(sum1, min(sum2, sum3));
+        dbg(sum1, sum2, sum3);
+        if(sum1>mini) {
+            sum1-=s1.front();
+            s1.pop_front();
+        }
+        if(sum2>mini) {
+            sum2-=s2.front();
+            s2.pop_front();
+        }
+        if(sum3>mini) {
+            sum3-=s3.front();
+            s3.pop_front();
+        }
+        dbg(sum1, sum2, sum3);
+        if(sum1==sum2 && sum2==sum3) {
+            break;
+        }
+    }
+    cout << sum1;
+
     return 0;
 }

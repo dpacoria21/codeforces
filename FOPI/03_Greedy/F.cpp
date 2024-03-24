@@ -60,45 +60,30 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-vector<int> BFS(int s, vector<vector<int>> &G, int f) {
-    const int n = G.size(); // Cantidad de nodos
-    vector<int> level(n, -1); // level[u] = Nivel de u, -1 si no es alcanzable
-    vector<int> par(n, -1); // par[u] = Nodo que hizo que u fuera agregado a la cola
-    vector<int> repe(n, 0);
-    level[s] = 0;
-    queue<int> Q;
-    Q.emplace(s);
-    while(!Q.empty()) {
-        int u = Q.front(); Q.pop(); // Tomamos el siguiente en la cola
-        repe[u] = 1;
-        cout << u+1 << "->";
-        if(u==f) break;
-        for(int v: G[u]) {
-            if(level[v]!=-1) continue; // Este nodo ya ha sido visitado porque tiene nivel
-            if(!repe[v]) {
-                // cout << v+1 << "->";
-            }else {
-                continue;
-            }
-            repe[v] = 1;
-            level[v] = level[u]+1; // Asignamos este nodo al siguiente nivel
-            par[v] = u;
-            if(v==f) {
-                cout << f+1;
-                break;
-            };
-            Q.emplace(v);
-            break;
-        }
-    }
-    // level[u] = Nivel de u papra todos los nodos alcanzables (distancia mas corta en termino de aristas o -1 sino)
-    return level;
-}
-
-
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    str s; cin>>s;
+    ll k; cin>>k;
+    map<char, ll>map;
+    char maxi = '0';
+    ll valMax = -1;
+    F0R(i, 26) {
+        ll aux; cin>>aux;
+        if(aux>valMax){
+            valMax = aux;
+            maxi = char('a'+i);
+        }
+        map[char('a'+i)] = aux;
+    }
+
+    ll res = 0;
+    F0R(i, s.size()) {
+        res+=map[s[i]]*(i+1);
+    }
+    F0R(i, k) {
+        res+=map[maxi]*(s.size()+i+1);
+    }
+    cout << res;
     return 0;
 }

@@ -53,52 +53,50 @@ using vpd = V<pd>;
 #define bk back()
 
 // Loops
-#define FOR(i, a, b) for (int i = (a); i < (b); ++i)
+#define FOR(i, a, b) for (ll i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
-#define ROF(i, a, b) for (int i = (b)-1; i >= (a); --i)
+#define ROF(i, a, b) for (ll i = (b)-1; i >= (a); --i)
 #define R0F(i, a) ROF(i, 0, a)
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-vector<int> BFS(int s, vector<vector<int>> &G, int f) {
-    const int n = G.size(); // Cantidad de nodos
-    vector<int> level(n, -1); // level[u] = Nivel de u, -1 si no es alcanzable
-    vector<int> par(n, -1); // par[u] = Nodo que hizo que u fuera agregado a la cola
-    vector<int> repe(n, 0);
-    level[s] = 0;
-    queue<int> Q;
+vector<vector<int>>G;
+
+vector<ll> BFS(ll s) {
+    ll n = G.size();
+    vector<ll>levels(n, -1);
+    levels[s] = 0;
+    queue<ll>Q;
     Q.emplace(s);
     while(!Q.empty()) {
-        int u = Q.front(); Q.pop(); // Tomamos el siguiente en la cola
-        repe[u] = 1;
-        cout << u+1 << "->";
-        if(u==f) break;
-        for(int v: G[u]) {
-            if(level[v]!=-1) continue; // Este nodo ya ha sido visitado porque tiene nivel
-            if(!repe[v]) {
-                // cout << v+1 << "->";
-            }else {
-                continue;
-            }
-            repe[v] = 1;
-            level[v] = level[u]+1; // Asignamos este nodo al siguiente nivel
-            par[v] = u;
-            if(v==f) {
-                cout << f+1;
-                break;
-            };
+        ll u = Q.front(); Q.pop();
+        for(auto v: G[u]) {
+            if(levels[v]!=-1) continue;
+            levels[v] = levels[u]+1;
             Q.emplace(v);
-            break;
         }
     }
-    // level[u] = Nivel de u papra todos los nodos alcanzables (distancia mas corta en termino de aristas o -1 sino)
-    return level;
+    return levels;
 }
-
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
+    int n; cin>>n;
+    G.assign(n, vector<int>());
+    F0R(i, n) {
+        ll u, k; cin>>u>>k;
+        u--;
+        F0R(j, k) {
+            ll v; cin>>v;
+            v--;
+            G[u].emplace_back(v);
+        }
+    }
     
+    vector<ll> levels = BFS(0);
+    for(int i=0; i<levels.size(); i++ ) {
+        cout << i+1 << " " << levels[i] << "\n";
+    }
     return 0;
 }

@@ -37,6 +37,11 @@
         "type_traits": "cpp",
         "utility": "cpp",
         "typeindex": "cpp",
-        "valarray": "cpp"
-    }
+        "valarray": "cpp",
+        "string_view": "cpp",
+        "span": "cpp",
+        "stacktrace": "cpp",
+        "*.tcc": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

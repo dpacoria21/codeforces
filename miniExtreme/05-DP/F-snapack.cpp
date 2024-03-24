@@ -44,6 +44,7 @@ using vpd = V<pd>;
 #define all(x) bg(x), end(x)
 #define rall(x) x.rbegin(), x.rend()
 #define sor(x) sort(all(x))
+#define rsor(x) sort(rall(x))
 #define rsz resize
 #define ins insert
 #define pb push_back
@@ -61,31 +62,53 @@ using vpd = V<pd>;
 
 const int N = 100+5;
 const int W = 10000+5;
-int n, C;
+
+int n;
+int C;
 int w[N];
 int v[N];
 bool vis[N][W];
-int memo[N][W];
+int memo [N][W];
 
 int dp(int pos, int cap) {
     if(pos == n) return 0;
+    if(vis[pos][cap]) return memo[pos][cap];
+    vis[pos][cap] = true;
     int ans = dp(pos+1, cap);
-    if(cap >> w[pos]) {
-        ans = max(ans, dp(pos+1, cap-w[pos]+v[pos]));
-    }
-    return ans;
+    if(cap >= w[pos]) ans = max(ans, dp(pos+1, cap-w[pos]) + v[pos]);
+    return memo[pos][cap] = ans;
 }
+
+int iterative() {
+    for(int pos = n-1; pos>=0; pos--) {
+        for(int cap = 0; cap <= C; cap++) {
+            memo[pos][cap] = memo[pos+1][cap];
+            if(cap >= w[pos]) memo[pos][cap] = max(memo[pos][cap], memo[pos+1][cap-w[pos]]+v[pos]);
+
+        }
+    }
+    // dbg(memo);
+    F0R(i, 25) {
+        F0R(j, 25) {
+            cout << memo[i][j] << " ";
+        }
+        cout << "\n";
+    }
+    return memo[0][C];
+}
+
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> C;
-    F0R(i, n) {
-        int vi, wi; cin>>vi>>wi;
-        v[i+1] = vi;
-        w[i+1] = wi;
-        dp(0, C);
+    cin>>n;
+    cin>>C;
+    FOR(i, 0, n) {
+        cin>>v[i];
+        cin>>w[i];
     }
+
+    cout << iterative();
 
     return 0;
 }

@@ -60,45 +60,37 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-vector<int> BFS(int s, vector<vector<int>> &G, int f) {
-    const int n = G.size(); // Cantidad de nodos
-    vector<int> level(n, -1); // level[u] = Nivel de u, -1 si no es alcanzable
-    vector<int> par(n, -1); // par[u] = Nodo que hizo que u fuera agregado a la cola
-    vector<int> repe(n, 0);
-    level[s] = 0;
-    queue<int> Q;
-    Q.emplace(s);
-    while(!Q.empty()) {
-        int u = Q.front(); Q.pop(); // Tomamos el siguiente en la cola
-        repe[u] = 1;
-        cout << u+1 << "->";
-        if(u==f) break;
-        for(int v: G[u]) {
-            if(level[v]!=-1) continue; // Este nodo ya ha sido visitado porque tiene nivel
-            if(!repe[v]) {
-                // cout << v+1 << "->";
-            }else {
-                continue;
-            }
-            repe[v] = 1;
-            level[v] = level[u]+1; // Asignamos este nodo al siguiente nivel
-            par[v] = u;
-            if(v==f) {
-                cout << f+1;
-                break;
-            };
-            Q.emplace(v);
-            break;
-        }
-    }
-    // level[u] = Nivel de u papra todos los nodos alcanzables (distancia mas corta en termino de aristas o -1 sino)
-    return level;
-}
-
-
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    int n; cin>>n;
+    vector<char> gen;
+    vl l;
+    vl r;
+    F0R(i, n) {
+        char s; cin >> s;
+        int left, right; cin>> left >> right;
+        gen.pb(s);
+        l.pb(left);
+        r.pb(right);
+    }
+    ll males = 0;
+    ll fems = 0;
+    ll res = 0;
+    FOR(i, 1, 367) {
+        F0R(j, n) {
+            if(i>=l[j] && i<=r[j]) {
+                if(gen[j]=='M') {
+                    males++;
+                }else {
+                    fems++;
+                }
+            }
+        }
+        res = max(res, 2*min(fems, males));
+        males = 0;
+        fems = 0;
+    }
+    cout << res << "\n";
     return 0;
 }
