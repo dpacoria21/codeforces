@@ -60,42 +60,29 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+int sumDigits (int n) {
+    int res = 0;
+    while(n!=0) {
+        res+=n%10;
+        n = (n-n%10)/10;
+    }
+    return res;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin>>t;
-    while(t--){
-        ll n; cin>>n;
-        vl evens;
-        vl odds;
-        F0R(i, n) {
-            ll aux; cin>>aux;
-            if(aux%2==0) {
-                evens.push_back(aux);
-            }else {
-                odds.push_back(aux);
-            }
-        }
-        sor(evens);
-        sor(odds);
-        if(evens.size()%2==0 && odds.size()%2==0) {
+    while(t--) {
+        int n, m, k; cin>>n>>m>>k;
+        int auxRest = n%m;
+        int auxDiv = n/m;
+        int maxi = auxDiv+(auxRest != 0 ? 1 : 0);
+        int rest = n-maxi;
+        if(rest > k) {
             cout << "YES\n";
         }else {
-            bool flag = false;
-            F0R(i, evens.size()) {
-                F0R(j, odds.size()) {
-                    if(abs(evens[i]-odds[j])==1) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if(flag) break;
-            }
-            if(flag) {
-                cout << "YES\n";
-            }else {
-                cout << "NO\n";
-            }
+            cout << "NO\n";
         }
     }
     return 0;

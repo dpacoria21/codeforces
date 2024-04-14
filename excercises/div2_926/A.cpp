@@ -65,38 +65,13 @@ int main() {
     cin.tie(nullptr);
     int t; cin>>t;
     while(t--){
-        ll n; cin>>n;
-        vl evens;
-        vl odds;
+        int n; cin>>n;
+        vl arr(n);
         F0R(i, n) {
-            ll aux; cin>>aux;
-            if(aux%2==0) {
-                evens.push_back(aux);
-            }else {
-                odds.push_back(aux);
-            }
+            cin>>arr[i];
         }
-        sor(evens);
-        sor(odds);
-        if(evens.size()%2==0 && odds.size()%2==0) {
-            cout << "YES\n";
-        }else {
-            bool flag = false;
-            F0R(i, evens.size()) {
-                F0R(j, odds.size()) {
-                    if(abs(evens[i]-odds[j])==1) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if(flag) break;
-            }
-            if(flag) {
-                cout << "YES\n";
-            }else {
-                cout << "NO\n";
-            }
-        }
+        sor(arr);
+        cout << arr[n-1]-arr[0] << "\n";
     }
     return 0;
 }

@@ -65,38 +65,58 @@ int main() {
     cin.tie(nullptr);
     int t; cin>>t;
     while(t--){
-        ll n; cin>>n;
-        vl evens;
-        vl odds;
+        int n; cin>>n;
+        vi arr(n);
         F0R(i, n) {
-            ll aux; cin>>aux;
-            if(aux%2==0) {
-                evens.push_back(aux);
-            }else {
-                odds.push_back(aux);
+            cin>>arr[i];
+        }
+        int indX = -1, indY = -1;
+        F0R(i, n) {
+            if(arr[i]==1) {
+                indX=i;
+                break;
             }
         }
-        sor(evens);
-        sor(odds);
-        if(evens.size()%2==0 && odds.size()%2==0) {
-            cout << "YES\n";
+        R0F(i, n) {
+            if(arr[i]==1) {
+                indY=i;
+                break;
+            }
+        }
+        if(indX==indY || indX==-1 || indY==-1) {
+            cout << 0 << "\n";
         }else {
-            bool flag = false;
-            F0R(i, evens.size()) {
-                F0R(j, odds.size()) {
-                    if(abs(evens[i]-odds[j])==1) {
-                        flag = true;
-                        break;
-                    }
+            ll cnt = 0;
+            FOR(i, indX, indY) {
+                if(arr[i]==0) {
+                    cnt++;
                 }
-                if(flag) break;
             }
-            if(flag) {
-                cout << "YES\n";
-            }else {
-                cout << "NO\n";
-            }
+                cout << cnt << "\n";
         }
+        // bool f1=false, f2=false;
+        // int i = 0, j=n-1;
+        // while(i < j) {
+        //     if(!f1 && arr[i]==1) {
+        //         f1 = true;
+        //         indX=i;
+        //     }
+        //     if(!f2 && arr[j]==1) {
+        //         f2 = true;
+        //         indY=j;
+        //     }
+        //     i++; j--;
+        //     if(f1 && f2) break;
+        // }
+        // if(indX==-1 || indY==-1) {
+        //     cout << 0 << "\n";
+        // }else {
+        //     int count = 0;
+        //     FOR(i, indX, indY) {
+        //         if(arr[i]==0) count++;
+        //     }
+        //     cout << count << "\n";
+        // }
     }
     return 0;
 }

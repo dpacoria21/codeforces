@@ -65,37 +65,34 @@ int main() {
     cin.tie(nullptr);
     int t; cin>>t;
     while(t--){
-        ll n; cin>>n;
-        vl evens;
-        vl odds;
+        ll n, k; cin>>n>>k;
+        vl mons(n);
+        vl pos(n);
+        priority_queue< pair<ll,ll> > left;
+        priority_queue< pair<ll,ll>, vector<pair<ll,ll>> ,greater<pair<ll,ll>> > right;
         F0R(i, n) {
-            ll aux; cin>>aux;
-            if(aux%2==0) {
-                evens.push_back(aux);
+            cin>>mons[i];
+        }
+        F0R(i, n) {
+            cin>>pos[i];
+        }
+
+        F0R(i, n) {
+            if(pos[i]<0) {
+                left.push(mp(pos[i], mons[i]));
             }else {
-                odds.push_back(aux);
+                right.push(mp(pos[i], mons[i]));
             }
         }
-        sor(evens);
-        sor(odds);
-        if(evens.size()%2==0 && odds.size()%2==0) {
-            cout << "YES\n";
-        }else {
-            bool flag = false;
-            F0R(i, evens.size()) {
-                F0R(j, odds.size()) {
-                    if(abs(evens[i]-odds[j])==1) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if(flag) break;
+        ll h1 = 0, h2 = 0;
+        ll it = 0
+        while(true) {
+            if(!left.empty()) {
+                
             }
-            if(flag) {
-                cout << "YES\n";
-            }else {
-                cout << "NO\n";
-            }
+        }
+        if(!left.empty()) {
+            cout << left.top().f << " " << left.top().s << "\n";
         }
     }
     return 0;
