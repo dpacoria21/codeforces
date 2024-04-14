@@ -1,12 +1,9 @@
+#pragma GCC optimize("O3,unroll-loops")
+#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
 
-using ll = long long;
-using ld = long double;
 using namespace std;
 
-<<<<<<< HEAD
-#define FOR(i, a, b) for (int i = (a); i < (b); ++i)
-=======
 #ifdef LOCAL
    #include "helpers/debug.h" 
 #else
@@ -57,7 +54,6 @@ using vpd = V<pd>;
 
 // Loops
 #define FOR(i, a, b) for (ll i = (a); i < (b); ++i)
->>>>>>> 9585e83b688f3a86d45b5d9c82b8eb4eed6a2d63
 #define F0R(i, a) FOR(i, 0, a)
 #define ROF(i, a, b) for (ll i = (b)-1; i >= (a); --i)
 #define R0F(i, a) ROF(i, 0, a)
@@ -68,52 +64,35 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin>>t;
-<<<<<<< HEAD
-    while(t--) {
-        int n; cin>>n;
-        vector<ll>evens;
-        vector<ll>odds;
-=======
     while(t--){
-        ll n; cin>>n;
-        vl evens;
-        vl odds;
->>>>>>> 9585e83b688f3a86d45b5d9c82b8eb4eed6a2d63
+        ll n, k; cin>>n>>k;
+        vl mons(n);
+        vl pos(n);
+        priority_queue< pair<ll,ll> > left;
+        priority_queue< pair<ll,ll>, vector<pair<ll,ll>> ,greater<pair<ll,ll>> > right;
         F0R(i, n) {
-            ll aux; cin>>aux;
-            if(aux%2==0) {
-                evens.push_back(aux);
+            cin>>mons[i];
+        }
+        F0R(i, n) {
+            cin>>pos[i];
+        }
+
+        F0R(i, n) {
+            if(pos[i]<0) {
+                left.push(mp(pos[i], mons[i]));
             }else {
-                odds.push_back(aux);
+                right.push(mp(pos[i], mons[i]));
             }
         }
-<<<<<<< HEAD
-        sort(evens.begin(), evens.end());
-        sort(odds.begin(), odds.end());
-        if(evens.size()%2==0 && odds.size()%2==0) {
-            cout << "YES\n";
-=======
-        sor(evens);
-        sor(odds);
-        if(evens.size()%2==0 && odds.size()%2==0) {
-            cout << "YES\n";
-        }else {
-            bool flag = false;
-            F0R(i, evens.size()) {
-                F0R(j, odds.size()) {
-                    if(abs(evens[i]-odds[j])==1) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if(flag) break;
+        ll h1 = 0, h2 = 0;
+        ll it = 0
+        while(true) {
+            if(!left.empty()) {
+                
             }
-            if(flag) {
-                cout << "YES\n";
-            }else {
-                cout << "NO\n";
-            }
->>>>>>> 9585e83b688f3a86d45b5d9c82b8eb4eed6a2d63
+        }
+        if(!left.empty()) {
+            cout << left.top().f << " " << left.top().s << "\n";
         }
     }
     return 0;

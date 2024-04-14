@@ -1,12 +1,9 @@
+#pragma GCC optimize("O3,unroll-loops")
+#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
 
-using ll = long long;
-using ld = long double;
 using namespace std;
 
-<<<<<<< HEAD
-#define FOR(i, a, b) for (int i = (a); i < (b); ++i)
-=======
 #ifdef LOCAL
    #include "helpers/debug.h" 
 #else
@@ -57,7 +54,6 @@ using vpd = V<pd>;
 
 // Loops
 #define FOR(i, a, b) for (ll i = (a); i < (b); ++i)
->>>>>>> 9585e83b688f3a86d45b5d9c82b8eb4eed6a2d63
 #define F0R(i, a) FOR(i, 0, a)
 #define ROF(i, a, b) for (ll i = (b)-1; i >= (a); --i)
 #define R0F(i, a) ROF(i, 0, a)
@@ -68,53 +64,59 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin>>t;
-<<<<<<< HEAD
-    while(t--) {
-        int n; cin>>n;
-        vector<ll>evens;
-        vector<ll>odds;
-=======
     while(t--){
-        ll n; cin>>n;
-        vl evens;
-        vl odds;
->>>>>>> 9585e83b688f3a86d45b5d9c82b8eb4eed6a2d63
+        int n; cin>>n;
+        vi arr(n);
         F0R(i, n) {
-            ll aux; cin>>aux;
-            if(aux%2==0) {
-                evens.push_back(aux);
-            }else {
-                odds.push_back(aux);
+            cin>>arr[i];
+        }
+        int indX = -1, indY = -1;
+        F0R(i, n) {
+            if(arr[i]==1) {
+                indX=i;
+                break;
             }
         }
-<<<<<<< HEAD
-        sort(evens.begin(), evens.end());
-        sort(odds.begin(), odds.end());
-        if(evens.size()%2==0 && odds.size()%2==0) {
-            cout << "YES\n";
-=======
-        sor(evens);
-        sor(odds);
-        if(evens.size()%2==0 && odds.size()%2==0) {
-            cout << "YES\n";
+        R0F(i, n) {
+            if(arr[i]==1) {
+                indY=i;
+                break;
+            }
+        }
+        if(indX==indY || indX==-1 || indY==-1) {
+            cout << 0 << "\n";
         }else {
-            bool flag = false;
-            F0R(i, evens.size()) {
-                F0R(j, odds.size()) {
-                    if(abs(evens[i]-odds[j])==1) {
-                        flag = true;
-                        break;
-                    }
+            ll cnt = 0;
+            FOR(i, indX, indY) {
+                if(arr[i]==0) {
+                    cnt++;
                 }
-                if(flag) break;
             }
-            if(flag) {
-                cout << "YES\n";
-            }else {
-                cout << "NO\n";
-            }
->>>>>>> 9585e83b688f3a86d45b5d9c82b8eb4eed6a2d63
+                cout << cnt << "\n";
         }
+        // bool f1=false, f2=false;
+        // int i = 0, j=n-1;
+        // while(i < j) {
+        //     if(!f1 && arr[i]==1) {
+        //         f1 = true;
+        //         indX=i;
+        //     }
+        //     if(!f2 && arr[j]==1) {
+        //         f2 = true;
+        //         indY=j;
+        //     }
+        //     i++; j--;
+        //     if(f1 && f2) break;
+        // }
+        // if(indX==-1 || indY==-1) {
+        //     cout << 0 << "\n";
+        // }else {
+        //     int count = 0;
+        //     FOR(i, indX, indY) {
+        //         if(arr[i]==0) count++;
+        //     }
+        //     cout << count << "\n";
+        // }
     }
     return 0;
 }
