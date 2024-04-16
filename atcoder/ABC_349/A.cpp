@@ -52,6 +52,12 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   int n; cin>>n;
+   ll sum = 0;
+   F0R(i, n-1) {
+      ll aux; cin>>aux;
+      sum+=aux;
+   }
+   cout << (0-sum);
    return 0;
 }

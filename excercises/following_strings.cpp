@@ -52,6 +52,34 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   int t; cin>>t;
+   while(t--) {
+      ll n; cin>>n;
+      vpl arr;
+      F0R(i, n) {
+         ll aux; cin>>aux;
+         arr.push_back(mp(aux, i));
+      }
+      sor(arr);
+      arr.push_back(mp(-1, -1));
+      vector<char> res(n);
+      ll curr = arr[0].f;
+      ll c = 0;
+      F0R(i, n) {
+         if(arr[i].f == curr) {
+            res[arr[i].s] = char('a'+c); 
+            c++;
+         }else {
+            curr = arr[i].f;
+            c = 0;
+            res[arr[i].s] = char('a'+c);
+            c++;
+         }
+      }
+      F0R(i, n) {
+         cout << res[i];
+      }
+      cout << "\n";
+   }
    return 0;
 }

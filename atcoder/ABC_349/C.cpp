@@ -52,6 +52,32 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   str s, n; cin>>s>>n;
+   str aux = n;
+   reverse(all(aux));
+   str res = "";
+   F0R(i, s.size()) {
+      if(aux.size()==0) break;
+      if(toupper(s[i])==aux[aux.size()-1]) {
+         res.push_back(aux[aux.size()-1]);
+         aux.pop_back();
+      }
+   }
+   if(res.size()==2) {
+      res.push_back('X');
+      if(res==n) {
+         cout << "Yes";
+      }else {
+         cout << "No";
+      }
+   }else if(res.size()==3) {
+      if(res==n) {
+         cout << "Yes";
+      }else {
+         cout << "No";
+      }
+   }else {
+      cout << "No";
+   }
    return 0;
 }

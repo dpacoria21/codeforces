@@ -52,6 +52,23 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   ll n, b, d; cin>>n>>b>>d;
+   vl ogs(n);
+   F0R(i, n) {
+      cin>>ogs[i];
+   }
+   ll v = 0;
+   ll count = 0;
+   F0R(i, n){
+      if(ogs[i]<=b) {
+         v+=ogs[i];
+      }
+
+      if(v > d) {
+         count++;
+         v = 0;
+      }
+   }
+   cout << count << "\n";
    return 0;
 }

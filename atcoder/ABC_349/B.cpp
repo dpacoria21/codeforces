@@ -52,6 +52,32 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   str s; cin>>s;
+   map<char, ll>rep;
+   F0R(i, s.size()) {
+      if(rep[s[i]]) {
+         rep[s[i]]++;
+      }else {
+         rep[s[i]] = 1;
+      }
+   }
+   map<ll, ll>counts;
+   each(a, rep) {
+      if(counts[a.second]) {
+         counts[a.second]++;
+      }else {
+         counts[a.second] = 1;
+      }
+   }
+   bool flag = true;
+   each(a, counts) {
+      if(a.second == 2 || a.second==0) {
+         continue;
+      }else {
+         flag = false;
+         break;
+      }
+   }
+   cout << (flag ? "Yes" : "No") << "\n";
    return 0;
 }
