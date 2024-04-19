@@ -52,31 +52,42 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   str s; cin>>s;
-   map<char, ll>map;
-   F0R(i, s.size()) {
-      map[s[i]]++;
-   }
-   ll evens = 0;
-   ll odds = 0;
-   ll acum = 0;
-   each(a, map) {
-      if(a.s%2 == 0) {
-         evens+=a.s;
+   ll n; cin>>n;
+   vpl arr;
+   map<ll, ll>map;
+   FOR(i, 0, n) {
+      ll aux; cin>>aux;
+      arr.push_back(mp(aux, i));
+      if(map[aux]) {
+         map[aux]++;
       }else {
-         odds++;
-         acum+=a.s;
+         map[aux] = 1;
       }
    }
-   if(odds<=1) {
-      cout << "First" << "\n";
-   }else {
-      if(acum%2==0) {
-         cout << "Second" << "\n";
+   sor(arr);
+   vpl res;
+   FOR(i, 0, n) {
+      if(map[arr[i].f] >= 2) {
+         bool flag = true;
+         ll pa = abs(arr[i].s-arr[i+1].s);
+         FOR(j, i, i+map[arr[i].f]-1) {
+            if(pa != abs(arr[j].s-arr[j+1].s)) {
+               flag = false;
+               break;
+            } 
+         }
+         if(flag) {
+            res.pb(mp(arr[i].f, (arr[i+1].s - arr[i].s)));
+         }
+         i+=map[arr[i].f]-1;
       }else {
-         cout << "First" << "\n";
+         res.pb(mp(arr[i].f, 0));
       }
    }
-   
+   cout << res.size() << "\n";
+   each(a, res) {
+      cout << a.f << " " << a.s << "\n";
+   }
+
    return 0;
 }

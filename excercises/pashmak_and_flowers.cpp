@@ -52,31 +52,33 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   str s; cin>>s;
-   map<char, ll>map;
-   F0R(i, s.size()) {
-      map[s[i]]++;
-   }
-   ll evens = 0;
-   ll odds = 0;
-   ll acum = 0;
-   each(a, map) {
-      if(a.s%2 == 0) {
-         evens+=a.s;
+   ll n; cin>>n;
+   vl arr(n);
+   map<ll,ll>map;
+   F0R(i, n) {
+      cin>>arr[i];
+      if(map[arr[i]]) {
+         map[arr[i]]++;
       }else {
-         odds++;
-         acum+=a.s;
+         map[arr[i]]=1;
       }
    }
-   if(odds<=1) {
-      cout << "First" << "\n";
+   sor(arr);
+   ll cnt = 0;
+   ll maxi = arr[n-1]-arr[0];
+   F0R(i, n){
+      if(map[arr[i]+maxi] || map[arr[i]-maxi]) {
+         if(map[maxi+arr[i]]) cnt+=map[maxi+arr[i]];
+         if(map[arr[i]-maxi]) cnt+=map[arr[i]-maxi];
+      }
+   }
+
+   if(maxi == 0) {
+      cout << maxi << " " << (n*(n-1))/2;
    }else {
-      if(acum%2==0) {
-         cout << "Second" << "\n";
-      }else {
-         cout << "First" << "\n";
-      }
+      cout << maxi << " " << cnt/2;
    }
-   
+
+
    return 0;
 }
