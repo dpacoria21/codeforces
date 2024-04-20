@@ -53,5 +53,19 @@ int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
    
+   int x, y, a, b; cin>>x>>y>>a>>b;
+   vpl res;
+   FOR(i, a, x+1) {
+      FOR(j, b, y+1) {
+         if(i>j) {
+            res.push_back(mp(i, j));
+         }
+      }
+   }
+   cout << res.size() << "\n";
+   each(a, res) {
+      cout << a.f << " " << a.s << "\n";
+   }
+   
    return 0;
 }
