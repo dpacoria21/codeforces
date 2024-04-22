@@ -52,6 +52,34 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   int n; cin>>n;
+   ll sx, sy, ex, ey; cin>>sx>>sy>>ex>>ey;
+   str s; cin>>s;
+   ll diffx = ex-sx;
+   ll diffy = ey-sy;
+   char exes = diffx<0?'W':'E';
+   char eyes = diffy<0?'S':'N';
+   if(diffx==0 && diffy==0) {
+      cout << 0 << "\n";
+   }else {
+      ll cnt = 0;
+      each(a, s) {
+         if(diffx==0 && diffy==0) {
+            break;
+         }
+         if(a==exes && diffx!=0) {
+            diffx = diffx + (exes=='E'?-1:1);
+         }
+         if(a==eyes && diffy!=0) {
+            diffy = diffy + (eyes=='N'?-1:1);
+         }
+         cnt++;
+      }
+      if(diffx==0 && diffy==0) {
+         cout << cnt << "\n";
+      }else {
+         cout << -1 << "\n";
+      }
+   }
    return 0;
 }
