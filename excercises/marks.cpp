@@ -52,6 +52,30 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   int n, m; cin>>n>>m;
+   vector<str>stds;
+   vector<bool>tops(n, false);
+   F0R(i, n) {
+    str aux; cin>>aux;
+    stds.pb(aux);
+   }
+   F0R(i, m) {
+    int maxi = INT_MIN;
+    F0R(j, n) {
+        int num = stds[j][i] - '0';
+        maxi = max(maxi, num);
+    }
+    F0R(j, n) {
+      int num = stds[j][i] - '0';
+      if(maxi==num){
+         tops[j]=true;
+      }
+    }
+   }
+   int cnt = 0;
+   F0R(i, tops.size()) {
+      if(tops[i]) cnt++;
+   }
+   cout << cnt;
    return 0;
 }

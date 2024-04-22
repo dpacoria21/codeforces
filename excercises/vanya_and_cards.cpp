@@ -52,6 +52,18 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   int n, x; cin>>n>>x;
+   ll acum = 0;
+   F0R(i, n) {
+      ll aux; cin>>aux;
+      acum+=aux;
+   }
+   if(acum == 0) {
+      cout << 0 << "\n";
+   }else if(abs(acum) <= abs(x)) {
+      cout << 1 << "\n";
+   }else{
+      cout << ll(ceil(db(abs(acum))/abs(x))) << "\n";
+   }
    return 0;
 }

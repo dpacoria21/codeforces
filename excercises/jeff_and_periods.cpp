@@ -52,6 +52,42 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   ll n; cin>>n;
+   vpl arr;
+   map<ll, ll>map;
+   FOR(i, 0, n) {
+      ll aux; cin>>aux;
+      arr.push_back(mp(aux, i));
+      if(map[aux]) {
+         map[aux]++;
+      }else {
+         map[aux] = 1;
+      }
+   }
+   sor(arr);
+   vpl res;
+   FOR(i, 0, n) {
+      if(map[arr[i].f] >= 2) {
+         bool flag = true;
+         ll pa = abs(arr[i].s-arr[i+1].s);
+         FOR(j, i, i+map[arr[i].f]-1) {
+            if(pa != abs(arr[j].s-arr[j+1].s)) {
+               flag = false;
+               break;
+            } 
+         }
+         if(flag) {
+            res.pb(mp(arr[i].f, (arr[i+1].s - arr[i].s)));
+         }
+         i+=map[arr[i].f]-1;
+      }else {
+         res.pb(mp(arr[i].f, 0));
+      }
+   }
+   cout << res.size() << "\n";
+   each(a, res) {
+      cout << a.f << " " << a.s << "\n";
+   }
+
    return 0;
 }

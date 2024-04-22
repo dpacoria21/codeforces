@@ -52,6 +52,25 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
+   bool flag = true;
+   vector<str>s;
+   F0R(i, 8) {
+      str aux = "";
+      F0R(j, 8) {
+         char a; cin>>a;
+         aux.push_back(a);
+      }
+      s.push_back(aux);
+   }
+
+   F0R(i, 8) {
+      F0R(j, 7) {
+         if(s[i][j]==s[i][j+1]) {
+            flag = false;
+         }
+      }
+   }
+   cout << (flag?"YES":"NO");
    
    return 0;
 }

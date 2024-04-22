@@ -52,6 +52,40 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   int n, m; cin>>n>>m;
+   char arr[n][m];
+   vector<string>s;
+   char init;
+   FOR(i,0, n) {
+      if(i%2==0) {
+         init = 'B';
+      }else {
+         init = 'W';
+      }
+      str aux = "";
+      FOR(j, 0, m) {
+         char c; cin>>c;
+         if(c!='-') {
+            if(init == 'B') {
+               aux.push_back('B');
+               init = 'W';
+            }else {
+               aux.push_back('W');
+               init = 'B';
+            }
+         }else {
+            aux.push_back('-');
+            if(init == 'B') {
+               init = 'W';
+            }else {
+               init = 'B';
+            }
+         }
+      }
+      s.push_back(aux);
+   }
+   F0R(i, s.size()) {
+      cout << s[i] << "\n";
+   }
    return 0;
 }

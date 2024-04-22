@@ -52,6 +52,46 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
+   int n; cin>>n;
+   vl pos, negs, zeros;
+   F0R(i, n) {
+      ll aux; cin>>aux;
+      if(aux < 0) {
+         negs.push_back(aux);
+      }else if(aux>0) {
+         pos.push_back(aux);
+      }else {
+         zeros.push_back(aux);
+      }
+   }
+
+   if(pos.size()==0) {
+      pos.push_back(negs.back());
+      negs.pop_back();
+      pos.pb(negs.back());
+      negs.pop_back();
+   }
+   if(negs.size()%2==0) {
+      zeros.pb(negs.back());
+      negs.pop_back();
+   }
+   cout << negs.size() << " ";
+   each(a, negs) {
+      cout << a << " ";
+   }
+   cout << "\n";
+
+   cout << pos.size() << " ";
+   each(a, pos) {
+      cout << a << " ";
+   }
+   cout << "\n";
+
+   cout << zeros.size() << " ";
+   each(a, zeros) {
+      cout << a << " ";
+   }
+
    
    return 0;
 }

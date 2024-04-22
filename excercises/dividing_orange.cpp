@@ -52,6 +52,28 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   ll n, k; cin>>n>>k;
+   vector<vector<ll>>segs(k);
+   map<ll,ll>map;
+   F0R(i, k) {
+      ll aux; cin>>aux;
+      map[aux]++;
+      segs[i].push_back(aux);
+   }
+
+   ll idx = 0;
+
+   FOR(i, 1, (n*k)+1) {
+      if(!map[i]) {
+         segs[idx].push_back(i);
+         if(segs[idx].size()==n) idx++;
+      }
+   }
+   each(a, segs) {
+      each(b, a) {
+         cout << b << " ";
+      }
+      cout << "\n";
+   }
    return 0;
 }
