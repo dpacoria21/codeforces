@@ -52,6 +52,53 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   int t; cin>>t;
+   while(t--) {
+      ll n, k; cin>>n>>k;
+      // vl arr(n);
+      ll sum = 0;
+      deque<ll>ships;
+      F0R(i, n) {
+         ll aux; cin>>aux;
+         sum += aux;
+         ships.push_back(aux);
+      }
+
+      ll r = (k+1)/2;
+      ll l = k-r;
+      if(k >= sum) {
+         cout << n << "\n";
+      }else {
+         ll cnt = 0;
+         while(r!=0 || l!=0) {
+            if(r!=0) {
+               if(r>=ships.front()) {
+                  r-=ships.front();
+                  ships.pop_front();
+                  cnt++;
+               }else {
+                  ll aux = ships.front()-r;
+                  r=0;
+                  ships.pop_front();
+                  ships.push_front(aux);
+               }
+            } 
+            if(l!=0) {
+               if(l>=ships.back()) {
+                  l-=ships.back();
+                  ships.pop_back();
+                  cnt++;
+               }else {
+                  ll aux = ships.back()-l;
+                  l=0;
+                  ships.pop_back();
+                  ships.push_back(aux);
+               }
+            }
+         }
+         cout << cnt << "\n";
+      }
+
+   }
    return 0;
 }

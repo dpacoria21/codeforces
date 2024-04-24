@@ -49,9 +49,47 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+void solve(vl arr, map<ll,ll>map) {
+   bool flag = true; 
+   F0R(i, arr.size()) {
+      if(!map[arr[i]]) {
+         flag = false;
+         break;
+      }
+   }
+   cout << (flag?"YES":"NO") << "\n";
+}
+
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
+   int t; cin>>t;
+   while(t--) {
+      map<ll,ll>org;
+      map<ll,ll>rep;
+      ll n, c, d; cin>>n>>c>>d;
+      vl arr(n*n);
+      F0R(i, n*n) {
+         cin>>arr[i];
+         rep[arr[i]]++;
+      }
+      sor(arr);
+      ll fEl = arr[0];
+      FOR(i, 0, n) {
+         FOR(j, 0, n) {
+            org[(j*d)+fEl]++;
+         }
+         fEl+=c;
+      }
+      bool flag = true;
+      each(b, rep) {
+         if(org[b.f] != b.s) {
+            flag = false;
+            break;
+         }
+      }
+      cout << (flag?"YES":"NO") << "\n";
    
+   }
    return 0;
 }

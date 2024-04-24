@@ -52,6 +52,17 @@ using vpd = V<pd>;
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   int t; cin>>t;
+   while(t--) {
+      int n, a, b; cin>>n>>a>>b;
+      int r1 = n*a;
+      int r2 = (n/2)*b;
+      if(n%2!=0) r2+=a;
+      if(r1 > r2) {
+         cout << r2 << "\n";
+      }else {
+         cout << r1 << "\n";
+      }
+   }
    return 0;
 }

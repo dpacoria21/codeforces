@@ -49,9 +49,47 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+void solve(ll n, ll m, ll k, vl a, vl b) {
+   multiset<ll>a1;
+   each(el, a) {
+      a1.insert(el);
+   }
+   ll cnt = 0;
+   each(el, b) {
+      if(a1.find(el)!=a1.end()) {
+         a1.erase(a1.find(el));
+         cnt++;
+      }
+   }
+   each(el, a1) {
+      cout << el << " ";
+   }
+   if(k < cnt) {
+      
+   }else if(k==cnt) {
+      cout << 1 << "\n";
+   }else {
+      cout << 0 << "\n";
+   }
+}
+
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(nullptr);
-   
+   int t; cin>>t;
+   while(t--) {
+      ll n, m, k; cin>>n>>m>>k;
+      vl a(n);
+      vl b(m);
+      F0R(i, n) {
+         cin>>a[i];
+      }
+      F0R(i, m) {
+         cin>>b[i];
+      }
+
+      solve(n, m, k, a, b);
+
+   }
    return 0;
 }
