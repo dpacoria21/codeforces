@@ -49,37 +49,19 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+void solve(){
+    str s1, s2; cin>>s1>>s2;
+    str sum1 = to_string(stoi(s1)+stoi(s2));
+    s1.erase(remove(s1.begin(), s1.end(), '0'), s1.end());
+    s2.erase(remove(s2.begin(), s2.end(), '0'), s2.end());
+    sum1.erase(remove(sum1.begin(), sum1.end(), '0'), sum1.end());
+    str sum2 = to_string(stoi(s1)+stoi(s2));
+    cout << (sum1==sum2?"YES":"NO") << "\n";
+}
+
 int main() {
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   int t; cin>>t;
-   while(t--) {
-      ll n, k; cin>>n>>k;
-      map<ll,ll>mons;
-      vl hp(n);
-      vl pos(n);
-      FOR(i, 0, n) {
-         cin>>hp[i];
-      }
-      FOR(i, 0, n) {
-         cin>>pos[i];
-      }
-      F0R(i, n) {
-         mons[abs(pos[i])] += hp[i];
-      }
-      ll shoots = 0;
-      bool flag = true;
-      FOR(i, 1, n+1) {
-         if(k+shoots > mons[i]) {
-            shoots = (k+shoots)-mons[i]; 
-         }else if((k+shoots)==mons[i]) {
-            shoots = 0;
-         }else {
-            flag = false;
-            break;
-         }
-      }
-      cout << (flag?"YES":"NO") << "\n";
-   }
-   return 0;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    solve();
+    return 0;
 }

@@ -49,37 +49,26 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+void solve(){
+    str s; cin>>s;
+    ll sum = 0;
+    str sum1 = s;
+    ll cnt = 0;
+    while(sum1.size()>1) {
+        sum = 0;
+        F0R(i, sum1.size()) {
+            ll aux = sum1[i]-'0';
+            sum+=aux;
+        }
+        sum1 = to_string(sum);
+        cnt++;
+    }
+    cout << cnt << "\n";
+}
+
 int main() {
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   int t; cin>>t;
-   while(t--) {
-      ll n, k; cin>>n>>k;
-      map<ll,ll>mons;
-      vl hp(n);
-      vl pos(n);
-      FOR(i, 0, n) {
-         cin>>hp[i];
-      }
-      FOR(i, 0, n) {
-         cin>>pos[i];
-      }
-      F0R(i, n) {
-         mons[abs(pos[i])] += hp[i];
-      }
-      ll shoots = 0;
-      bool flag = true;
-      FOR(i, 1, n+1) {
-         if(k+shoots > mons[i]) {
-            shoots = (k+shoots)-mons[i]; 
-         }else if((k+shoots)==mons[i]) {
-            shoots = 0;
-         }else {
-            flag = false;
-            break;
-         }
-      }
-      cout << (flag?"YES":"NO") << "\n";
-   }
-   return 0;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    solve();
+    return 0;
 }

@@ -49,9 +49,13 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+void solve(){
+    
+}
+
 int main() {
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   
-   return 0;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    solve();
+    return 0;
 }
