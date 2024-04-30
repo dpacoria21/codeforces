@@ -50,26 +50,17 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-    ll n, a, b; cin>>n>>a>>b;
-    vl arr(n);
-    F0R(i, n) {
-        cin>>arr[i];
+    ll sum1 = 0;
+    F0R(i, 9) {
+        ll aux; cin>>aux;
+        sum1+=aux;
     }
-    F0R(i, n) {
-        arr[i] %= (a+b);
+    ll sum2 = 0;
+    F0R(i, 8) {
+        ll aux; cin>>aux;
+        sum2+=aux;
     }
-    sor(arr);
-    arr.erase(unique(all(arr)), arr.end());
-    ll p = arr[arr.size()-1]-arr[0]+1;
-    F0R(i, arr.size()-1) {
-        p = min(p, arr[i]+a+b+1-arr[i+1]);
-    }
-    if(p<=a){
-        cout << "Yes\n";
-    }else {
-        cout << "No\n";
-    }
-
+    cout << sum1-sum2+1 << "\n";
 }
 
 int main() {

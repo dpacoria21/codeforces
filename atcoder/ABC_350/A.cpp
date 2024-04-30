@@ -50,26 +50,18 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-    ll n, a, b; cin>>n>>a>>b;
-    vl arr(n);
-    F0R(i, n) {
-        cin>>arr[i];
-    }
-    F0R(i, n) {
-        arr[i] %= (a+b);
-    }
-    sor(arr);
-    arr.erase(unique(all(arr)), arr.end());
-    ll p = arr[arr.size()-1]-arr[0]+1;
-    F0R(i, arr.size()-1) {
-        p = min(p, arr[i]+a+b+1-arr[i+1]);
-    }
-    if(p<=a){
-        cout << "Yes\n";
+    str s; cin>>s;
+    str s1 = s.substr(0,3);
+    ll s2 = stoi(s.substr(3,3));
+    if(s1=="ABC" && s2 <= 349 && s2>0) {
+        if(s2==316) {
+            cout << "No";
+        }else {
+            cout << "Yes";
+        }
     }else {
-        cout << "No\n";
+        cout << "No";
     }
-
 }
 
 int main() {

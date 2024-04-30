@@ -50,26 +50,31 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-    ll n, a, b; cin>>n>>a>>b;
-    vl arr(n);
-    F0R(i, n) {
-        cin>>arr[i];
-    }
-    F0R(i, n) {
-        arr[i] %= (a+b);
-    }
-    sor(arr);
-    arr.erase(unique(all(arr)), arr.end());
-    ll p = arr[arr.size()-1]-arr[0]+1;
-    F0R(i, arr.size()-1) {
-        p = min(p, arr[i]+a+b+1-arr[i+1]);
-    }
-    if(p<=a){
-        cout << "Yes\n";
-    }else {
-        cout << "No\n";
+    int n; cin>>n;
+    map<ll, pair<ll,ll>>p;
+    FOR(i, 1 , n+1) {
+        ll aux; cin>>aux;
+        p[i] = mp(aux, i);
     }
 
+    vpl res;
+    FOR(i, 1, n+1) {
+        if(p[i].f!=i) {
+            pair<ll,ll> aux = p[i];
+            pair<ll,ll> aux2 = p[p[i].f];
+            ll c = aux.s;
+            aux.s = aux2.s;
+            aux2.s = c;
+            p[p[i].f] = aux;
+            p[i] = aux2;
+            res.push_back(mp(min(aux.s, aux2.s), max(aux.s, aux2.s)));
+            i--;    
+        }
+    }
+    cout << res.size() << "\n";
+    each(a, res) {
+        cout << a.f << " " << a.s << "\n";
+    }
 }
 
 int main() {

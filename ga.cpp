@@ -50,7 +50,22 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-    
+    int n; cin>>n;
+    vl arr(n);
+    F0R(i, n) {
+        cin>>arr[i];
+    }
+    vl res;
+    F0R(i, n) {
+        res.pb(arr[i]);
+        while(res.size()>=2 && res[res.size()-1]==res[res.size()-2]) {
+            ll aux = res.back();
+            res.pop_back();
+            res.pop_back();
+            res.pb(aux+1);
+        }
+    }
+    cout << res.size();
 }
 
 int main() {
