@@ -49,11 +49,41 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-void solve() {
-    
+void solve()
+{
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        ll a, b, c;
+        cin >> a >> b >> c;
+        ll ans = a;
+        ll mini = (b % 3);
+        if (mini == 1 && c >= 2)
+        {
+        }
+        else if (mini == 2 && c >= 1)
+        {
+        }
+        else if (mini == 0)
+        {
+        }
+        else
+        {
+            cout << -1 << "\n";
+            continue;
+        }
+        ans += (b + c) / 3;
+        if ((b + c) % 3 != 0)
+        {
+            ans++;
+        }
+        cout << ans << "\n";
+    }
 }
 
-int main() {
+int main()
+{
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     solve();
