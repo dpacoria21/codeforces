@@ -50,12 +50,35 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    
+    int n; cin>>n;
+    vl arr(n);
+    F0R(i, n) {
+        cin>>arr[i];
+    }
+    vl res(n, 0);
+    F0R(i, n-2) {
+        ll aux = (res[i]-arr[i]);
+        res[i]+=abs(aux);   
+        res[i+1]+=abs(aux)*2;   
+        res[i+2]+=abs(aux);   
+    }
+    // each(a, res) {
+    //     cout << a << " ";
+    // }
+    // cout << "\n";
+    F0R(i, n) {
+        if(res[i]!=arr[i]) {
+            cout <<"NO\n";
+            return;
+        }
+    }
+    cout << "YES\n";
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    solve();
+    int t; cin>>t;
+    while(t--) solve();
     return 0;
 }

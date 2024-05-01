@@ -49,13 +49,51 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+// solution:
+    // The problem required only when the ball reaches the end
+    // I used two sets in an array because you can alternate when you finish with a ball and continue with other
+    // *(wins[idx].begin()) permite obtener el primer elemento del set y asi poder iterar en este mismo
+
 void solve() {
+    ll n, m, x; cin>>n>>m>>x;
+    vector<pair<ll, char>>movs;
+    F0R(i, m) {
+        ll c; cin>>c;
+        char s; cin>>s;
+        movs.push_back(mp(c, s));
+    }
+    set<ll>wins[2];
+    int idx = 0;
+    wins[idx].insert(x);
     
+    F0R(i, m) {
+
+        while(!wins[idx].empty()) {
+            ll u = *(wins[idx].begin());
+            wins[idx].erase(u);
+            ll r = (u+movs[i].f > n) ? (u+movs[i].f)%n : u+movs[i].f;
+            ll l = (u-movs[i].f <= 0) ? n-abs(u-movs[i].f) : u-movs[i].f;
+            if(movs[i].s == '?' || movs[i].s == '0') {
+                wins[(idx)?0:1].insert(r);
+            }
+            if(movs[i].s=='?' || movs[i].s == '1') {
+                wins[(idx)?0:1].insert(l);
+            }
+        }
+        idx = idx?0:1;
+        
+    }
+    cout << wins[idx].size() << "\n";
+    each(a, wins[idx]) {
+        cout << a << " ";
+    }
+    cout << "\n";
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    solve();
+    int t; cin>>t;
+    while(t--) solve();
     return 0;
 }
