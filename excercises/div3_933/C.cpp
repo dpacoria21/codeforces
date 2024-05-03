@@ -50,12 +50,23 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    
+    int n; cin>>n;
+    str s; cin>>s;
+    ll cnt = 0;
+    F0R(i, n-2) {
+        str word = s.substr(i, 3);
+        if(word == "pie" || word == "map") {
+            cnt++;
+            i+=2;
+        }
+    }
+    cout << cnt << "\n";
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    solve();
+    int t; cin>>t;
+    while(t--) solve();
     return 0;
 }

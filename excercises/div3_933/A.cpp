@@ -50,12 +50,34 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    
+    int n, m, k; cin>>n>>m>>k;
+    vl bs(n);
+    vl cs(m);
+    F0R(i, n) {
+        cin>>bs[i];
+    }
+    F0R(i, m) {
+        cin>>cs[i];
+    }
+    // sor(bs);
+    // sor(cs);
+    vl res;
+    ll maxi = 0;
+    F0R(i, n) {
+        ll aux = 0;
+        F0R(j, m) {
+            if(bs[i]+cs[j]<=k) aux++;
+        }
+        maxi += aux;
+    }
+    cout << maxi << "\n";
+
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    solve();
+    int t; cin>>t;
+    while(t--) solve();
     return 0;
 }
