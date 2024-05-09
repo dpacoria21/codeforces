@@ -50,21 +50,32 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    ll n; cin>>n;
-    vl arr(n-1);
-    F0R(i, n-1) {
-        cin>>arr[i];
+    int n; cin>>n;
+    str s; cin>>s;
+    bool flag = true;
+    bool win = true;
+    bool isDraw = false;
+    while(flag && isDraw==false && s.size()!=0) {
+        ll cnt = 0;
+        F0R(i, s.size()) {
+            if(s[i]!='D') {
+                int l = (i-1) < 0 ? s.size()-1 : i-1;
+                int r = (i+1) > s.size()-1 ? 0 : i+1;
+                s[l] = s[l]=='D' ? 'U' : 'D';
+                s[r] = s[r]=='D' ? 'U' : 'D';
+                s.erase(i, 1);
+                win = !win;
+                break;
+            }else {
+                cnt++;
+            }
+        }
+        if(cnt==s.size()) {
+            isDraw = true;
+            break;
+        }
     }
-    vl res;
-    ll aux = 25000;
-    res.pb(aux+25000);
-    F0R(i, arr.size()) {
-        res.pb(res[res.size()-1]+arr[i]);
-    }
-    each(a, res) {
-        cout << a << " ";
-    }
-    cout << "\n";
+    cout << (!win?"YES":"NO") << "\n";
 }
 
 int main() {

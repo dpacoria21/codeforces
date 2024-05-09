@@ -50,21 +50,27 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    ll n; cin>>n;
-    vl arr(n-1);
-    F0R(i, n-1) {
-        cin>>arr[i];
+    int n; cin>>n;
+    vl a(n);
+    vl b(n);
+    F0R(i, n) {
+        cin>>a[i];
     }
-    vl res;
-    ll aux = 25000;
-    res.pb(aux+25000);
-    F0R(i, arr.size()) {
-        res.pb(res[res.size()-1]+arr[i]);
+    F0R(i, n) {
+        cin>>b[i];
     }
-    each(a, res) {
-        cout << a << " ";
+    sor(a);
+    ll cnt = 0;
+    F0R(i, n) {
+        if(a[i] > b[i]) {
+            a.pop_back();
+            a.pb(b[i]);
+            sor(a);      
+            cnt++;
+        }
     }
-    cout << "\n";
+    cout << cnt << "\n";
+    
 }
 
 int main() {

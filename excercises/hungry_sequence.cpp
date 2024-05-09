@@ -50,27 +50,16 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    ll n; cin>>n;
-    vl arr(n-1);
-    F0R(i, n-1) {
-        cin>>arr[i];
+    int n; cin>>n;
+    ll res = 100000;
+    FOR(i, 1, n+1) {
+        cout << res+i << " ";
     }
-    vl res;
-    ll aux = 25000;
-    res.pb(aux+25000);
-    F0R(i, arr.size()) {
-        res.pb(res[res.size()-1]+arr[i]);
-    }
-    each(a, res) {
-        cout << a << " ";
-    }
-    cout << "\n";
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t; cin>>t;
-    while(t--) solve();
+    solve();
     return 0;
 }
