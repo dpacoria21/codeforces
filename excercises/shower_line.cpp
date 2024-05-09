@@ -50,42 +50,24 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-    int n; cin>>n;
-    map<ll, ll>map;
-    F0R(i, n) {
-        ll aux; cin>>aux;
-        map[aux]++;
-    }
-    
-    vector<string> arr;
-    F0R(i, n/3) {
-        if(map[1] && map[3] && map[6]) {
-            arr.pb("1 3 6");
-            map[1]--;
-            map[3]--;
-            map[6]--;
-            continue;
-        }else if(map[1] && map[2] && map[4]){
-            arr.pb("1 2 4");
-            map[1]--;
-            map[2]--;
-            map[4]--;
-            continue;
-        }else if(map[1] && map[2] && map[6]) {
-            arr.pb("1 2 6");
-            map[1]--;
-            map[2]--;
-            map[6]--;
-            continue;
-        }else {
-            cout << -1;
-            return;
+    int arr[5][5];
+    F0R(i, 5) {
+        F0R(j, 5) {
+            ll a; cin>>a;
+            arr[i][j] = a;
         }
     }
-    F0R(i, n/3) {
-    cout <<  arr[i] << "\n"; 
-    }
-    
+    vl pos = {0,1,2,3,4};
+    ll ans = LLONG_MIN;
+    do{
+        ll sum = 0;
+        FOR(i, 0, 4) {
+            sum+=arr[pos[i]][pos[i+1]]+arr[pos[i+1]][pos[i]];
+        }
+        sum+=arr[pos[4]][pos[3]]+arr[pos[3]][pos[4]] + arr[pos[3]][pos[2]] + arr[pos[2]][pos[3]];
+        ans = max(ans, sum);
+    }while(next_permutation(all(pos)));
+    cout << ans << "\n";
 }
 
 int main() {
