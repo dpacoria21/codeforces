@@ -50,7 +50,11 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    
+    int n; cin>>n;
+    F0R(i, n) {
+        int x, y; cin>>x>>y;
+        cout << min(x, y) << " " << max(x, y) << "\n";
+    }
 }
 
 int main() {

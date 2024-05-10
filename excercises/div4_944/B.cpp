@@ -50,12 +50,29 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    
+    str s; cin>>s;
+    char curr = s[0];
+    bool flag = false;
+    F0R(i, s.size()) {
+        if(curr != s[i]) {
+            flag = true;
+            break;
+        }
+        curr = s[i];
+    }
+    if(flag) {
+        next_permutation(all(s));
+        cout << "YES" << "\n";
+        cout << s << "\n";
+    }else {
+        cout << "NO" << "\n";
+    }
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    solve();
+    int t; cin>>t;
+    while(t--) solve();
     return 0;
 }

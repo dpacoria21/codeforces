@@ -50,12 +50,34 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    
+    ll a, b, c, d; cin>>a>>b>>c>>d;
+    ll idx = a;
+    bool flag1 = false;
+    while(idx != b) {
+        idx++;
+        if(idx==13) idx = 1;
+        if(idx==c || idx == d) {
+            flag1 = true;
+            break;
+        }
+    }
+    idx = a;
+    bool flag2 = false;
+    while(idx != b) {
+        idx--;
+        if(idx==0) idx = 12;
+        if(idx==c || idx == d) {
+            flag2 = true;
+            break;
+        }
+    }
+    cout << (flag1&&flag2 ? "YES" : "NO") << "\n";
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    solve();
+    int t; cin>>t;
+    while(t--) solve();
     return 0;
 }
