@@ -50,7 +50,34 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-    
+    int n; cin>>n;
+    str arr; cin>>arr;
+    bool flag1 = true, flag2 = true;
+    vl fh, sh;
+    F0R(i, arr.size()) {
+        if(i<n) {
+            int a = arr[i]-'0';
+            fh.pb(a);
+        }else {
+            int a = arr[i]-'0';
+            sh.pb(a);
+        }
+    }
+    sor(fh);
+    rsor(sh);
+    F0R(i, n) {
+        if(fh[i]<=sh[n-(i+1)]) {
+            flag2 = false;
+        }
+        if(fh[i]>=sh[n-(i+1)]) {
+            flag1 = false;
+        }
+    }
+    if(flag1 || flag2) {
+        cout << "YES";
+    }else {
+        cout << "NO";
+    }
 }
 
 int main() {

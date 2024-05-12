@@ -50,12 +50,26 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-    
+    str s; cin>>s;
+    int flag = 0;
+    ll cnt = 1;
+    F0R(i, s.size()-1) {
+        if(s[i]==s[i+1]) {
+            continue;
+        }else {
+            cnt++;
+        }
+        if(s[i]=='0' && s[i+1]=='1') {
+            flag = 1;
+        }
+    }
+    cout << (cnt-flag) << "\n";
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    solve();
+    int t; cin>>t;
+    while(t--) solve();
     return 0;
 }
