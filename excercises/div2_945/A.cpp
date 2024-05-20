@@ -50,14 +50,51 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    
+    int a, b, c; cin>>a>>b>>c;
+    if(a==b && b==c && a%2!=0) {
+        cout << -1 << "\n";
+    }else {
+        int cnt = 0;
+        if((c-b)%2!=0) {
+            if(a%2==0) {
+                cout << -1 << "\n";
+            }else {
+                int aux = a;
+                while(aux!=0) {
+                    if(c>=b) {
+                        c--;
+                    }else {
+                        b--;
+                    }
+                    aux--;
+                    cnt++;
+                }
+                cout << (cnt+min(b, c)) << "\n";
+            }
+        }else {
+            if(a%2!=0) {
+                cout << -1 << "\n";
+            }else {
+                int aux = a;
+                while(aux!=0) {
+                    if(c>=b) {
+                        c--;
+                    }else {
+                        b--;
+                    }
+                    aux--;
+                    cnt++;
+                }
+                cout << (cnt+min(b, c)) << "\n";
+            }
+        }
+    }
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin>>t;
-    // int t; t=1;
     while(t--) solve();
     return 0;
 }

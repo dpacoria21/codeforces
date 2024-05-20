@@ -50,14 +50,20 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    
+    ll  n, m, a, b; cin>>n>>m>>a>>b;
+    ll op1 = n*a;
+    ll op2 = (n/m) * b;
+    ll rest = n - (n/m)*m;
+    ll op3 = op2 + a*rest;
+    op2 = op2 + ((rest+m-1)/m)*b;
+    cout << min(op1, min(op2, op3));
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t; cin>>t;
-    // int t; t=1;
+    // int t; cin>>t;
+    int t; t=1;
     while(t--) solve();
     return 0;
 }

@@ -50,7 +50,23 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    
+    ll n; cin>>n;
+    ll lim = cbrt(n)+1;
+    ll i = 1, j=lim;
+    while(i<=j) {
+        ll res = i*i*i + j*j*j;
+        if(n==res) {
+            cout << "YES\n";
+            return;
+        }else if(res>n) {
+            j--;
+            continue;
+        }else {
+            i++;
+            continue;
+        }
+    }
+    cout << "NO\n";
 }
 
 int main() {
