@@ -1,5 +1,5 @@
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+// #pragma GCC optimize("O3,unroll-loops")
+// #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -49,23 +49,45 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-long long binpow(long long a, long long b) {
-    long long res = 1;
-    while (b > 0) {
-        if (b & 1)
-            res = res * a;
-        a = a * a;
-        b >>= 1;
-    }
-    return res;
-}
-
-void solve(){
-    ll n; cin>>n;
-    if(n%2==0) {
-        cout << binpow(2, n/2) << "\n";
+void solve() {
+    int a, b, c; cin>>a>>b>>c;
+    if(a==b && b==c && a%2!=0) {
+        cout << -1 << "\n";
     }else {
-        cout << 0 << "\n";
+        int cnt = 0;
+        if((c-b)%2!=0) {
+            if(a%2==0) {
+                cout << -1 << "\n";
+            }else {
+                int aux = a;
+                while(aux!=0) {
+                    if(c>=b) {
+                        c--;
+                    }else {
+                        b--;
+                    }
+                    aux--;
+                    cnt++;
+                }
+                cout << (cnt+min(b, c)) << "\n";
+            }
+        }else {
+            if(a%2!=0) {
+                cout << -1 << "\n";
+            }else {
+                int aux = a;
+                while(aux!=0) {
+                    if(c>=b) {
+                        c--;
+                    }else {
+                        b--;
+                    }
+                    aux--;
+                    cnt++;
+                }
+                cout << (cnt+min(b, c)) << "\n";
+            }
+        }
     }
 }
 
@@ -73,7 +95,6 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin>>t;
-    // int t; t=1;
     while(t--) solve();
     return 0;
 }

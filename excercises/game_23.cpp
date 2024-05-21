@@ -1,5 +1,5 @@
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+// #pragma GCC optimize("O3,unroll-loops")
+// #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -49,31 +49,34 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-long long binpow(long long a, long long b) {
-    long long res = 1;
-    while (b > 0) {
-        if (b & 1)
-            res = res * a;
-        a = a * a;
-        b >>= 1;
-    }
-    return res;
-}
-
-void solve(){
-    ll n; cin>>n;
-    if(n%2==0) {
-        cout << binpow(2, n/2) << "\n";
+void solve() {
+    ll n, m; cin>>n>>m;
+    if(m%n==0) {
+        m /= n;
+        ll cnt = 0;
+        while(m%2==0) {
+            m /=2;
+            cnt++;
+        }
+        while(m%3==0) {
+            m/=3;
+            cnt++;
+        }
+        if(m!=1) {
+            cout << -1 << "\n";
+        }else {
+            cout << cnt << "\n";
+        }
     }else {
-        cout << 0 << "\n";
+        cout << -1 << "\n";
     }
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t; cin>>t;
-    // int t; t=1;
+    // int t; cin>>t;
+    int t; t=1;
     while(t--) solve();
     return 0;
 }
