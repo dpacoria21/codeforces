@@ -49,29 +49,41 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-long long binpow(long long a, long long b) {
-    long long res = 1;
-    while (b > 0) {
-        if (b & 1)
-            res = res * a;
-        a = a * a;
-        b >>= 1;
-    }
-    return res;
-}
-
 void solve(){
-    ll n; cin>>n;
-    if(n%2==0) {
-        cout << binpow(2, n/2) << "\n";
-    }else {
-        cout << 0 << "\n";
+    str s, t; cin>>s>>t;
+    str aux = s;
+    if(s.size() < t.size()) {
+        s = t;
+        t = aux;
     }
+
+    int x = s.size();
+    int y = t.size();
+    int gcd = __gcd(x, y);
+    int lcm = (x*y)/gcd;
+    int lim = lcm/y;
+    str word = "";
+    F0R(i, lim) {
+        word+=t;
+    }
+    int cnt = 0;
+    F0R(i, word.size()) {
+        if(cnt>s.size()-1) {
+            cnt %= s.size();
+        }
+        if(s[cnt]!=word[i]) {
+            cout << -1 << "\n";
+            return;
+        }
+        cnt++;
+    }
+    cout << word << "\n";
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    solve();
+    int t; cin >> t;
+    while(t--) solve();
     return 0;
 }
