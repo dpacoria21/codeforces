@@ -50,14 +50,28 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    
+    int n; cin>>n;
+    vl arr(n);
+    F0R(i, n) {
+        cin>>arr[i];
+    }
+    sor(arr);
+    ll sum = 0;
+    FOR(i, 0, n) {
+        if(arr[i] > sum+1) {
+            cout << sum+1 << "\n";
+            return;
+        }
+        sum+=arr[i];
+    }
+    cout << sum+1 << "\n";
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t; cin>>t;
-    // int t; t=1;
+    // int t; cin>>t;
+    int t; t=1;
     while(t--) solve();
     return 0;
 }
