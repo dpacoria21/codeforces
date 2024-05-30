@@ -50,7 +50,20 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve() {
-    
+    int n; cin>>n;
+    vl arr(n+1);
+    ll pos[n+1];
+    FOR(i, 1, n+1) {
+        cin>>arr[i];
+        pos[arr[i]] = i;
+    }
+    ll cnt = 1;
+    FOR(i, 1, n) {
+        if(pos[i] > pos[i+1]) {
+            cnt++;
+        }
+    }
+    cout << cnt << "\n";
 }
 
 int main() {
