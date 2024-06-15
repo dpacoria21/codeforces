@@ -4,21 +4,6 @@
 
 using namespace std;
 
-#ifdef LOCAL
-#include "./helpers/debug.h"
-
-#define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
-     << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
-
-#define MACRO(code) do {code} while (false)
-#define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
-#else
-#define dbg(...)
-
-#define chk(...)
-#define RAYA
-#endif
-
 using ll = long long;
 using db = long double;
 using str = string;
@@ -65,14 +50,23 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-
+    str a, b; cin>>a>>b;
+    if(a.size() > b.size()) {
+        cout << a.size();
+    }else if(a.size() < b.size()) {
+        cout << b.size();
+    }else {
+        if(a==b) {
+            cout << -1 << "\n";
+        }else {
+            cout << a.size();
+        }
+    }
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t; cin>>t;
-    // int t; t=1;
-    while(t--) solve();
+    solve();
     return 0;
 }

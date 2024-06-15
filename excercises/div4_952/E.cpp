@@ -8,7 +8,7 @@ using namespace std;
 #include "./helpers/debug.h"
 
 #define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
-     << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
+	 << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
 
 #define MACRO(code) do {code} while (false)
 #define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
@@ -41,7 +41,7 @@ using vl = V<ll>;
 using vd = V<db>;
 using vs = V<str>;
 using vpi = V<pi>;
-using vpl = V<pl>;
+using   vpl = V<pl>;
 using vpd = V<pd>;
 
 #define sz(x) int((x).size())
@@ -65,14 +65,24 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-
+    ll x, y, z, k; cin>>x>>y>>z>>k;
+    ll ans = 0;
+    FOR(i, 1, x+1) {
+        FOR(j, 1, y+1) {
+            ll aux = (k/i)/j;
+            if(aux*i*j == k && aux <= z) {
+               ans = max(ans, (x-i+1) * (y-j+1)* (z-aux+1)); 
+            }
+        }
+    }
+    cout << ans <<"\n";
+    
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin>>t;
-    // int t; t=1;
     while(t--) solve();
     return 0;
 }

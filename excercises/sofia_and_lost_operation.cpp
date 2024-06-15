@@ -4,21 +4,6 @@
 
 using namespace std;
 
-#ifdef LOCAL
-#include "./helpers/debug.h"
-
-#define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
-     << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
-
-#define MACRO(code) do {code} while (false)
-#define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
-#else
-#define dbg(...)
-
-#define chk(...)
-#define RAYA
-#endif
-
 using ll = long long;
 using db = long double;
 using str = string;
@@ -65,6 +50,45 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
+    int n; cin>>n;
+    vl a(n), b(n);
+    F0R(i, n) {
+        cin>>a[i];
+    }
+    ll diff = 0;
+    F0R(i, n) {
+        cin>>b[i];
+    }
+    int m; cin>>m;
+    vl d(m);
+    map<ll,ll>cc;
+    F0R(i, m) {
+        cin>>d[i];
+        cc[d[i]]++;
+    }
+    ll last = d[m-1];
+    bool f1 = false;
+    F0R(i, n) {
+        if(cc[b[i]]) {
+            if(b[i]==last) f1 = true;
+            cc[b[i]]--;
+        }else {
+            cout <<"NO\n";
+            return;
+        }
+    }
+    if(f1) {
+        cout <<"YES\n";
+    }else {
+        cout <<"NO\n";
+    }
+    
+    // R0F(i, m) {
+    //     if(cc[d[i]]) {
+    //         cout <<"YES\n";
+    //         return;
+    //     }
+    // }
 
 }
 
@@ -72,7 +96,6 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin>>t;
-    // int t; t=1;
     while(t--) solve();
     return 0;
 }

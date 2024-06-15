@@ -8,7 +8,7 @@ using namespace std;
 #include "./helpers/debug.h"
 
 #define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
-     << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
+	 << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
 
 #define MACRO(code) do {code} while (false)
 #define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
@@ -41,7 +41,7 @@ using vl = V<ll>;
 using vd = V<db>;
 using vs = V<str>;
 using vpi = V<pi>;
-using vpl = V<pl>;
+using   vpl = V<pl>;
 using vpd = V<pd>;
 
 #define sz(x) int((x).size())

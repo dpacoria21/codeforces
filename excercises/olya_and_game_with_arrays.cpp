@@ -4,21 +4,6 @@
 
 using namespace std;
 
-#ifdef LOCAL
-#include "./helpers/debug.h"
-
-#define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
-     << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
-
-#define MACRO(code) do {code} while (false)
-#define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
-#else
-#define dbg(...)
-
-#define chk(...)
-#define RAYA
-#endif
-
 using ll = long long;
 using db = long double;
 using str = string;
@@ -64,15 +49,30 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-void solve(){
+const ll INF = 1e9 + 7;
 
+void solve(){
+    int n; cin>>n;
+    ll minin = INF;
+    vl res;
+    F0R(i, n) {
+        int m; cin>>m;
+        vl aux(m);
+        F0R(j, m) {
+            cin>>aux[j];
+        }
+        ll mini = *min_element(all(aux));
+        minin = min(mini, minin);
+        aux.erase(find(all(aux), mini));
+        res.pb(*min_element(all(aux)));
+    }
+    cout << accumulate(all(res), 0ll) - *min_element(all(res)) + minin  << "\n"; 
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin>>t;
-    // int t; t=1;
     while(t--) solve();
     return 0;
 }
