@@ -37,9 +37,9 @@
         "type_traits": "cpp",
         "typeindex": "cpp",
         "valarray": "cpp",
-        "iterator": "cpp",
-        "utility": "cpp",
+        "any": "cpp",
         "*.tcc": "cpp",
-        "cmath": "cpp"
+        "unordered_map": "cpp",
+        "unordered_set": "cpp"
     }
 }
