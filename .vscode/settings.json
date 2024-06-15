@@ -36,6 +36,10 @@
         "tuple": "cpp",
         "type_traits": "cpp",
         "typeindex": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "iterator": "cpp",
+        "utility": "cpp",
+        "*.tcc": "cpp",
+        "cmath": "cpp"
     }
 }

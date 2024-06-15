@@ -1,23 +1,8 @@
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+// #pragma GCC optimize("O3,unroll-loops")
+// #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
 
 using namespace std;
-
-#ifdef LOCAL
-#include "./helpers/debug.h"
-
-#define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
-     << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
-
-#define MACRO(code) do {code} while (false)
-#define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
-#else
-#define dbg(...)
-
-#define chk(...)
-#define RAYA
-#endif
 
 using ll = long long;
 using db = long double;
@@ -64,8 +49,25 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-void solve(){
+void solve() {
+    int n, k; cin>>n>>k;
+    str s; cin>>s;
+    vl arr = {0};
+    ll curr = 0;
+    ll ans = LLONG_MAX;
 
+    F0R(i, n) {
+        if(s[i]=='W') {
+            curr++;
+            arr.pb(curr);
+        }else {
+            arr.pb(curr);
+        }
+    }
+    for(int i = 0; i<=n-k; i++){
+        ans = min(ans, arr[i+k]-arr[i]);
+    }
+    cout << ans << "\n";
 }
 
 int main() {

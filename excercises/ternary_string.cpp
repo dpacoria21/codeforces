@@ -1,23 +1,8 @@
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+// #pragma GCC optimize("O3,unroll-loops")
+// #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
 
 using namespace std;
-
-#ifdef LOCAL
-#include "./helpers/debug.h"
-
-#define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
-     << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
-
-#define MACRO(code) do {code} while (false)
-#define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
-#else
-#define dbg(...)
-
-#define chk(...)
-#define RAYA
-#endif
 
 using ll = long long;
 using db = long double;
@@ -64,8 +49,33 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-void solve(){
+void solve() {
+    str s; cin>>s;
+    if(s.size()<3 || s.find('1')==str::npos || s.find('2')==str::npos || s.find('3')==str::npos) {
+        cout << 0 << "\n";
+    }else {
+        ll sz = s.size();
+        map<char, ll>map;
+        ll ans = LLONG_MAX;
+        ll l = 0;
+        for(ll r =0; r < sz; r++) {
+            map[s[r]]++;
 
+            while(map[s[l]] > 1) {
+                map[s[l]]--;
+                l++;
+            }       
+
+            if(map['1']>=1 && map['2']>=1 && map['3']>=1) {
+                ans = min(ans, r-l+1);
+            }     
+
+        }
+
+        cout << ans << "\n";
+        
+        
+    }
 }
 
 int main() {
