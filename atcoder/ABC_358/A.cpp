@@ -64,9 +64,13 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-
 void solve(){
-    
+    str s1, s2; cin>>s1>>s2;
+    if(s1=="AtCoder" && s2=="Land") {
+        cout << "Yes\n";
+    }else {
+        cout << "No\n";
+    }
 }
 
 int main() {

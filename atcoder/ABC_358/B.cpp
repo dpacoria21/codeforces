@@ -64,9 +64,22 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-
 void solve(){
-    
+    int n, a; cin>>n>>a;
+    vl arr(n);
+    F0R(i, n) {
+        cin>>arr[i];
+    }
+    ll ex = 0;
+    F0R(i, n) {
+        if(arr[i] <= ex) {
+            ex+=a;
+            cout << ex << "\n";
+        }else {
+            ex+=a+abs(ex-arr[i]);
+            cout << ex << "\n";
+        }
+    }
 }
 
 int main() {

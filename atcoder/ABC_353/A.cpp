@@ -64,9 +64,21 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-
 void solve(){
-    
+    int n; cin>>n;
+    vl arr(n);
+    ll ans = -1;
+    F0R(i, n) {
+        cin>>arr[i];
+    }
+    ll lmost = arr[0];
+    FOR(i, 1, n) {
+        if(arr[i]>lmost) {
+            ans = i+1;
+            break;
+        }
+    }
+    cout << ans << "\n";
 }
 
 int main() {

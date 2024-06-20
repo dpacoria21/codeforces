@@ -64,9 +64,29 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-
 void solve(){
-    
+    int n, k; cin>>n>>k;
+    queue<ll>rw;
+    F0R(i, n) {
+        ll aux; cin>>aux;
+        rw.push(aux);
+    }
+    ll cnt = 0;
+    ll res = 0;
+    while(!rw.empty()) {
+        
+        if(cnt+rw.front() <= k) {
+            cnt+=rw.front();
+            rw.pop();
+        }else {
+            cnt = 0;
+            res++;
+        }
+
+    }
+
+    if(cnt != 0) res++;
+    cout << res << "\n";
 }
 
 int main() {
