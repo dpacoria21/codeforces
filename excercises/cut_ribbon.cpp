@@ -66,55 +66,25 @@ using vpd = V<pd>;
  
 
 void solve(){
-    int n; cin>>n;
-    vl arr(n);
-    for(auto &a: arr) cin>>a;
-    vl aux = arr;
-    sor(aux);
-    map<ll, ll>pos;
-    for(int i = 0; i<n; i++) {
-        pos[i] = aux[i];
-    }
-    
-    dbg(arr);
-    int l = 0, r = n-1;
-    for(int i = 0; i<n; i++) {
-        if(arr[i]!=pos[i]) {
-            l = i;
-            break;
-        }else {
-            l = i;
-        }
-    }
-    for(int i = n-1; i>=0; i--) {
-        dbg(arr[i], pos[i]);
-        if(arr[i]!=pos[i]) {
-            r = i;
-            break;
-        }else {
-            r = i;
-        }
-    }
+    ll n, a, b, c; cin>>n>>a>>b>>c;
+    int arr[3] = {a,b,c};
+    vl dp(n+5, -1);
+    dp[0] = 0;
 
-    if(l>r) {
-        cout << "yes\n";
-        cout << "1 1";
-    }else {
-        reverse(arr.begin()+l, arr.begin()+r+1);
-        bool flag = true;
-        for(int i=0 ; i<n; i++) {
-            if(arr[i] != pos[i]) {
-                flag = false;
-                break;
-            }
+    for(int i = 1; i<=n; i++) {
+        if(i>=arr[0] && dp[i-arr[0]]!=-1) {
+            dp[i] = max(dp[i-arr[0]]+1, dp[i]);
         }
-        if(flag) {
-            cout  << "yes\n";
-            cout << l+1 << " " << r+1 << "\n";
-        }else {
-            cout << "no\n";
+        if(i>=arr[1] && dp[i-arr[1]]!=-1) {
+            dp[i] = max(dp[i-arr[1]]+1, dp[i]);
+        }
+        if(i>=arr[2] && dp[i-arr[2]]!=-1) {
+            dp[i] = max(dp[i-arr[2]]+1, dp[i]);
         }
     }
+    cout << dp[n] << "\n";
+    dbg(dp);
+
 }
  
 int main() {

@@ -66,55 +66,52 @@ using vpd = V<pd>;
  
 
 void solve(){
-    int n; cin>>n;
-    vl arr(n);
-    for(auto &a: arr) cin>>a;
-    vl aux = arr;
-    sor(aux);
-    map<ll, ll>pos;
-    for(int i = 0; i<n; i++) {
-        pos[i] = aux[i];
+    int n, m, d; cin>>n>>m>>d;
+    int arr[n][m];
+    if(n==1 && m==1) {
+        cout << 0 << "\n";
+        return;
     }
-    
-    dbg(arr);
-    int l = 0, r = n-1;
+    vl aux;
     for(int i = 0; i<n; i++) {
-        if(arr[i]!=pos[i]) {
-            l = i;
-            break;
-        }else {
-            l = i;
-        }
-    }
-    for(int i = n-1; i>=0; i--) {
-        dbg(arr[i], pos[i]);
-        if(arr[i]!=pos[i]) {
-            r = i;
-            break;
-        }else {
-            r = i;
+        for(int j = 0; j<m; j++) {
+            int a; cin>>a;
+            arr[i][j] = a;
+            aux.emplace_back(a); 
         }
     }
 
-    if(l>r) {
-        cout << "yes\n";
-        cout << "1 1";
-    }else {
-        reverse(arr.begin()+l, arr.begin()+r+1);
-        bool flag = true;
-        for(int i=0 ; i<n; i++) {
-            if(arr[i] != pos[i]) {
-                flag = false;
-                break;
+    bool flag = true;
+    int curr = arr[0][0]%d;
+    int mini = INT_MAX;
+    int maxi = INT_MIN;
+    for(int i = 0; i<n; i++) {
+        for(int j = 0; j<m; j++) {
+            mini = min(mini, arr[i][j]);
+            maxi = max(maxi, arr[i][j]);
+            if(curr!=(arr[i][j]%d)) {
+                cout << -1 << "\n";
+                return;
             }
         }
-        if(flag) {
-            cout  << "yes\n";
-            cout << l+1 << " " << r+1 << "\n";
-        }else {
-            cout << "no\n";
+    }
+
+    sor(aux);
+    curr = aux[(aux.size() + 1) / 2];
+    int curr2 = aux[(aux.size()) / 2];
+    // int k = (maxi-mini) / (2*d);
+    // curr = mini+(k*d);
+    ll ans = 0;
+    ll ans2 = 0;
+    for(int i = 0; i<n; i++) {
+        for(int j = 0; j<m; j++) {
+            ans += abs(curr-arr[i][j])/d;
+            ans2 += abs(curr2-arr[i][j])/d;
         }
     }
+
+    cout << min(ans, ans2) << "\n";
+
 }
  
 int main() {

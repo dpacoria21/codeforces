@@ -64,57 +64,48 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
  
-
 void solve(){
     int n; cin>>n;
-    vl arr(n);
-    for(auto &a: arr) cin>>a;
-    vl aux = arr;
-    sor(aux);
-    map<ll, ll>pos;
-    for(int i = 0; i<n; i++) {
-        pos[i] = aux[i];
-    }
-    
-    dbg(arr);
-    int l = 0, r = n-1;
-    for(int i = 0; i<n; i++) {
-        if(arr[i]!=pos[i]) {
-            l = i;
-            break;
-        }else {
-            l = i;
+    // vpl arr;
+    vpl cnts = {{0, 0}, {0, 0}};
+    ll cgs = 0;
+    for(int i =0 ; i<n; i++) {
+        ll a, b; cin>>a>>b;
+        if( (a%2==0 && b%2!=0) || (a%2!=0 && b%2==0) ) {
+            cgs++;
         }
-    }
-    for(int i = n-1; i>=0; i--) {
-        dbg(arr[i], pos[i]);
-        if(arr[i]!=pos[i]) {
-            r = i;
-            break;
+        
+        if(a%2==0) {
+            cnts[0].f++;
         }else {
-            r = i;
+            cnts[0].s++;
         }
-    }
 
-    if(l>r) {
-        cout << "yes\n";
-        cout << "1 1";
+        if(b%2==0) {
+            cnts[1].f++;
+        }else {
+            cnts[1].s++;
+        }
+        // arr.pb({a, b});
+    }
+    ll res = 0;
+    if(cnts[0].s%2==0 && cnts[1].s%2==0) {
+        cout << res << "\n";
     }else {
-        reverse(arr.begin()+l, arr.begin()+r+1);
-        bool flag = true;
-        for(int i=0 ; i<n; i++) {
-            if(arr[i] != pos[i]) {
-                flag = false;
-                break;
+        if(cgs==0) {
+            cout << -1 << "\n";
+        }else {
+            if((cnts[0].s%2==0 && cnts[1].s%2!=0) || (cnts[0].s%2!=0 && cnts[1].s%2==0) && n==1 ) {
+                cout << -1 << "\n";
+            }else if((cnts[0].s%2==0 && cnts[1].s%2!=0) || (cnts[0].s%2!=0 && cnts[1].s%2==0)){
+                cout << -1 << "\n";
+            }else {
+                cout << 1 << "\n";
             }
         }
-        if(flag) {
-            cout  << "yes\n";
-            cout << l+1 << " " << r+1 << "\n";
-        }else {
-            cout << "no\n";
-        }
     }
+    dbg(cnts);
+    dbg(cgs);
 }
  
 int main() {

@@ -64,64 +64,37 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
  
-
 void solve(){
-    int n; cin>>n;
-    vl arr(n);
-    for(auto &a: arr) cin>>a;
-    vl aux = arr;
-    sor(aux);
-    map<ll, ll>pos;
-    for(int i = 0; i<n; i++) {
-        pos[i] = aux[i];
+    ll n, m; cin>>n>>m;
+    vl pts(n);
+    vl cs(n);
+    for(auto &a: pts) cin>>a;
+    for(auto &a: cs) cin>>a;
+    vpl ts;
+    for(int i = 0 ; i<n; i++) {
+        ts.pb({pts[i], cs[i]});
     }
-    
-    dbg(arr);
-    int l = 0, r = n-1;
-    for(int i = 0; i<n; i++) {
-        if(arr[i]!=pos[i]) {
-            l = i;
-            break;
-        }else {
-            l = i;
+    sor(ts);
+    dbg(ts);
+ 
+    ll ans = 0;
+ 
+    for(int i = 0; i<n-1; i++) {
+        ans = max(ans, min(ts[i].s, m/ts[i].f) * ts[i].f);
+        if(abs(ts[i].f - ts[i+1].f) == 1) {
+            ll lo = 0, hi = ts[i].s;
         }
     }
-    for(int i = n-1; i>=0; i--) {
-        dbg(arr[i], pos[i]);
-        if(arr[i]!=pos[i]) {
-            r = i;
-            break;
-        }else {
-            r = i;
-        }
-    }
-
-    if(l>r) {
-        cout << "yes\n";
-        cout << "1 1";
-    }else {
-        reverse(arr.begin()+l, arr.begin()+r+1);
-        bool flag = true;
-        for(int i=0 ; i<n; i++) {
-            if(arr[i] != pos[i]) {
-                flag = false;
-                break;
-            }
-        }
-        if(flag) {
-            cout  << "yes\n";
-            cout << l+1 << " " << r+1 << "\n";
-        }else {
-            cout << "no\n";
-        }
-    }
+    ans = max(ans, min(ts[ts.size()-1].s, m/ts[ts.size()-1].f) * ts[ts.size()-1].f);
+    cout << ans << "\n";
+    dbg(ans);
 }
  
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // int t; cin>>t;
-    int t; t=1;
+    int t; cin>>t;
+    // int t; t=1;
     while(t--) solve();
     return 0;
 }

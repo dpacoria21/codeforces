@@ -64,57 +64,26 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
  
+ll brute_force(int n) {
+    ll ans = 0;
+    set<pair<db, pair<db, db>>>rep;
+    for(ll i = 1; i<n; i++) {
+        for(ll j = i; i*i+j*j<=n*n; j++) {
+            db c = sqrt((db)(i*i+j*j));
+            ll c1 = sqrt(i*i+j*j);
+            if(i<j+c && j<i+c && c<i+j && c==c1 && c<=n) {
+                dbg(i, j, c, c1);
+                ans++;
+                continue;
+            }
+        }
+    }
+    return ans;
+}
 
 void solve(){
     int n; cin>>n;
-    vl arr(n);
-    for(auto &a: arr) cin>>a;
-    vl aux = arr;
-    sor(aux);
-    map<ll, ll>pos;
-    for(int i = 0; i<n; i++) {
-        pos[i] = aux[i];
-    }
-    
-    dbg(arr);
-    int l = 0, r = n-1;
-    for(int i = 0; i<n; i++) {
-        if(arr[i]!=pos[i]) {
-            l = i;
-            break;
-        }else {
-            l = i;
-        }
-    }
-    for(int i = n-1; i>=0; i--) {
-        dbg(arr[i], pos[i]);
-        if(arr[i]!=pos[i]) {
-            r = i;
-            break;
-        }else {
-            r = i;
-        }
-    }
-
-    if(l>r) {
-        cout << "yes\n";
-        cout << "1 1";
-    }else {
-        reverse(arr.begin()+l, arr.begin()+r+1);
-        bool flag = true;
-        for(int i=0 ; i<n; i++) {
-            if(arr[i] != pos[i]) {
-                flag = false;
-                break;
-            }
-        }
-        if(flag) {
-            cout  << "yes\n";
-            cout << l+1 << " " << r+1 << "\n";
-        }else {
-            cout << "no\n";
-        }
-    }
+    cout << brute_force(n) << "\n";
 }
  
 int main() {
