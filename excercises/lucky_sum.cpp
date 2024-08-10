@@ -64,13 +64,68 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
+vl arr;
+// map<ll, ll>luckies;
+
+// string version
+// ll conv(str s) {
+//     ll ans = 0;
+//     ll size = s.size();
+//     for(int i = 0; i<s.size(); i++) {
+//         ll num = s[i]-'0';
+//         ans += (num*(pow(10, size-(i+1))));
+//     }
+//     return ans;
+// }
+
+// void gen_comb(str s) {
+
+//     if(s.size()>9) {
+//         return;
+//     }
+
+//     gen_comb(s+"4");
+//     gen_comb(s+"7");
+
+//     if(s!=""){
+//         arr.push_back(conv(s));
+//         // luckies[conv(s)] = 1;
+//     }
+
+// }
+
+
+// number version
+void gen_comb(ll x) {
+    if(x>1e10) {
+        return;
+    }
+
+    arr.pb(x);
+
+    gen_comb(x*10 + 4);
+    gen_comb(x*10 + 7);
+}
+
 void solve(){
-    
+    ll l, r; cin>>l>>r;    
+    ll ans = 0;
+    ll curr = min(r, *lower_bound(all(arr), l)); // get value
+    ll idx = lower_bound(all(arr), curr)-arr.begin(); // get index
+    while(l <= r) {
+        ans+= (abs(curr-l)+1)*arr[idx];
+        l = curr+1;
+        curr = min(r, arr[idx+1]);
+        idx++;
+    }
+    cout << ans << "\n";
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
+    gen_comb(0);
+    sor(arr);
     // int t; cin>>t;
     int t; t=1;
     while(t--) solve();

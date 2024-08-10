@@ -65,7 +65,23 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-    
+    ll n; cin>>n;
+    vl arr(n);
+    for(auto &a: arr) cin>>a;
+    arr.push_back(LLONG_MAX);
+    ll ans = min(n, (ll)2);
+    ll curr = min(n, (ll)2);
+    for(int i = 2; i<=n; i++) {
+        if(arr[i] == arr[i-1]+arr[i-2]) {
+            dbg(curr);
+            curr++;
+        }else {
+            dbg(curr);
+            ans = max(ans, curr);
+            curr = 2;
+        }
+    }
+    cout << ans << "\n";
 }
 
 int main() {
