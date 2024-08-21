@@ -65,7 +65,30 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-    
+    ll x, y, k; cin>>x>>y>>k;
+    ll xt = k*x;
+    ll yt = k*y;
+
+    vpl xs;
+
+    if(k==1) {
+        cout << x << " " << y << "\n";
+    }else {
+        for(int i = 1; i<=(k%2==0 ? k : k-1); i+=2) {
+            xs.pb({x-i, y-i});
+            xs.pb({x+i, y+i});
+        }
+
+        if(k%2!=0) {
+            xs.pb({x, y});
+        }
+
+        for(int i = 0; i<k; i++) {
+            cout << xs[i].f << " " << xs[i].s << "\n";
+        }
+    }
+
+
 }
 
 int main() {

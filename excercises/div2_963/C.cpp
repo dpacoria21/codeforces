@@ -65,7 +65,34 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-    
+    ll n, k; cin>>n>>k;
+    vl rooms(n);
+    for(auto &a: rooms) cin>>a;
+    rsor(rooms);
+    map<ll,ll>rpt;
+    rpt[rooms[0]]++;
+    rpt[rooms[0]+k]--;
+    ll maxi = rooms[0];
+    for(int i = 1; i<n; i++) {
+        ll ki = (ll)(ceil(db(maxi-rooms[i])/(db)k));
+        if(ki%2==0) {
+            rpt[rooms[i]+(ki*k)]++;
+            rpt[rooms[i]+((ki+1)*k)]--;
+        }else {
+            rpt[rooms[i]+((ki-1)*k)]++;
+            rpt[rooms[i]+(ki*k)]--;
+        }
+    }
+    ll ans = 0;
+    for(auto a: rpt) {
+        ans+=a.s;
+        if(ans==n) {
+            cout << a.f << "\n";
+            return;
+        }
+    }
+    cout << -1 << "\n";
+
 }
 
 int main() {

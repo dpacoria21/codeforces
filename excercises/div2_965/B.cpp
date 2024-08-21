@@ -65,6 +65,21 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
+    int n; cin>>n;
+    vl arr(n+1);
+    for(int i = 1; i<=n; i++) {
+        cin>>arr[i];
+    }
+    ll mid = n/2;
+    ll idx = n;
+    for(int i = 1; i<n; i++) {
+        swap(arr[idx], arr[idx-1]);
+        idx--;
+    }
+    for(int i = 1; i<=n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << "\n";
     
 }
 

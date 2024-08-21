@@ -65,7 +65,20 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-    
+    int n; cin>>n;
+    str s; cin>>s;
+    sor(s);
+    map<char,ll>rep;
+    for(int i = 0; i<n*4; i++) {
+        if(s[i]=='?') continue;
+        if(rep[s[i]]<n) rep[s[i]]++;
+    }
+    ll ans = 0;
+    for(auto a: rep) {
+        ans += a.s;
+    }
+    cout << ans << "\n";
+    // dbg(s);
 }
 
 int main() {

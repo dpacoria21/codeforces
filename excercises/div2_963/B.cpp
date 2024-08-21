@@ -65,7 +65,40 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
 
 void solve(){
-    
+    int n; cin>>n;
+    vl arr(n+1);
+    for(int i = 1; i<=n; i++) {
+        cin>>arr[i];
+    }
+    ll odds = 0, evens = 0;
+    priority_queue<ll>pq;
+    priority_queue<ll, vector<ll>, greater<ll>>npq;
+
+    for(int i = 1; i<=n; i++) {
+        if(arr[i]%2==0) {
+            evens++;
+            npq.push(arr[i]);
+        }else {
+            odds++;
+            pq.push(arr[i]);
+        }
+    }
+    if(odds==0 || evens==0) {
+        cout << 0 << "\n";
+    }else {
+        ll ans = 0;
+        while(!npq.empty()) {
+            if(pq.top() < npq.top()) {
+                cout << ans+npq.size()+1 << "\n";
+                return;
+            }
+            ll aux = npq.top();
+            npq.pop();
+            pq.push(pq.top()+aux);
+            ans++;
+        }
+        cout << ans << "\n";
+    }
 }
 
 int main() {
