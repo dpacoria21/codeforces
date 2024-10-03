@@ -8,7 +8,7 @@ using namespace std;
 #include "./helpers/debug.h"
 
 #define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
-    << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
+     << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
 
 #define MACRO(code) do {code} while (false)
 #define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
@@ -64,48 +64,38 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-const ll N = 1e15;
+const db PI = 3.14159265358979323846264338327950288419716939937510;
 
-void solve(){ 
-    int n; cin>>n;
-    vl arr(n);
-    for(auto&a:arr)cin>>a;
-    ll cont = 0;
-    for(int i = 0; i<n-1; i++) {
-        cont += abs(arr[i]-arr[i+1]);
+void solve(){
+
+    db r, l; cin>>r>>l;
+    if(l>=2*r) {
+        cout << fixed << setprecision(11) << (db)0 << "\n";
+    }else{
+        db x1 = (l*l)/(2*r);
+        db xAux = x1;
+        if(x1>r) {
+            xAux = xAux - r;
+        }else {
+            xAux = r - xAux;
+        }
+        dbg(x1, xAux);
+        db teta = acos(xAux/r)*((db)180)/PI;
+        db ans;
+        if(x1<r) {
+            ans = (db)1 - (teta*(db)2 / 360);
+        }else {
+            ans = (teta*(db)2 / 360);
+        }
+        ans = abs(ans);
+        cout << fixed << setprecision(11) << ans << "\n";
     }
-    dbg(cont);
-    function<ll(ll, ll)> solve_rcv = [&](ll pos, ll tot) {
-    
-        dbg(pos, tot);
-        if(tot>cont) return N;
-        if(tot==cont) return 0LL;
-        if(pos>=n-1) return N;
-
-        ll ans = LLONG_MAX;
-        // dbg(pos, tot);
-        ans = min(ans, solve_rcv(pos+1, tot+abs(arr[pos]-arr[pos+1])) + 1);
-        // dbg(ans);
-        ans = min(ans, solve_rcv(pos+1, tot));
-        // dbg(ans);
-        // dbg(pos, tot, ans);
-
-
-        return ans;
-
-
-    };
-
-    cout << solve_rcv(0, 0) << "\n";
-}
-
-
+} 
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t; cin>>t;
-    // int t; t=1;
+    int t; t=1;
     while(t--) solve();
     return 0;
 }

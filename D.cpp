@@ -64,48 +64,67 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-const ll N = 1e15;
+const ll N = 2*1e5+5;
+ll n, m;
+const ll INF = LLONG_MAX;
+vector<vector<pair<ll,ll>>>G;
+vector<bool> vis(N, false);
+vector<ll>ans;
 
-void solve(){ 
-    int n; cin>>n;
-    vl arr(n);
-    for(auto&a:arr)cin>>a;
-    ll cont = 0;
-    for(int i = 0; i<n-1; i++) {
-        cont += abs(arr[i]-arr[i+1]);
+// void dfs(ll v) {
+//     if(vis[v]) return;
+//     vis[v] = true;
+//     for(auto u: G[v]) {
+//         if(ans[v]==INF && ans[u.f]==INF) {
+//             ans[v] = 0;
+//             ans[u.f] = u.s;
+//         }else if(ans[v]==INF && ans[u.f]!=INF) {
+//             ans[v] = ans[u.f]-u.s;
+//         }else if(ans[v]!=INF && ans[u.f]==INF) {
+//             ans[u.f] = ans[v]+u.s;
+//         }
+//         dfs(u.f);
+//     }
+// }
+
+ll dfs2(ll v, ll sum) {
+    if(vis[v]) {
+        return ans[v];
     }
-    dbg(cont);
-    function<ll(ll, ll)> solve_rcv = [&](ll pos, ll tot) {
-    
-        dbg(pos, tot);
-        if(tot>cont) return N;
-        if(tot==cont) return 0LL;
-        if(pos>=n-1) return N;
+    vis[v] = true;
 
-        ll ans = LLONG_MAX;
-        // dbg(pos, tot);
-        ans = min(ans, solve_rcv(pos+1, tot+abs(arr[pos]-arr[pos+1])) + 1);
-        // dbg(ans);
-        ans = min(ans, solve_rcv(pos+1, tot));
-        // dbg(ans);
-        // dbg(pos, tot, ans);
-
-
-        return ans;
-
-
-    };
-
-    cout << solve_rcv(0, 0) << "\n";
+    for(auto u: G[v]) {
+        sum = dfs2(u.f, sum+u.s);
+        ans[u.f] = sum;
+        sum-=u.s;
+    }
+    return ans[v] = sum;
 }
 
+void solve(){
+    cin>>n>>m;
+    G.resize(n, vector<pair<ll,ll>>());
+    ans.resize(n, INF);
+    for(ll i = 0; i<m; i++) {
+        ll u,v,w; cin>>u>>v>>w;
+        u--, v--;
+        G[u].push_back({v, w});
+    }
+    for(ll i = 0; i<n; i++) {
+        dfs2(i, 0);
+    }
 
+    for(ll i = 0; i<n; i++) {
+        cout << ans[i] << " ";
+    }
+
+}
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t; cin>>t;
-    // int t; t=1;
+    // int t; cin>>t;
+    int t; t=1;
     while(t--) solve();
     return 0;
 }

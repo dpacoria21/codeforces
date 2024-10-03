@@ -47,6 +47,13 @@
         "cmath": "cpp",
         "forward_list": "cpp",
         "map": "cpp",
-        "format": "cpp"
-    }
+        "format": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp",
+        "cstdlib": "cpp",
+        "iomanip": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
