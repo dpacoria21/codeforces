@@ -1,11 +1,6 @@
-//* sometimes pragmas don't work, if so, just comment it!
-//? #pragma GCC optimize ("Ofast")
-//? #pragma GCC target ("avx,avx2")
-//! #pragma GCC optimize ("trapv")
-
-//! #undef _GLIBCXX_DEBUG //? for Stress Testing
-
-#include <bits/stdc++.h> //? if you don't want IntelliSense
+#pragma GCC optimize("O3,unroll-loops")
+#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+#include <bits/stdc++.h>
 
 using namespace std;
 

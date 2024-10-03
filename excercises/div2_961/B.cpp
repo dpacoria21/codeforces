@@ -4,6 +4,21 @@
  
 using namespace std;
  
+#ifdef LOCAL
+#include "./helpers/debug.h"
+ 
+#define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
+     << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
+ 
+#define MACRO(code) do {code} while (false)
+#define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
+#else
+#define dbg(...)
+ 
+#define chk(...)
+#define RAYA
+#endif
+ 
 using ll = long long;
 using db = long double;
 using str = string;
@@ -50,57 +65,36 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
  
 void solve(){
-    int n; cin>>n;
-    vl a(n), b(n);
-    F0R(i, n) {
-        cin>>a[i];
+    ll n, m; cin>>n>>m;
+    vl pts(n);
+    vl cs(n);
+    for(auto &a: pts) cin>>a;
+    for(auto &a: cs) cin>>a;
+    vpl ts;
+    for(int i = 0 ; i<n; i++) {
+        ts.pb({pts[i], cs[i]});
     }
-    ll diff = 0;
-    map<ll,ll>bb;
-    F0R(i, n) {
-        cin>>b[i];
-        bb[b[i]]++;
-    }
-    int m; cin>>m;
-    vl d(m);
-    map<ll,ll>cc;
-    F0R(i, m) {
-        cin>>d[i];
-        cc[d[i]]++;
-    }
-    ll last = d[m-1];
-    bool f1 = false;
-
-    if(bb[last]) {
-        
-        F0R(i, n) {
-            if(a[i]==b[i]) continue;
-            if(cc[b[i]]) {
-                cc[b[i]]--;
-            }else {
-                cout << "NO\n";
-                return;
-            }
-        }
-        cout <<"YES\n";
-    }else {
-        cout << "NO\n";
-    }
-    
-    
-    // R0F(i, m) {
-    //     if(cc[d[i]]) {
-    //         cout <<"YES\n";
-    //         return;
-    //     }
-    // }
+    sor(ts);
+    dbg(ts);
  
+    ll ans = 0;
+ 
+    for(int i = 0; i<n-1; i++) {
+        ans = max(ans, min(ts[i].s, m/ts[i].f) * ts[i].f);
+        if(abs(ts[i].f - ts[i+1].f) == 1) {
+            ll lo = 0, hi = ts[i].s;
+        }
+    }
+    ans = max(ans, min(ts[ts.size()-1].s, m/ts[ts.size()-1].f) * ts[ts.size()-1].f);
+    cout << ans << "\n";
+    dbg(ans);
 }
  
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin>>t;
+    // int t; t=1;
     while(t--) solve();
     return 0;
 }

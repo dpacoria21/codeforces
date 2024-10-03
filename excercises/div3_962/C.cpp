@@ -4,6 +4,21 @@
  
 using namespace std;
  
+#ifdef LOCAL
+#include "./helpers/debug.h"
+ 
+#define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
+     << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
+ 
+#define MACRO(code) do {code} while (false)
+#define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
+#else
+#define dbg(...)
+ 
+#define chk(...)
+#define RAYA
+#endif
+ 
 using ll = long long;
 using db = long double;
 using str = string;
@@ -50,57 +65,33 @@ using vpd = V<pd>;
 #define each(a, x) for (auto &a : x)
  
 void solve(){
-    int n; cin>>n;
-    vl a(n), b(n);
-    F0R(i, n) {
-        cin>>a[i];
-    }
-    ll diff = 0;
-    map<ll,ll>bb;
-    F0R(i, n) {
-        cin>>b[i];
-        bb[b[i]]++;
-    }
-    int m; cin>>m;
-    vl d(m);
-    map<ll,ll>cc;
-    F0R(i, m) {
-        cin>>d[i];
-        cc[d[i]]++;
-    }
-    ll last = d[m-1];
-    bool f1 = false;
-
-    if(bb[last]) {
-        
-        F0R(i, n) {
-            if(a[i]==b[i]) continue;
-            if(cc[b[i]]) {
-                cc[b[i]]--;
+    ll n, q; cin>>n>>q;
+    str a, b; cin>>a>>b;
+    while(q--) {
+        ll l, r; cin>>l>>r;
+        l--;
+        ll res = 0;
+        map<char, ll>reps;
+        for(int i=l; i<l+(r-l); i++) {
+            // dbg(a[i]);
+            reps[a[i]]++;
+        }
+        for(int i = l; i<l+(r-l); i++) {
+            if(!reps[b[i]]) {
+                res++;
             }else {
-                cout << "NO\n";
-                return;
+                reps[b[i]]--;
             }
         }
-        cout <<"YES\n";
-    }else {
-        cout << "NO\n";
+        cout << res << "\n";
     }
-    
-    
-    // R0F(i, m) {
-    //     if(cc[d[i]]) {
-    //         cout <<"YES\n";
-    //         return;
-    //     }
-    // }
- 
 }
  
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t; cin>>t;
+    // int t; t=1;
     while(t--) solve();
     return 0;
 }

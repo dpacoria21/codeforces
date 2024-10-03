@@ -4,6 +4,21 @@
  
 using namespace std;
  
+#ifdef LOCAL
+#include "./helpers/debug.h"
+ 
+#define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
+     << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
+ 
+#define MACRO(code) do {code} while (false)
+#define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
+#else
+#define dbg(...)
+ 
+#define chk(...)
+#define RAYA
+#endif
+ 
 using ll = long long;
 using db = long double;
 using str = string;
@@ -49,58 +64,44 @@ using vpd = V<pd>;
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
  
+
 void solve(){
     int n; cin>>n;
-    vl a(n), b(n);
-    F0R(i, n) {
-        cin>>a[i];
+    vpl arr;
+    for(int i = 0; i<n; i++) {
+        int a, b; cin>>a>>b;
+        arr.pb({a, b});
     }
-    ll diff = 0;
-    map<ll,ll>bb;
-    F0R(i, n) {
-        cin>>b[i];
-        bb[b[i]]++;
-    }
-    int m; cin>>m;
-    vl d(m);
-    map<ll,ll>cc;
-    F0R(i, m) {
-        cin>>d[i];
-        cc[d[i]]++;
-    }
-    ll last = d[m-1];
-    bool f1 = false;
-
-    if(bb[last]) {
-        
-        F0R(i, n) {
-            if(a[i]==b[i]) continue;
-            if(cc[b[i]]) {
-                cc[b[i]]--;
-            }else {
-                cout << "NO\n";
-                return;
+    vector<bool>vis(n+5, false);
+    for(int i = 0; i<n; i++) {
+        for(int j = 0; j<n; j++) {
+            if(i!=j && arr[j].f==arr[i].s) {
+                vis[j] = true;
             }
         }
-        cout <<"YES\n";
-    }else {
-        cout << "NO\n";
     }
-    
-    
-    // R0F(i, m) {
-    //     if(cc[d[i]]) {
-    //         cout <<"YES\n";
-    //         return;
+    ll ans = 0;
+    for(int i = 0; i<n; i++) {
+        ans += 1-vis[i];
+    }
+    cout << ans << "\n";
+
+    // sor(arr);
+    // vector<bool>vis(1000+1, false);
+    // for(int i = 0; i<n; i++) {
+    //     if(arr[i].f == arr[i].s) {
+    //         continue;
+    //     }else {
+    //         vis[arr[i].s] = true;
     //     }
     // }
- 
 }
  
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t; cin>>t;
+    // int t; cin>>t;
+    int t; t=1;
     while(t--) solve();
     return 0;
 }
