@@ -1,5 +1,5 @@
-// #pragma GCC optimize("O3,unroll-loops")
-// #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+#pragma GCC optimize("O3,unroll-loops")
+#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -13,28 +13,46 @@ using namespace std;
 #define MACRO(code) do {code} while (false)
 #define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
 #else
-#define dbg(...)
+    #define dbg(...)     0
+    #define chk(...)     0
 
-#define chk(...)
-#define RAYA
+    #define RAYA         0
 #endif
 
-using ll = long long;
-using db = long double;
-using str = string;
+// building blocks
+using ll  = long long;
+using db  = long double; // or double, if TL is tight
+using str = string;      // yay python!
 
+//? priority_queue for minimum
+//? template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
+
+//? using ull  = unsigned long long;
+//? using i64  = long long;
+//? using u64  = uint64_t;
+//? using i128 = __int128;
+//? using u128 = __uint128_t;
+//? using f128 = __float128;
+
+
+
+// pairs
 using pi = pair<int, int>;
 using pl = pair<ll, ll>;
 using pd = pair<db, db>;
+
 #define mp make_pair
-#define f first
-#define s second
+#define f  first
+#define s  second
+
+
 
 #define tcT template <class T
 #define tcTU tcT, class U
+//! ^ lol this makes everything look weird but I'll try it
+
 tcT > using V = vector<T>;
 tcT, size_t SZ > using AR = array<T, SZ>;
-
 using vi = V<int>;
 using vb = V<bool>;
 using vl = V<ll>;
@@ -44,22 +62,32 @@ using vpi = V<pi>;
 using vpl = V<pl>;
 using vpd = V<pd>;
 
+// vectors
+// oops size(x), rbegin(x), rend(x) need C++17
 #define sz(x) int((x).size())
 #define bg(x) begin(x)
 #define all(x) bg(x), end(x)
 #define rall(x) x.rbegin(), x.rend()
 #define sor(x) sort(all(x))
-#define rsor(x) sort(rall(x))
 #define rsz resize
 #define ins insert
 #define pb push_back
 #define eb emplace_back
 #define ft front()
 #define bk back()
+#define ts to_string
 
-#define FOR(i, a, b) for (ll i = (a); i < (b); ++i)
+#define lb lower_bound
+#define ub upper_bound
+tcT > int lwb(V<T> &a, const T &b) { return int(lb(all(a), b) - bg(a)); }
+tcT > int upb(V<T> &a, const T &b) { return int(ub(all(a), b) - bg(a)); }
+
+
+
+// loops
+#define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
-#define ROF(i, a, b) for (ll i = (b)-1; i >= (a); --i)
+#define ROF(i, a, b) for (int i = (b)-1; i >= (a); --i)
 #define R0F(i, a) ROF(i, 0, a)
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)

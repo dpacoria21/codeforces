@@ -209,6 +209,10 @@ const int dddy[8]{0, 1,  0, -1, 1, -1,  1, -1};
 
 void solve() {
     //? <>
+    int n; cin >> n;
+    vi a(n); each(x, a) cin >> x;
+    dbg(n, a);
+    cout << "xd\n";
 }
 
 
@@ -221,10 +225,10 @@ ll rng_ll(ll L, ll R) { assert(L <= R);
 
 
 signed main() {
-    setIO();
+    setIO("A"); // la más importante
 
     ll t = 1;
-    //? cin >> t;
+    // ? cin >> t;
 
     FOR(i, 1, t + 1) {
         RAYA;
