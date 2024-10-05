@@ -1,17 +1,16 @@
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
-#include <bits/stdc++.h>
+//* sometimes pragmas don't work, if so, just comment it!
+//? #pragma GCC optimize ("Ofast")
+//? #pragma GCC target ("avx,avx2")
+//! #pragma GCC optimize ("trapv")
+
+//! #undef _GLIBCXX_DEBUG //? for Stress Testing
+
+#include <bits/stdc++.h> //? if you don't want IntelliSense
 
 using namespace std;
 
 #ifdef LOCAL
-#include "./helpers/debug.h"
-
-#define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
-    << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
-
-#define MACRO(code) do {code} while (false)
-#define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
+    #include "helpers/debug.h"
 #else
     #define dbg(...)     0
     #define chk(...)     0
@@ -92,48 +91,192 @@ tcT > int upb(V<T> &a, const T &b) { return int(ub(all(a), b) - bg(a)); }
 #define rep(a) F0R(_, a)
 #define each(a, x) for (auto &a : x)
 
-const ll N = 1e15;
 
-void solve(){ 
-    int n; cin>>n;
-    vl arr(n);
-    for(auto&a:arr)cin>>a;
-    ll cont = 0;
-    for(int i = 0; i<n-1; i++) {
-        cont += abs(arr[i]-arr[i+1]);
+
+const int MOD = 1e9 + 7;
+const int MX = (int)2e5 + 5;
+const ll BIG = 1e18;  //? not too close to LLONG_MAX
+const db PI = acos((db)-1);
+const int dx[4]{1, 0, -1, 0}, dy[4]{0, 1, 0, -1};  //? for every grid problem!!
+mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
+
+
+
+// bitwise ops
+// also see https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
+constexpr int pct(int x) { return __builtin_popcount(x); }  // # of bits set
+constexpr int bits(int x) {  // assert(x >= 0); // make C++11 compatible until
+	                         // USACO updates ...
+	return x == 0 ? 0 : 31 - __builtin_clz(x);
+}  // floor(log2(x))
+constexpr int p2(int x) { return 1 << x; }
+constexpr int msk2(int x) { return p2(x) - 1; }
+
+ll cdiv(ll a, ll b) {
+	return a / b + ((a ^ b) > 0 && a % b);
+}  // divide a by b rounded up
+ll fdiv(ll a, ll b) {
+	return a / b - ((a ^ b) < 0 && a % b);
+}  // divide a by b rounded down
+
+tcT > bool ckmin(T &a, const T &b) {
+	return b < a ? a = b, 1 : 0;
+}  // set a = min(a,b)
+tcT > bool ckmax(T &a, const T &b) {
+	return a < b ? a = b, 1 : 0;
+}  // set a = max(a,b)
+
+tcTU > T fstTrue(T lo, T hi, U f) {
+	++hi;
+	assert(lo <= hi);  // assuming f is increasing
+	while (lo < hi) {  // find first index such that f is true
+		T mid = lo + (hi - lo) / 2;
+		f(mid) ? hi = mid : lo = mid + 1;
+	}
+	return lo;
+}
+tcTU > T lstTrue(T lo, T hi, U f) {
+	--lo;
+	assert(lo <= hi);  // assuming f is decreasing
+	while (lo < hi) {  // find first index such that f is true
+		T mid = lo + (hi - lo + 1) / 2;
+		f(mid) ? lo = mid : hi = mid - 1;
+	}
+	return lo;
+}
+tcT > void remDup(vector<T> &v) {  // sort and remove duplicates
+	sort(all(v));
+	v.erase(unique(all(v)), end(v));
+}
+tcTU > void safeErase(T &t, const U &u) {
+	auto it = t.find(u);
+	assert(it != end(t));
+	t.erase(it);
+}
+
+
+
+#define tcTUU tcT, class ...U
+
+const auto beg_time = std::chrono::high_resolution_clock::now();
+// https://stackoverflow.com/questions/47980498/accurate-c-c-clock-on-a-multi-core-processor-with-auto-overclock?noredirect=1&lq=1
+double time_elapsed() {
+	return chrono::duration<double>(std::chrono::high_resolution_clock::now() -
+	                                beg_time)
+	    .count();
+}
+
+inline namespace FileIO {
+void setIn(str s) { freopen(s.c_str(), "r", stdin); }
+void setOut(str s) { freopen(s.c_str(), "w", stdout); }
+void setIO(str s = "") {
+	cin.tie(0)->sync_with_stdio(0);  // unsync C / C++ I/O streams
+	//? cout << fixed << setprecision(12);
+    //? cerr << fixed << setprecision(12);
+	cin.exceptions(cin.failbit);
+	// throws exception when do smth illegal
+	// ex. try to read letter into int
+	if (sz(s)) setIn(s + ".in"), setOut(s + ".out");  // for old USACO
+}
+}  // namespace FileIO
+
+
+
+//? Custom Helpers
+template <typename T>
+inline T gcd(T a, T b) { while (b != 0) swap(b, a %= b); return a; }
+
+long long binpow(long long a, long long b) {
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a;
+        a = a * a;
+        b >>= 1;
     }
-    dbg(cont);
-    function<ll(ll, ll)> solve_rcv = [&](ll pos, ll tot) {
+    return res;
+}
+
+const int dddx[8]{1, 0, -1,  0, 1,  1, -1, -1};
+const int dddy[8]{0, 1,  0, -1, 1, -1,  1, -1};
+
+//? /Custom Helpers
+
+
+
+//* Template
+//* /Template
+void solve() {
+    //? <>
+    ll n; cin>>n;
+    // dbg(n);
+    bitset<34>bn(n);
+    vl ans(32, 0);
+    ll cnt = 0;
+    ll posFrom = 0;
+    for(int i = 0; i<33; i++) {
+        if(bn[i]==1) {
+            if(cnt==0) posFrom = i;
+            cnt++;
+        }else {
+            if(cnt>=2) {
+                ans[posFrom] = -1;
+                ans[i] = 1;
+                posFrom = i;
+                cnt = 1;
+            }else if(cnt==1) {
+                ans[i-1] = 1;
+                cnt = 0;
+            }else {
+                continue;
+            }
+        }
+    }
+    cout << 32 << "\n";
+    ll sum = 0;
+    for(int i = 0; i<32; i++) {
+        cout << ans[i] << " ";
+    }
+    cout << "\n";
     
-        dbg(pos, tot);
-        if(tot>cont) return N;
-        if(tot==cont) return 0LL;
-        if(pos>=n-1) return N;
-
-        ll ans = LLONG_MAX;
-        // dbg(pos, tot);
-        ans = min(ans, solve_rcv(pos+1, tot+abs(arr[pos]-arr[pos+1])) + 1);
-        // dbg(ans);
-        ans = min(ans, solve_rcv(pos+1, tot));
-        // dbg(ans);
-        // dbg(pos, tot, ans);
-
-
-        return ans;
-
-
-    };
-
-    cout << solve_rcv(0, 0) << "\n";
 }
 
 
+//? Generator
+int rng_int(int L, int R) { assert(L <= R);
+	return uniform_int_distribution<int>(L,R)(rng);  }
+ll rng_ll(ll L, ll R) { assert(L <= R);
+	return uniform_int_distribution<ll>(L,R)(rng);  }
+//? /Generator
 
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int t; cin>>t;
-    // int t; t=1;
-    while(t--) solve();
-    return 0;
+
+signed main() {
+    setIO();
+
+    ll t = 1;
+    cin >> t;
+
+    FOR(i, 1, t + 1) {
+        RAYA;
+        RAYA;
+        solve();
+    }
+    RAYA;
+    RAYA;
+
+    #ifdef LOCAL
+        cerr << fixed << setprecision(5);
+        cerr << "\033[42m++++++++++++++++++++\033[0m\n";
+        cerr << "\033[42mtime = " << time_elapsed() << "ms\033[0m\n";
+        cerr << "\033[42m++++++++++++++++++++\033[0m";
+    #endif
 }
+
+/* stuff you should look for
+ * int overflow, array bounds
+ * special cases (n=1?)
+ * do smth instead of nothing and stay organized
+ * in Binary Search, I should think more about limits (lo and hi)
+ * WRITE STUFF DOWN
+ * DON'T GET STUCK ON ONE APPROACH
+ */
