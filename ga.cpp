@@ -71,6 +71,7 @@ using vvb = V<vb>;
 #define rall(x) x.rbegin(), x.rend()
 #define sor(x) sort(all(x))
 #define rsor(x) sort(rall(x))
+#define rsor(x) sort(rall(x))
 #define rsz resize
 #define ins insert
 #define pb push_back

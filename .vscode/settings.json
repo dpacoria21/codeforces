@@ -41,9 +41,26 @@
         "*.tcc": "cpp",
         "unordered_map": "cpp",
         "unordered_set": "cpp",
+<<<<<<< HEAD
         "forward_list": "cpp",
         "cmath": "cpp",
         "numeric": "cpp"
+=======
+        "chrono": "cpp",
+        "iterator": "cpp",
+        "utility": "cpp",
+        "cmath": "cpp",
+        "forward_list": "cpp",
+        "map": "cpp",
+        "format": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp",
+        "cstdlib": "cpp",
+        "iomanip": "cpp",
+        "charconv": "cpp"
+>>>>>>> 6701064926082dbe01bbcd47f1d036ed837b6fe9
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

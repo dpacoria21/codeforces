@@ -8,7 +8,6 @@
 
 using namespace std;
 
-//? building blocks
 using ll = long long;
 using ull = unsigned long long;
 using db = long double; // or double, if TL is tight
@@ -28,7 +27,6 @@ using pd = pair<db,db>;
 #define f first
 #define s second
 
-//? Source: https://stackoverflow.com/a/31116392/12128483
 template<typename Type, unsigned N, unsigned Last>
 struct TuplePrinter {
     static void print(std::ostream& out, const Type& value) {
@@ -53,7 +51,6 @@ std::ostream& operator<<(std::ostream& out, const std::tuple<Types...>& value) {
 
 
 
-// benq - print any container + pair
 template<typename T, typename = void> struct is_iterable : false_type {};
 template<typename T> struct is_iterable<T, void_t<decltype(begin(declval<T>())),decltype(end(declval<T>()))>> : true_type {};
 template<typename T> typename enable_if<is_iterable<T>::value&&!is_same<T, string>::value,ostream&>::type operator<<(ostream &cout, T const &v);
