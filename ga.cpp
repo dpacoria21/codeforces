@@ -7,7 +7,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 // building blocks
 using ll = long long;
 using db = long double; // or double if tight TL
@@ -16,14 +15,7 @@ using str = string;
 //* priority_queue for minimum
 template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 
-//* indexed set - multiset
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-using namespace __gnu_pbds;
-template<class T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-// template<class T> using ordered_multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
-using ull  = unsigned long long;
+//* using ull  = unsigned long long;
 //* using i64  = long long;
 //* using u64  = uint64_t;
 //* using i128 = __int128;
@@ -70,7 +62,6 @@ using vvb = V<vb>;
 #define all(x) bg(x), end(x)
 #define rall(x) x.rbegin(), x.rend()
 #define sor(x) sort(all(x))
-#define rsor(x) sort(rall(x))
 #define rsor(x) sort(rall(x))
 #define rsz resize
 #define ins insert
@@ -220,7 +211,6 @@ double time_elapsed() {
 }
 // /Debugger
 
-
 //* Helpers
 // bitwise ops
 // also see https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
@@ -291,15 +281,22 @@ long long binpow(long long a, long long b) {
     long long res = 1;
     while (b > 0) {
         if (b & 1)
-            res = (res * a);
-        a = (a * a);
+            res = res * a;
+        a = a * a;
         b >>= 1;
     }
     return res;
 }
 //* /Custom Helpers
 
+const int MOD = 1e9 + 7;
+const ll BIG = 1e18;  //? not too close to LLONG_MAX
+const int INF = int(1e9) + 5;
+const db PI = acos((db)-1);
 
+const int dx[4]{1, 0, -1, 0};  //? for every grid problem!!
+const int dy[4]{0, 1, 0, -1};  //? for every grid problem!!
+// const char dv[4]{'R','U','L','D'}; //? to find a path
 //* const int dx[8]{1, 0, -1,  0, 1,  1, -1, -1};  //? for every grid problem!!
 //* const int dy[8]{0, 1,  0, -1, 1, -1,  1, -1};  //? for every grid problem!!
 
@@ -309,36 +306,23 @@ mt19937 rng(0); // or mt19937_64
 // shuffle a vector
 template<class T> void shuf(vector<T>& v) { shuffle(all(v),rng); }
 
-const int dx[4]{1, 0, -1, 0};  //? for every grid problem!!
-const int dy[4]{0, 1, 0, -1};  //? for every grid problem!!
-const char dv[4]{'^','<','v','>'}; //? to find a path
 //* Template
 //* /Template
 
 //* Only do for fun
 
-const int MOD = 1e9 + 7;
-const ll BIG = 1e18;  //? not too close to LLONG_MAX
-const int INF = int(1e9) + 5;
-const db PI = acos((db)-1);
+void solve() {
 
-// ll inv(ll a, ll m) {
-//     return (a<=1) ? a : m - (m/a * inv(m%a, m))%m;
-// }
-
-// elegant lambda function with recursion
-// auto dfs = [&](this auto dfs, int v){
-//     vis[v] = 1;
-//     for(int c : adj[v]) {
-//         if(vis[c]) continue;
-//         dfs(c);
-//     }
-// };
-// dfs(0);
-
-void solve(){
-    
+    //* you should actually read the stuff at the bottom
 }
+
+/* stuff you should look for
+    * int overflow, array bounds
+    * special cases (n=1?)
+    * do smth instead of nothing and stay organized
+    * WRITE STUFF DOWN
+    * DON'T GET STUCK ON ONE APPROACH
+*/
 
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
 void setOut(str s) { freopen(s.c_str(), "w", stdout); }
@@ -362,7 +346,7 @@ int main() {
         dbg("/Greedy");
     }
     int t = 1; 
-    cin >> t;  //? for some cases
+    // cin >> t;  //? for some cases
     for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;
@@ -378,3 +362,4 @@ int main() {
         cerr << "\033[42m++++++++++++++++++++\033[0m\n";
     #endif
 }
+
