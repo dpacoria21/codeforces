@@ -12,6 +12,7 @@ using ll = long long;
 using db = long double; // or double if tight TL
 using str = string;
 
+
 //* priority_queue for minimum
 template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 

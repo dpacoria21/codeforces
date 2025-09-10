@@ -313,7 +313,6 @@ template<class T> void shuf(vector<T>& v) { shuffle(all(v),rng); }
 
 //* Template
 //* /Template
-
 //* Only do for fun
 
 using lll = tuple<ll,ll,ll>;

@@ -367,6 +367,7 @@ void solve(){
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
 void setOut(str s) { freopen(s.c_str(), "w", stdout); }
 
+
 int main() {
     cin.tie(0)->sync_with_stdio(0);  // unsync C / C++ I/O streams
     //? cout << fixed << setprecision(12);

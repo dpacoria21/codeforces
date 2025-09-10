@@ -7,6 +7,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // building blocks
 using ll = long long;
 using db = long double; // or double if tight TL

@@ -362,8 +362,6 @@ int main() {
     RAYA;
     RAYA;
 
-
-
     #ifdef LOCAL
         cerr << fixed << setprecision(5);
         cerr << "\033[42m++++++++++++++++++++\033[0m\n";

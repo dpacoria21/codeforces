@@ -335,6 +335,7 @@ const db PI = acos((db)-1);
 // };
 // dfs(0);
 
+
 void solve(){
     ll n, q; cin>>n>>q;
     vl arr(n); each(a,arr)cin>>a;
