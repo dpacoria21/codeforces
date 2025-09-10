@@ -1,32 +1,34 @@
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
-#include <bits/stdc++.h>
+// #pragma GCC optimize ("Ofast")
+//* #pragma GCC target ("avx,avx2")
+//! #pragma GCC optimize ("trapv")
 
+//! #undef _GLIBCXX_DEBUG //* for Stress Testing
+
+#include <bits/stdc++.h>
 using namespace std;
 
-#ifdef LOCAL
-    #include "helpers/debug.h"
-#else
-    #define dbg(...)     0
-    #define chk(...)     0
-
-    #define RAYA         0
-#endif
 
 // building blocks
-using ll  = long long;
-using db  = long double; // or double, if TL is tight
-using str = string;      // yay python!
+using ll = long long;
+using db = long double; // or double if tight TL
+using str = string;
 
-//? priority_queue for minimum
-//? template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
+//* priority_queue for minimum
+template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 
-//? using ull  = unsigned long long;
-//? using i64  = long long;
-//? using u64  = uint64_t;
-//? using i128 = __int128;
-//? using u128 = __uint128_t;
-//? using f128 = __float128;
+//* indexed set - multiset
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+template<class T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+// template<class T> using ordered_multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+using ull  = unsigned long long;
+//* using i64  = long long;
+//* using u64  = uint64_t;
+//* using i128 = __int128;
+//* using u128 = __uint128_t;
+//* using f128 = __float128;
 
 
 
@@ -36,17 +38,17 @@ using pl = pair<ll, ll>;
 using pd = pair<db, db>;
 
 #define mp make_pair
-#define f  first
-#define s  second
+#define f first
+#define s second
 
 
 
-#define tcT template <class T
+#define tcT template<class T
 #define tcTU tcT, class U
-//! ^ lol this makes everything look weird but I'll try it
+#define tcTUU tcT, class ...U
 
-tcT > using V = vector<T>;
-tcT, size_t SZ > using AR = array<T, SZ>;
+tcT> using V = vector<T>;
+tcT, size_t SZ> using AR = array<T,SZ>;
 using vi = V<int>;
 using vb = V<bool>;
 using vl = V<ll>;
@@ -56,13 +58,19 @@ using vpi = V<pi>;
 using vpl = V<pl>;
 using vpd = V<pd>;
 
+using vvi = V<vi>;
+using vvl = V<vl>;
+using vvb = V<vb>;
+
+
+
 // vectors
-// oops size(x), rbegin(x), rend(x) need C++17
 #define sz(x) int((x).size())
 #define bg(x) begin(x)
 #define all(x) bg(x), end(x)
 #define rall(x) x.rbegin(), x.rend()
 #define sor(x) sort(all(x))
+#define rsor(x) sort(rall(x))
 #define rsz resize
 #define ins insert
 #define pb push_back
@@ -73,158 +81,288 @@ using vpd = V<pd>;
 
 #define lb lower_bound
 #define ub upper_bound
-tcT > int lwb(V<T> &a, const T &b) { return int(lb(all(a), b) - bg(a)); }
-tcT > int upb(V<T> &a, const T &b) { return int(ub(all(a), b) - bg(a)); }
-
-
 
 // loops
-#define FOR(i, a, b) for (int i = (a); i < (b); ++i)
-#define F0R(i, a) FOR(i, 0, a)
-#define ROF(i, a, b) for (int i = (b)-1; i >= (a); --i)
-#define R0F(i, a) ROF(i, 0, a)
-#define rep(a) F0R(_, a)
-#define each(a, x) for (auto &a : x)
+#define FOR(i,a,b) for (int i = (a); i < (b); ++i)
+#define F0R(i,a) FOR(i,0,a)
+#define ROF(i,a,b) for (int i = (b)-1; i >= (a); --i)
+#define R0F(i,a) ROF(i,0,a)
+#define rep(a) F0R(_,a)
+#define each(a,x) for (auto& a: x)
+
+// Debugger
+//* __int128_t printer
+std::ostream& operator<<( std::ostream& dest, __int128_t value ) {
+    std::ostream::sentry s(dest);
+    if (s) {
+        __uint128_t tmp = value < 0 ? -value : value;
+        char buffer[128];
+        char* d = std::end(buffer);
+
+        do {
+            -- d;
+            *d = "0123456789"[tmp % 10];
+            tmp /= 10;
+        } while (tmp != 0);
+
+        if(value < 0) {
+            -- d;
+            *d = '-';
+        }
+
+        int len = int(std::end(buffer) - d);
+        if(dest.rdbuf()->sputn(d, len) != len) {
+            dest.setstate(std::ios_base::badbit);
+        }
+    }
+    return dest;
+}
+
+const string PAIR_LEFT = "(";
+const string PAIR_RIGHT = ")";
+const string IT_LEFT = "[";
+const string IT_RIGHT = "]";
+const string PAIR_SEP = ", ";
+const string IT_SEP = ", ";
+
+// benq - print any container + pair
+template <typename T, typename = void>
+struct is_iterable: false_type {};
+
+template <typename T>
+struct is_iterable<T,
+    void_t<decltype(begin(declval<T>())),
+    decltype(end(declval<T>()))>
+>: true_type {};
 
 
 
-const int MOD = 1e9 + 7;
-const int MX = (int)2e5 + 5;
-const ll BIG = 1e18;  //? not too close to LLONG_MAX
-const db PI = acos((db)-1);
-const int dx[4]{1, 0, -1, 0}, dy[4]{0, 1, 0, -1};  //? for every grid problem!!
-mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
+template <typename T>
+typename enable_if<
+    is_iterable<T>::value &&
+    !is_same<T, string>::value, ostream&
+>::type operator<<(ostream &cout, T const &v);
 
 
 
+template <typename A, typename B>
+ostream &operator<<(ostream &cout, pair<A, B> const &p) {
+    return cout << PAIR_LEFT << p.f << PAIR_SEP << p.s << PAIR_RIGHT;
+}
+
+
+template <typename T>
+typename enable_if<
+    is_iterable<T>::value &&
+    !is_same<T, string>::value, ostream&
+>::type operator<<(ostream &cout, T const &v) {
+    cout << IT_LEFT;
+    for (auto it = v.begin(); it != v.end();) {
+        cout << *it;
+        if(++it != v.end()) {
+            cout << IT_SEP;
+        }
+    }
+    return cout << IT_RIGHT;
+}
+
+
+template <typename A, typename B>
+istream &operator>>(istream &cin, pair<A, B> &p) {
+    cin >> p.first;
+    return cin >> p.second;
+}
+
+
+template <typename T>
+void debug(string s, T x) {
+    cerr << "\033[1;34m" << s << "\033[0;32m = \033[35m" << x << "\033[0m\n";
+}
+
+
+template <typename T, typename... Args>
+void debug(string s, T x, Args... args) {
+    for (int i = 0, b = 0; i < (int)s.size(); i++)
+        if (s[i] == '(' || s[i] == '{') {
+            b++;
+        } else if (s[i] == ')' || s[i] == '}') {
+            b--;
+        } else if (s[i] == ',' && b == 0) {
+            cerr << "\033[1;34m" << s.substr(0, i) << "\033[0;32m = \033[35m" << x << "\033[31m | ";
+            debug(s.substr(s.find_first_not_of(' ', i + 1)), args...);
+            break;
+        }
+}
+
+
+#ifdef LOCAL
+    const bool isDebugging = true;
+
+    #define MACRO(code) do {code} while (false)
+    #define dbg(...) MACRO(cerr << "Line(" << __LINE__ << "): "; debug(#__VA_ARGS__, __VA_ARGS__);)
+    #define chk(...) if (!(__VA_ARGS__)) cerr << "\033[41m" << "Line(" << __LINE__ << ") -> function(" \
+    << __FUNCTION__  << ") -> CHK FAILED: (" << #__VA_ARGS__ << ")" << "\033[0m" << "\n", exit(0);
+    #define RAYA MACRO(cerr << "\033[101m" << "================================" << "\033[0m" << endl;)
+#else
+    const bool isDebugging = false;
+
+    #define dbg(...)     0
+    #define chk(...)     0
+
+    #define RAYA         0
+#endif
+
+
+const auto beg_time = std::chrono::high_resolution_clock::now();
+double time_elapsed() {
+    return chrono::duration<double>(std::chrono::high_resolution_clock::now() - beg_time).count();
+}
+// /Debugger
+
+
+//* Helpers
 // bitwise ops
 // also see https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
 constexpr int pct(int x) { return __builtin_popcount(x); }  // # of bits set
 constexpr int bits(int x) {  // assert(x >= 0); // make C++11 compatible until
-	                         // USACO updates ...
-	return x == 0 ? 0 : 31 - __builtin_clz(x);
+                            // USACO updates ...
+    return x == 0 ? 0 : 31 - __builtin_clz(x);
 }  // floor(log2(x))
 constexpr int p2(int x) { return 1 << x; }
 constexpr int msk2(int x) { return p2(x) - 1; }
 
 ll cdiv(ll a, ll b) {
-	return a / b + ((a ^ b) > 0 && a % b);
+    return a / b + ((a ^ b) > 0 && a % b);
 }  // divide a by b rounded up
 ll fdiv(ll a, ll b) {
-	return a / b - ((a ^ b) < 0 && a % b);
+    return a / b - ((a ^ b) < 0 && a % b);
 }  // divide a by b rounded down
 
 tcT > bool ckmin(T &a, const T &b) {
-	return b < a ? a = b, 1 : 0;
+    return b < a ? a = b, 1 : 0;
 }  // set a = min(a,b)
 tcT > bool ckmax(T &a, const T &b) {
-	return a < b ? a = b, 1 : 0;
+    return a < b ? a = b, 1 : 0;
 }  // set a = max(a,b)
 
-tcTU > T fstTrue(T lo, T hi, U f) {
-	++hi;
-	assert(lo <= hi);  // assuming f is increasing
-	while (lo < hi) {  // find first index such that f is true
-		T mid = lo + (hi - lo) / 2;
-		f(mid) ? hi = mid : lo = mid + 1;
-	}
-	return lo;
-}
-tcTU > T lstTrue(T lo, T hi, U f) {
-	--lo;
-	assert(lo <= hi);  // assuming f is decreasing
-	while (lo < hi) {  // find first index such that f is true
-		T mid = lo + (hi - lo + 1) / 2;
-		f(mid) ? lo = mid : hi = mid - 1;
-	}
-	return lo;
-}
 tcT > void remDup(vector<T> &v) {  // sort and remove duplicates
-	sort(all(v));
-	v.erase(unique(all(v)), end(v));
+    sort(all(v));
+    v.erase(unique(all(v)), end(v));
 }
 tcTU > void safeErase(T &t, const U &u) {
-	auto it = t.find(u);
-	assert(it != end(t));
-	t.erase(it);
+    auto it = t.find(u);
+    if(it == end(t)) return;
+    t.erase(it);
 }
+//* /Helpers
 
-
-
-#define tcTUU tcT, class ...U
-
-const auto beg_time = std::chrono::high_resolution_clock::now();
-// https://stackoverflow.com/questions/47980498/accurate-c-c-clock-on-a-multi-core-processor-with-auto-overclock?noredirect=1&lq=1
-double time_elapsed() {
-	return chrono::duration<double>(std::chrono::high_resolution_clock::now() -
-	                                beg_time)
-	    .count();
-}
-
-inline namespace FileIO {
-void setIn(str s) { freopen(s.c_str(), "r", stdin); }
-void setOut(str s) { freopen(s.c_str(), "w", stdout); }
-void setIO(str s = "") {
-	cin.tie(0)->sync_with_stdio(0);  // unsync C / C++ I/O streams
-	//? cout << fixed << setprecision(12);
-    //? cerr << fixed << setprecision(12);
-	cin.exceptions(cin.failbit);
-	// throws exception when do smth illegal
-	// ex. try to read letter into int
-	if (sz(s)) setIn(s + ".in"), setOut(s + ".out");  // for old USACO
-}
-}  // namespace FileIO
-
-
-
-//? Custom Helpers
+//* Custom Helpers
 template <typename T>
 inline T gcd(T a, T b) { while (b != 0) swap(b, a %= b); return a; }
+
+// extended gcd
+// ll extended_gcd (ll a,ll b,ll &x, ll&y) {
+//     if(a==0) {
+//         x = 0;
+//         y = 1;
+//         return b;
+//     }
+//     ll x1, y1;
+//     ll g = extended_gcd(b%a, a, x1, y1);
+//     x = y1-x1*(b/a);
+//     y = x1; 
+//     return g;
+// }
+// bool find_any_solution (ll a, ll b, ll c, ll &x, ll &y, ll &g) {
+//     g = extended_gcd(abs(a), abs(b), x, y);
+//     if(c%g) {
+//         return false;
+//     }
+
+//     x *= (c/g);
+//     y *= (c/g);
+//     if(a<0) x = -x;
+//     if(b<0) y = -y;
+//     return true;
+// }
 
 long long binpow(long long a, long long b) {
     long long res = 1;
     while (b > 0) {
         if (b & 1)
-            res = res * a;
-        a = a * a;
+            res = (res * a);
+        a = (a * a);
         b >>= 1;
     }
     return res;
 }
-
-const int dddx[8]{1, 0, -1,  0, 1,  1, -1, -1};
-const int dddy[8]{0, 1,  0, -1, 1, -1,  1, -1};
-
-//? /Custom Helpers
+//* /Custom Helpers
 
 
+//* const int dx[8]{1, 0, -1,  0, 1,  1, -1, -1};  //? for every grid problem!!
+//* const int dy[8]{0, 1,  0, -1, 1, -1,  1, -1};  //? for every grid problem!!
 
+mt19937 rng(0); // or mt19937_64
+//* mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
+
+// shuffle a vector
+template<class T> void shuf(vector<T>& v) { shuffle(all(v),rng); }
+
+const int dx[4]{1, 0, -1, 0};  //? for every grid problem!!
+const int dy[4]{0, 1, 0, -1};  //? for every grid problem!!
+const char dv[4]{'^','<','v','>'}; //? to find a path
 //* Template
 //* /Template
 
-const ll LIMIT = 2*1e13;
+//* Only do for fun
 
-void solve() {
-    //? <>
+const int MOD = 1e9 + 7;
+const ll BIG = 1e18;  //? not too close to LLONG_MAX
+const int INF = int(1e9) + 5;
+const db PI = acos((db)-1);
+
+// ll inv(ll a, ll m) {
+//     return (a<=1) ? a : m - (m/a * inv(m%a, m))%m;
+// }
+
+// elegant lambda function with recursion
+// auto dfs = [&](this auto dfs, int v){
+//     vis[v] = 1;
+//     for(int c : adj[v]) {
+//         if(vis[c]) continue;
+//         dfs(c);
+//     }
+// };
+// dfs(0);
+
+void solve(){
     
 }
 
+void setIn(str s) { freopen(s.c_str(), "r", stdin); }
+void setOut(str s) { freopen(s.c_str(), "w", stdout); }
 
-//? Generator
-int rng_int(int L, int R) { assert(L <= R);
-	return uniform_int_distribution<int>(L,R)(rng);  }
-ll rng_ll(ll L, ll R) { assert(L <= R);
-	return uniform_int_distribution<ll>(L,R)(rng);  }
-//? /Generator
-
-
-signed main() {
-    setIO();
-
-    ll t = 1;
-    cin >> t;
-
-    FOR(i, 1, t + 1) {
+int main() {
+    cin.tie(0)->sync_with_stdio(0);  // unsync C / C++ I/O streams
+    //? cout << fixed << setprecision(12);
+    //? cerr << fixed << setprecision(12);
+    cin.exceptions(cin.failbit);
+    // throws exception when do smth illegal
+    // ex. try to read letter into int
+    dbg(isDebugging);
+    // setIn("input.txt");
+    // setOut("output.txt");
+    //? Stress Testing
+    while(0) {
+        RAYA;
+        dbg("Brute");
+        dbg("/Brute");
+        dbg("Greedy");
+        dbg("/Greedy");
+    }
+    int t = 1; 
+    cin >> t;  //? for some cases
+    for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;
         solve();
@@ -236,15 +374,6 @@ signed main() {
         cerr << fixed << setprecision(5);
         cerr << "\033[42m++++++++++++++++++++\033[0m\n";
         cerr << "\033[42mtime = " << time_elapsed() << "ms\033[0m\n";
-        cerr << "\033[42m++++++++++++++++++++\033[0m";
+        cerr << "\033[42m++++++++++++++++++++\033[0m\n";
     #endif
 }
-
-/* stuff you should look for
- * int overflow, array bounds
- * special cases (n=1?)
- * do smth instead of nothing and stay organized
- * WRITE STUFF DOWN
- * When I use binary search, I should think more in the lower and upper limit (overflow)
- * DON'T GET STUCK ON ONE APPROACH
- */

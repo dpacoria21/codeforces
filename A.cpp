@@ -207,12 +207,37 @@ const int dddy[8]{0, 1,  0, -1, 1, -1,  1, -1};
 //* Template
 //* /Template
 
-void solve() {
+db solve() {
     //? <>
-    int n; cin >> n;
-    vi a(n); each(x, a) cin >> x;
-    dbg(n, a);
-    cout << "xd\n";
+    ll n; cin>>n;
+    vpl arr(n);
+    for(ll i = 0; i<n; i++) {
+        ll a, b; cin>>a>>b;
+        arr[i] = {a, b};
+    }
+
+    ll upper = LLONG_MAX;
+    ll idxU = -1;
+    for(ll i=0 ; i<n; i++) {
+        if(arr[i].s<=upper) {
+            upper = arr[i].s;
+            idxU = i;
+        }
+    }
+
+    db v = (idxU+1) / (db)upper;
+
+    for(db i = 1; i<=n; i++) {
+        db t = i/v;
+
+        if(t<arr[i-1].f || t>arr[i-1].s) {
+            // cout << -1 << "\n";
+            v = -1;
+            break;
+        }
+    }
+    return v;
+    // cout << "Case #1" << setprecision(7) << fixed << v << "\n";
 }
 
 
@@ -228,12 +253,13 @@ signed main() {
     setIO("A"); // la más importante
 
     ll t = 1;
-    // ? cin >> t;
+    cin >> t;
 
     FOR(i, 1, t + 1) {
         RAYA;
         RAYA;
-        solve();
+        db ans = solve();
+        cout << "Case #" << i << ": " << setprecision(7) << fixed << ans << "\n";
     }
     RAYA;
     RAYA;
