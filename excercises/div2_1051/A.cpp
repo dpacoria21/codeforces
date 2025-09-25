@@ -320,7 +320,37 @@ const db PI = acos((db)-1);
 // }
 
 void solve(){
-   
+    ll n; cin>>n;
+    vl arr(n); each(a,arr)cin>>a;
+    ll l = 0, r = n-1; 
+    for(int i = 1; i<=n; i++) {
+        for(int j = 0;j<n;j++) {
+            arr[j] = max(0LL, arr[j]-1);
+        }
+        dbg(arr);
+        bool f = false;
+        for(int j = l; j<n; j++) {
+            if(arr[j]==0) {
+                l++;
+                f = true;
+            }
+            break;
+        }
+        if(f) continue;
+        f = false;
+        for(int j = r; j>=0; j--) {
+            if(arr[j]==0) {
+                r--;
+                f = true;
+            }
+            break;
+        }
+        if(f) continue;
+        cout << "NO\n";
+        return;
+    }
+    cout << "YES\n";
+    dbg(arr);
 }
 
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
@@ -346,7 +376,7 @@ int main() {
     }
     // precompute(); //? precompute values
     int t = 1; 
-    // cin >> t;  //? for some cases
+    cin >> t;  //? for some cases
     for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;

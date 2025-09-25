@@ -320,7 +320,16 @@ const db PI = acos((db)-1);
 // }
 
 void solve(){
-   
+    int n; cin>>n;
+    str s; cin>>s;
+    ll cnt = 0;
+    for(int i = 0; i<n; i++) {
+        if(s[i]=='1') cnt++;
+    }
+    for(int i = n-(cnt); i<n; i++) {
+        if(s[i]=='1') cnt--;
+    }
+    cout << cnt << "\n";
 }
 
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
@@ -346,7 +355,7 @@ int main() {
     }
     // precompute(); //? precompute values
     int t = 1; 
-    // cin >> t;  //? for some cases
+    cin >> t;  //? for some cases
     for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;

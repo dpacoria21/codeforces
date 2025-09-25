@@ -319,8 +319,32 @@ const db PI = acos((db)-1);
 //     return (a<=1) ? a : m - (m/a * inv(m%a, m))%m;
 // }
 
+using llll = tuple<ll,ll,ll,ll>;
+
 void solve(){
-   
+    ll n; cin>>n;
+    vector<vector<pair<ll,pl>>>G(n+1);
+    for(int i = 0; i<n-1; i++) {
+        ll u,v,x,y;cin>>u>>v>>x>>y;
+        G[u].pb({v, {x, y}});
+    }
+    vl ans(n+1);
+    ll lo = 1, hi = n;
+    for(int i = n; i>=1; i--) {
+        each(v, G[i]) {
+            dbg(i, v);
+            if(v.s.s>v.s.f) {
+                ans[i] = lo;
+                lo++;
+            }else {
+                ans[i] = hi;
+                hi--;
+            }
+            dbg(ans);
+        }
+    }
+    dbg(ans);
+    dbg(G);
 }
 
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
@@ -346,7 +370,7 @@ int main() {
     }
     // precompute(); //? precompute values
     int t = 1; 
-    // cin >> t;  //? for some cases
+    cin >> t;  //? for some cases
     for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;

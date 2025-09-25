@@ -310,7 +310,7 @@ const char dv[4]{'^','<','v','>'}; //? to find a path
 
 //* Only do for fun
 
-const int MOD = 1e9 + 7;
+const int MOD = 998244353 // 1e9 + 7; //? change current MOD here
 const ll BIG = 1e18;  //? not too close to LLONG_MAX
 const int INF = int(1e9) + 5;
 const db PI = acos((db)-1);
@@ -319,8 +319,26 @@ const db PI = acos((db)-1);
 //     return (a<=1) ? a : m - (m/a * inv(m%a, m))%m;
 // }
 
+
 void solve(){
-   
+    ll n; cin>>n;
+    vl a(n), b(n); each(x, a) cin>>x; each(x, b) cin>>x;
+    ll ans = 2;
+    // a.pb(LLONG_MAX);
+    // b.pb(LLONG_MAX);
+    for(int i = 1; i<n; i++) {
+        // if((a[i-1]>a[i] && a[i-1]>b[i]) || (b[i-1]>a[i] &&  b[i-1] >b[i])) {
+        //     cout << 0 << "\n";
+        //     return;
+        // }
+        if(a[i-1] <= a[i] && a[i-1]<=b[i] && b[i-1]<=a[i] && b[i-1] <= b[i]) {
+            ans*=2;
+            ans%=MOD;
+        }
+    }
+
+    cout << ans << "\n";
+
 }
 
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
@@ -346,7 +364,7 @@ int main() {
     }
     // precompute(); //? precompute values
     int t = 1; 
-    // cin >> t;  //? for some cases
+    cin >> t;  //? for some cases
     for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;

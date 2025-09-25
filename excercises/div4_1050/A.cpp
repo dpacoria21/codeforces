@@ -319,8 +319,18 @@ const db PI = acos((db)-1);
 //     return (a<=1) ? a : m - (m/a * inv(m%a, m))%m;
 // }
 
+
 void solve(){
-   
+    int x, n; cin>>x>>n;
+    ll ans = 0;
+    for(int i = 0; i<n; i++) {
+        if(i&1) {
+            ans-=x;
+        }else {
+            ans+=x;
+        }
+    }
+    cout << ans << "\n";
 }
 
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
@@ -346,7 +356,7 @@ int main() {
     }
     // precompute(); //? precompute values
     int t = 1; 
-    // cin >> t;  //? for some cases
+    cin >> t;  //? for some cases
     for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;

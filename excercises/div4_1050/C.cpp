@@ -319,8 +319,29 @@ const db PI = acos((db)-1);
 //     return (a<=1) ? a : m - (m/a * inv(m%a, m))%m;
 // }
 
+
 void solve(){
-   
+    ll n, m; cin>>n>>m;
+    ll ans = 0;
+    ll pos = 0;
+    ll currSide = 0;
+    for(int i = 0; i<n; i++) {
+        ll t, side; cin>>t>>side;
+        if(side==currSide) {
+            if(t-pos>=2) {
+                ans+=((t-pos)%2==0 ? t-pos : t-pos-1);
+            }
+            pos = t;
+        }else {
+            if(t-pos>=1) {
+                ans+=((t-pos)%2!=0 ? t-pos : t-pos-1);
+            }
+            currSide = side;
+            pos = t;
+        }
+    }
+    if(pos<m) ans+=(m-pos);
+    cout << ans << "\n";
 }
 
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
@@ -346,7 +367,7 @@ int main() {
     }
     // precompute(); //? precompute values
     int t = 1; 
-    // cin >> t;  //? for some cases
+    cin >> t;  //? for some cases
     for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;

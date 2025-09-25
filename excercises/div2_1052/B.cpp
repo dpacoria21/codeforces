@@ -320,7 +320,49 @@ const db PI = acos((db)-1);
 // }
 
 void solve(){
-   
+    ll n,m; cin>>n>>m;
+    map<ll,ll>mm;
+    vvl arr(n);
+    for(int i = 0; i<n; i++) {
+        ll l; cin>>l;
+        for(int j = 0; j<l; j++) {
+            ll x; cin>>x;
+            arr[i].pb(x);
+            mm[x]++;
+        }
+    }
+    if(mm.size()<m) {
+        cout << "NO\n";
+        return;
+    }
+    ll cnt = 0;
+    for(int j = 0; j<n; j++) {
+        bool flag = true;
+        for(int k = 0; k<arr[j].size(); k++) {
+            if(mm[arr[j][k]]==1) {
+                flag = false;
+                break;
+            }
+        }
+        if(flag) {
+            cnt++;
+        }
+    }
+    if(cnt>=2) {
+        cout << "YES\n";
+    }else {
+        cout << "NO\n";
+    }
+    // sort(all(arr), [&](auto a, auto b) {
+    //     return a.size()>b.size();
+    // });
+    // if(mm.size()<m) {
+    //     cout << "NO\n";
+    //     return;
+    // }
+    // dbg(mm);
+    // dbg(arr);
+    
 }
 
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
@@ -346,7 +388,7 @@ int main() {
     }
     // precompute(); //? precompute values
     int t = 1; 
-    // cin >> t;  //? for some cases
+    cin >> t;  //? for some cases
     for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;

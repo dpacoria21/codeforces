@@ -319,8 +319,25 @@ const db PI = acos((db)-1);
 //     return (a<=1) ? a : m - (m/a * inv(m%a, m))%m;
 // }
 
+
 void solve(){
-   
+    int n; cin>>n;
+    vl arr(n); each(a,arr)cin>>a;
+    sor(arr);
+    vl odds;
+    ll sum = 0;
+    for(int i=0; i<n; i++) {
+        if(arr[i]&1) odds.pb(arr[i]);
+        else sum+=arr[i];
+    }
+    ll ans = 0;
+    if(odds.size()>=1) {
+        ans+=sum;
+        for(int i = odds.size()/2 ; i<odds.size(); i++) {
+            ans+=odds[i];
+        }
+    }
+    cout << ans << "\n";
 }
 
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
@@ -346,7 +363,7 @@ int main() {
     }
     // precompute(); //? precompute values
     int t = 1; 
-    // cin >> t;  //? for some cases
+    cin >> t;  //? for some cases
     for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;

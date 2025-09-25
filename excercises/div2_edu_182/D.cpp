@@ -319,8 +319,53 @@ const db PI = acos((db)-1);
 //     return (a<=1) ? a : m - (m/a * inv(m%a, m))%m;
 // }
 
+const ll M = 998244353;
+
 void solve(){
-   
+    ll n, y; cin>>n>>y;
+    vl arr(n); each(a,arr)cin>>a;
+    map<ll,ll>qts; each(a,arr) qts[a]++;
+    auto getMatchs = [&](ll x) {
+        map<ll,ll>aux = qts;
+        ll sum = 0;
+        for(int i =0 ; i<n; i++) {
+            ll c = cdiv(arr[i], x);
+            if(aux.count(c) && aux[c]>0) {
+                sum++;
+                aux[c]--;
+            }
+        }
+        return sum;
+    };
+    auto getTotal = [&](ll x) {
+        map<ll,ll>aux = qts;
+        ll sum = 0;
+        for(int i =0 ; i<n; i++) {
+            ll c = cdiv(arr[i], x);
+            sum+=c;
+            if(aux.count(c) && aux[c]>0) {
+                aux[c]--;
+            }else {
+                sum-=y;
+            }
+        }
+        return sum;
+    };
+    ll l = 2, r = 1e8;
+    while(r-l>3) {
+        ll m1 = l + (r-l)/3;
+        ll m2 = r - (r-l)/3;
+        ll f1 = getMatchs(m1);
+        ll f2 = getMatchs(m2);
+        dbg(m1, m2, getMatchs(m1), getMatchs(m2));
+        if(f1>=f2) {
+            r = m2;
+        }else {
+            l = m1;
+        }
+    }
+    dbg(l, r, getTotal(l));
+
 }
 
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
@@ -346,7 +391,7 @@ int main() {
     }
     // precompute(); //? precompute values
     int t = 1; 
-    // cin >> t;  //? for some cases
+    cin >> t;  //? for some cases
     for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;

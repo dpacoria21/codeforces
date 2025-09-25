@@ -320,7 +320,21 @@ const db PI = acos((db)-1);
 // }
 
 void solve(){
-   
+    ll n; cin>>n;
+    vl ans(2*n+1);
+    ans[1] = n;
+    ans[1+n] = n;
+    ll pos = 2;
+    dbg(ans);
+    for(int i = n-1; i>=1; i--) {
+        ans[pos] = i;
+        ans[pos+2*(i)] = i;
+        pos++;
+    }
+    for(int i = 1; i<=2*n; i++) {
+        cout << ans[i] << " ";
+    }
+    cout << "\n";
 }
 
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
@@ -346,7 +360,7 @@ int main() {
     }
     // precompute(); //? precompute values
     int t = 1; 
-    // cin >> t;  //? for some cases
+    cin >> t;  //? for some cases
     for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;

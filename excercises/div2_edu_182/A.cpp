@@ -320,7 +320,28 @@ const db PI = acos((db)-1);
 // }
 
 void solve(){
-   
+    int n; cin>>n;
+    vl arr(n); each(a,arr)cin>>a;
+    vl pref(1,0);
+    for(int i = 0; i<n; i++) {
+        pref.pb(pref.back()+arr[i]);
+    }
+    ll l = 0, r = 0;
+    ll s1 = 0, s2 = 0, s3 = 0;
+    for(int i = 0; i<n; i++) {
+        for(int j = i+1; j<n-1; j++) {
+            dbg(pref[i+1], pref[j+1]-pref[i+1], pref[n]-pref[j+1]);
+            if(pref[i+1]%3 == (pref[j+1]-pref[i+1])%3 && (pref[n]-pref[j+1])%3 == pref[i+1]%3) {
+                cout << i+1 << " " << j+1 << "\n";
+                return;
+            }
+            if(pref[i+1]%3 != (pref[j+1]-pref[i+1])%3 && (pref[n]-pref[j+1])%3 != pref[i+1]%3 && (pref[j+1]-pref[i+1])%3!=(pref[n]-pref[j+1])%3) {
+                cout << i+1 << " " << j+1 << "\n";
+                return;    
+            }
+        }
+    }
+    cout << "0 0" << "\n";
 }
 
 void setIn(str s) { freopen(s.c_str(), "r", stdin); }
@@ -346,7 +367,7 @@ int main() {
     }
     // precompute(); //? precompute values
     int t = 1; 
-    // cin >> t;  //? for some cases
+    cin >> t;  //? for some cases
     for(int i = 0; i < t; i++) {
         RAYA;
         RAYA;
