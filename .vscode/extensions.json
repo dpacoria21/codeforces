@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "catppuccin.catppuccin-vsc",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.makefile-tools"
+    ]
+}

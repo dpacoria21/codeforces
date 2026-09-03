@@ -123,8 +123,8 @@ struct is_iterable: false_type {};
 
 template <typename T>
 struct is_iterable<T,
-    void_t<decltype(begin(declval<T>())),
-    decltype(end(declval<T>()))>
+    void_t<decltype(begin(declval<T const &>())),
+    decltype(end(declval<T const &>()))>
 >: true_type {};
 
 
@@ -132,7 +132,7 @@ struct is_iterable<T,
 template <typename T>
 typename enable_if<
     is_iterable<T>::value &&
-    !is_same<T, string>::value, ostream&
+    !is_convertible<typename decay<T>::type, string>::value, ostream&
 >::type operator<<(ostream &cout, T const &v);
 
 
@@ -146,12 +146,14 @@ ostream &operator<<(ostream &cout, pair<A, B> const &p) {
 template <typename T>
 typename enable_if<
     is_iterable<T>::value &&
-    !is_same<T, string>::value, ostream&
+    !is_convertible<typename decay<T>::type, string>::value, ostream&
 >::type operator<<(ostream &cout, T const &v) {
     cout << IT_LEFT;
-    for (auto it = v.begin(); it != v.end();) {
+    auto it = begin(v);
+    const auto last = end(v);
+    while (it != last) {
         cout << *it;
-        if(++it != v.end()) {
+        if(++it != last) {
             cout << IT_SEP;
         }
     }
@@ -167,13 +169,13 @@ istream &operator>>(istream &cin, pair<A, B> &p) {
 
 
 template <typename T>
-void debug(string s, T x) {
+void debug(string s, T const &x) {
     cerr << "\033[1;34m" << s << "\033[0;32m = \033[35m" << x << "\033[0m\n";
 }
 
 
 template <typename T, typename... Args>
-void debug(string s, T x, Args... args) {
+void debug(string s, T const &x, Args const &...args) {
     for (int i = 0, b = 0; i < (int)s.size(); i++)
         if (s[i] == '(' || s[i] == '{') {
             b++;

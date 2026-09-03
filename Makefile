@@ -1,12 +1,26 @@
+TARGET := ./bin/${F}.out
+STATIC_RUNTIME := -static
+
+.PHONY: compile run xd xd-dbg icpc icpc-dbg
+
 compile:
-	g++ -std=c++17 -g -Wl,--stack=26843545600 -O2 -Wconversion -Wshadow -Wall -Wextra -D_GLIBCXX_DEBUG -D_GLIBCXX_ASSERTIONS -DLOCAL -fmax-errors=2 -Wno-sign-conversion -Wfloat-equal -Wduplicated-cond -Wlogical-op -Winvalid-pch -o ./bin/${F}.out ${F}
-run:
-	make compile && ./bin/${F}.out
+	@mkdir -p ./bin
+	g++ -std=c++17 -g -Wl,--stack=26843545600 -O2 -Wconversion -Wshadow -Wall -Wextra -D_GLIBCXX_DEBUG -D_GLIBCXX_ASSERTIONS -DLOCAL -fmax-errors=2 -Wno-sign-conversion -Wfloat-equal -Wduplicated-cond -Wlogical-op -Winvalid-pch ${STATIC_RUNTIME} -o ${TARGET} ${F}
+run: compile
+	${TARGET}
 xd:
-	g++ -std=c++17 -o ./bin/${F}.out ${F} && ./bin/${F}.out
+	@mkdir -p ./bin
+	g++ -std=c++17 ${STATIC_RUNTIME} -o ${TARGET} ${F}
+	${TARGET}
 xd-dbg:
-	g++ -std=c++17 -DLOCAL -o ./bin/${F}.out ${F} && ./bin/${F}.out
+	@mkdir -p ./bin
+	g++ -std=c++17 -DLOCAL ${STATIC_RUNTIME} -o ${TARGET} ${F}
+	${TARGET}
 icpc:
-	g++ -std=c++11 -o ./bin/${F}.out ${F} && ./bin/${F}.out
+	@mkdir -p ./bin
+	g++ -std=c++11 ${STATIC_RUNTIME} -o ${TARGET} ${F}
+	${TARGET}
 icpc-dbg:
-	g++ -std=c++11 -DLOCAL -o ./bin/${F}.out ${F} && ./bin/${F}.out
+	@mkdir -p ./bin
+	g++ -std=c++11 -DLOCAL ${STATIC_RUNTIME} -o ${TARGET} ${F}
+	${TARGET}
