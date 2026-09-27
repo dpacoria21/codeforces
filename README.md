@@ -6,7 +6,7 @@ Repositorio de práctica de **Diego Ivan Pacori Anccasi**: soluciones en C++, pl
 
 - [Codeforces: Fernando_Benito](https://codeforces.com/profile/Fernando_Benito), anteriormente `gunter132`.
 - **Máximo histórico: Specialist, 1457 de rating** (consultado el 27/09/2026).
-- Participación en **ICPC 2025**.
+- **ICPC 2025:** equipo **Characatux**, puesto **23 de 200 equipos de Latinoamérica**, junto con Álvaro Raul Quispe Condori y David Alfredo Huamaní Ollachica.
 - Ganador de un concurso de programación competitiva en **PERUMEC**.
 
 ## Organización
